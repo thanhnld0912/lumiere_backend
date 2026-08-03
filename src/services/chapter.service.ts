@@ -48,11 +48,22 @@ export async function getChapter(
     title: row.title,
     date: formatChapterDate(row.published_at),
     isRead: row.is_read ?? false,
-    // Chưa nhập nội dung thì trả mảng rỗng chứ không phải undefined — ReaderView
-    // tự có nội dung dự phòng, và mảng rỗng nói rõ "chương này chưa có text"
-    // thay vì "field bị thiếu".
-    content: row.paragraphs ?? [],
   };
+
+  /**
+   * Chỉ set `content` khi chương THỰC SỰ có nội dung.
+   *
+   * KHÔNG được trả mảng rỗng. `Chapter.content` là optional (types.ts:7) và
+   * ReaderView.tsx:56 dùng `currentChapter.content || <nội dung dự phòng>`.
+   * Trong JavaScript, mảng rỗng là TRUTHY, nên `[] || fallback` cho ra `[]` —
+   * ReaderView render đúng 0 đoạn văn và người dùng thấy nội dung vừa hiện lên
+   * đã biến mất.
+   *
+   * Để field vắng mặt thì `undefined || fallback` chạy đúng như frontend thiết kế.
+   */
+  if (row.paragraphs && row.paragraphs.length > 0) {
+    dto.content = row.paragraphs;
+  }
 
   if (row.illustration_url) dto.illustrationUrl = row.illustration_url;
   if (row.word_count !== null) dto.wordCount = row.word_count;
