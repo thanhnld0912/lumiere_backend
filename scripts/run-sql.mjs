@@ -29,10 +29,17 @@ if (!connectionString) {
   process.exit(1);
 }
 
-if (!process.env.DIRECT_URL && connectionString.includes(':6543')) {
+if (connectionString.includes(':6543')) {
   console.warn(
-    '⚠️  Đang dùng transaction pooler (port 6543) để chạy DDL. ' +
-      'Nên đặt DIRECT_URL trỏ tới port 5432.',
+    '⚠️  Đang chạy DDL qua transaction mode (port 6543). Phần lớn migration vẫn chạy được,\n' +
+      '    nhưng nên dùng session mode: cùng host pooler, đổi port thành 5432 (DIRECT_URL).',
+  );
+}
+
+if (/@db\.[a-z0-9]+\.supabase\.co/.test(connectionString)) {
+  console.warn(
+    '⚠️  Đang dùng direct connection (db.<ref>.supabase.co). Endpoint này là IPv6-only —\n' +
+      '    mạng không có IPv6 sẽ báo ENOTFOUND. Dùng host pooler với port 5432 thay thế.',
   );
 }
 

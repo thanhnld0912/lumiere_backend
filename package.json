@@ -12,7 +12,11 @@
     "start": "node dist/server.js",
     "typecheck": "tsc --noEmit",
     "db:schema": "node scripts/run-sql.mjs database/schema.sql",
-    "db:seed": "node scripts/run-sql.mjs database/seed.sql"
+    "db:seed": "node scripts/run-sql.mjs database/seed.sql",
+    "db:migrate": "npm run db:migrate:001 && npm run db:migrate:002 && npm run db:migrate:003",
+    "db:migrate:001": "node scripts/run-sql.mjs database/migrations/001_status_enum.sql",
+    "db:migrate:002": "node scripts/run-sql.mjs database/migrations/002_crawler_support.sql",
+    "db:migrate:003": "node scripts/run-sql.mjs database/migrations/003_chapter_model.sql"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.4",

@@ -1,0 +1,108 @@
+{
+  "_comment": [
+    "Ánh xạ file fixture -> URL gốc + giá trị kỳ vọng.",
+    "Parser nhận ParseContext.url để resolve link tương đối và tách external_id,",
+    "nên test BẮT BUỘC phải biết URL thật của từng file.",
+    "",
+    "Toàn bộ số liệu trong `expect` được TRÍCH TỪ CHÍNH FILE, không phải giá trị bịa:",
+    "chúng là mốc hồi quy — parser ở Phase 4 phải cho ra đúng những giá trị này.",
+    "",
+    "File đã được gỡ khỏi lớp bọc `view-source:` bằng scripts/unwrap-view-source.mjs,",
+    "nên nội dung hiện tại chính là raw HTTP response mà CheerioCrawler sẽ nhận."
+  ],
+  "source": "novelupdates",
+  "baseUrl": "https://www.novelupdates.com",
+  "fixtures": [
+    {
+      "file": "humanitys-great-sage.html",
+      "kind": "series",
+      "url": "https://www.novelupdates.com/series/humanitys-great-sage/",
+      "externalId": "humanitys-great-sage",
+      "present": true,
+      "expect": {
+        "title": "Humanity's Great Sage",
+        "rawStatusField": "8 volumes / 2967 Chapters (Completed)",
+        "statusText": "Completed",
+        "totalChapters": 2967,
+        "totalVolumes": 8,
+        "rawRatingField": "(4.0 / 5.0, 117 votes)",
+        "rating": 4.0,
+        "ratingsCount": 117,
+        "language": "Chinese",
+        "originalPublisher": "Qidian"
+      }
+    },
+    {
+      "file": "the-villains-wishes-backfire-and-the-protagonists-take-the-hit.html",
+      "kind": "series",
+      "url": "https://www.novelupdates.com/series/the-villains-wishes-backfire-and-the-protagonists-take-the-hit/",
+      "externalId": "the-villains-wishes-backfire-and-the-protagonists-take-the-hit",
+      "present": true,
+      "expect": {
+        "title": "The Villain's Wishes Backfire and the Protagonists Take the Hit",
+        "rawStatusField": "269 Chapters",
+        "statusText": null,
+        "totalChapters": 269,
+        "totalVolumes": null,
+        "rawRatingField": "(4.0 / 5.0, 2 votes)",
+        "rating": 4.0,
+        "ratingsCount": 2,
+        "language": "Chinese",
+        "originalPublisher": "Fanqie"
+      },
+      "_why": [
+        "Fixture QUAN TRỌNG NHẤT để kiểm chứng quyết định D2.",
+        "Trường trạng thái chỉ có '269 Chapters' — KHÔNG có token trạng thái nào.",
+        "Đây là bằng chứng thực tế cho việc phải có giá trị enum 'Unknown':",
+        "nếu không, normalizer buộc phải gán bừa 'Ongoing' cho một novel mà nguồn",
+        "không hề nói gì về trạng thái.",
+        "",
+        "Cũng là ca kiểm chứng Bayesian rating: 4.0 từ 2 phiếu KHÔNG được xếp ngang",
+        "hàng với 4.0 từ 117 phiếu của fixture trên."
+      ]
+    },
+    {
+      "file": "series-ranking.html",
+      "kind": "browse",
+      "url": "https://www.novelupdates.com/series-ranking/",
+      "present": true,
+      "expect": {
+        "note": "Nguồn cho mode `discover`. Khớp với novelupdates.config.ts paths.browse",
+        "seriesLinksOnPage": 41,
+        "hasPagination": true,
+        "paginationMarker": "digg_pagination"
+      }
+    },
+    {
+      "file": "latest-releases.html",
+      "kind": "latest",
+      "url": "https://www.novelupdates.com/",
+      "present": true,
+      "expect": {
+        "note": "Trang chủ CHÍNH LÀ feed latest releases. Bảng được render sẵn từ server -> CheerioCrawler đọc được, không cần Playwright.",
+        "tableSelector": "table#myTable.tablesorter",
+        "columns": ["Title", "Release", "Group"],
+        "rowCount": 81,
+        "sampleRow": {
+          "seriesUrl": "https://www.novelupdates.com/series/humanitys-great-sage/",
+          "seriesTitle": "Humanity's Great Sage",
+          "chapterLabel": "c1045",
+          "groupUrl": "https://www.novelupdates.com/group/divine-dao-library/",
+          "groupName": "Divine Dao Library"
+        }
+      },
+      "_gotchas": [
+        "Tiêu đề hiển thị BỊ CẮT NGẮN ('The Imperial Consort Was Born With a Seductive...').",
+        "Tiêu đề đầy đủ nằm ở thuộc tính `title` của thẻ <a>. Parser PHẢI đọc",
+        "attribute, không được đọc text — nếu không sẽ lưu tiêu đề cụt vào database.",
+        "",
+        "Bảng KHÔNG có cột thời gian phát hành. Nghĩa là RawLatestRelease.releasedAt",
+        "sẽ là null ở mode `latest`. Xem ghi chú trong README."
+      ]
+    }
+  ],
+  "_missing": {
+    "note": "browse-page-1.html đã bị xoá — SHA256 trùng khít với latest-releases.html (cùng là trang chủ).",
+    "impact": "Không ảnh hưởng: series-ranking.html mới là nguồn cho mode `discover`, đúng như novelupdates.config.ts khai báo."
+  }
+}

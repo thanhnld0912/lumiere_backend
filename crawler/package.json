@@ -1,0 +1,38 @@
+{
+  "name": "@lumiere/crawler",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Lumiere crawler — multi-source novel metadata crawler (Crawlee + Cheerio)",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
+    "doctor": "tsx src/dev/doctor.ts",
+    "probe": "node scripts/probe-source.mjs",
+    "test": "node --import tsx --test \"tests/**/*.test.ts\"",
+    "crawl": "tsx src/cli/index.ts",
+    "crawl:novelupdates": "tsx src/cli/index.ts --source novelupdates",
+    "crawl:latest": "tsx src/cli/index.ts --source novelupdates --mode latest",
+    "crawl:refresh": "tsx src/cli/index.ts --source novelupdates --mode refresh",
+    "crawl:discover": "tsx src/cli/index.ts --source novelupdates --mode discover",
+    "schedule": "tsx src/scheduler/runScheduled.ts"
+  },
+  "dependencies": {
+    "@crawlee/cheerio": "^3.13.0",
+    "cheerio": "1.0.0-rc.12",
+    "dotenv": "^16.4.5",
+    "pg": "^8.13.1",
+    "pino": "^9.5.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/pg": "^8.11.10",
+    "pino-pretty": "^13.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

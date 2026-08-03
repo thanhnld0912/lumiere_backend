@@ -31,7 +31,8 @@ export const chapterParamSchema = z.object({
 export const novelQuerySchema = z.object({
   q: z.string().trim().min(1).max(200).optional(),
   genre: z.string().trim().min(1).max(60).optional(),
-  status: z.enum(['Ongoing', 'Completed', 'Hiatus']).optional(),
+  // Phải khớp enum novel_status ở DB — xem migration 001_status_enum.sql.
+  status: z.enum(['Ongoing', 'Completed', 'Hiatus', 'Dropped', 'Unknown']).optional(),
   limit: z.coerce.number().int().min(1).max(200).optional(),
   offset: z.coerce.number().int().min(0).optional(),
 });

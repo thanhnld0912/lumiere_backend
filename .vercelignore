@@ -1,0 +1,23 @@
+# Những gì Vercel KHÔNG được upload/bundle.
+#
+# Lý do quan trọng nhất: crawler/ có package.json riêng với Crawlee.
+# Nếu Vercel nhìn thấy nó, install sẽ kéo về hàng trăm MB và nhiều khả năng
+# vượt giới hạn 250MB unzipped của serverless function -> API chết.
+#
+# Đây là lớp phòng vệ THỨ HAI. Lớp thứ nhất là: crawler KHÔNG phải npm workspace,
+# nên `npm install` ở root vốn đã không đụng tới nó.
+crawler/
+
+# CI, không liên quan runtime
+.github/
+
+# SQL chỉ dùng lúc migrate bằng tay, function không đọc tới
+database/
+scripts/
+
+# Tài liệu
+*.md
+
+# Artefact local
+tests/
+dist/

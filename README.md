@@ -80,16 +80,24 @@ copy .env.example .env      # Windows
 Mở `.env` và điền:
 
 ```dotenv
-# Runtime — trên Vercel dùng transaction pooler (6543) để không cạn connection
-DATABASE_URL=postgresql://postgres:<PASSWORD>@db.jwghcqqnykjxjmmxxydd.supabase.co:5432/postgres
+# Runtime — transaction mode (6543): pool nhỏ, request ngắn, hợp với serverless
+DATABASE_URL=postgresql://postgres.<ref>:<PASSWORD>@aws-<n>-<region>.pooler.supabase.com:6543/postgres
 
-# Direct connection (5432) — dùng cho DDL/migration
-DIRECT_URL=postgresql://postgres:<PASSWORD>@db.jwghcqqnykjxjmmxxydd.supabase.co:5432/postgres
+# DDL/migration — session mode (5432): cùng host, chỉ khác port
+DIRECT_URL=postgresql://postgres.<ref>:<PASSWORD>@aws-<n>-<region>.pooler.supabase.com:5432/postgres
 
 JWT_SECRET=<sinh bằng lệnh bên dưới>
 FRONTEND_URL=http://localhost:3000
 PORT=4000
 ```
+
+> ⚠️ **Dùng host pooler, đừng dùng `db.<ref>.supabase.co`.** Supabase đã chuyển direct
+> connection sang **IPv6-only** — hostname đó chỉ có bản ghi AAAA, không có A. Mạng không có
+> IPv6 sẽ báo `getaddrinfo ENOTFOUND`. Host pooler có IPv4 nên chạy được ở mọi nơi.
+>
+> Lấy chuỗi tại **Dashboard → Connect**: chọn *Transaction pooler* cho `DATABASE_URL`,
+> *Session pooler* cho `DIRECT_URL`. Chú ý username của pooler là `postgres.<project-ref>`,
+> không phải `postgres`.
 
 Sinh `JWT_SECRET`:
 

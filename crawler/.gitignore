@@ -1,0 +1,11 @@
+node_modules/
+dist/
+
+# Crawlee ghi RequestQueue/Dataset/KeyValueStore vào đây.
+# Trên GitHub Actions thư mục này là ephemeral — mọi state bền vững phải nằm ở
+# PostgreSQL (novel_sources.last_crawled_at), không được dựa vào đây.
+storage/
+
+.env
+.env.local
+*.log

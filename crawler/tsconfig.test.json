@@ -1,0 +1,20 @@
+{
+  /*
+   * tsconfig cho TEST.
+   *
+   * tsconfig.json chính chỉ include `src` (vì rootDir = src, cần cho `npm run build`),
+   * nên nó KHÔNG kiểm tra kiểu của thư mục tests. Không có file này thì test có thể
+   * chứa lỗi kiểu mà `tsc --noEmit` vẫn báo xanh — đúng cách để test mục nát dần.
+   *
+   * Chỉ dùng để kiểm tra kiểu; test chạy qua tsx nên không sinh output.
+   */
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": ".",
+    // Test cố tình truyền đầu vào sai kiểu để kiểm tra nhánh xử lý lỗi.
+    "noUnusedLocals": false
+  },
+  "include": ["src/**/*.ts", "tests/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

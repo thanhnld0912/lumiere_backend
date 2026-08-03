@@ -186,7 +186,7 @@ async function fetchListChapters(
           WHERE rp.user_id = $2::uuid AND rp.novel_id = c.novel_id
         )
       )
-    ORDER BY c.novel_id, c.number ASC
+    ORDER BY c.novel_id, c.sort_index ASC NULLS LAST, c.number ASC
     `,
     [novelIds, userId],
   );
@@ -310,8 +310,14 @@ export async function listNovels(
 /**
  * GET /api/novels/:slug
  *
- * Khác list ở chỗ trả ĐẦY ĐỦ chapters, sort theo number tăng dần — bắt buộc,
- * vì ReaderView.tsx:28-31 tính chương trước/sau bằng index trong mảng.
+ * Khác list ở chỗ trả ĐẦY ĐỦ chapters, sort theo `sort_index` — bắt buộc, vì
+ * ReaderView.tsx:28-31 tính chương trước/sau bằng index trong mảng.
+ *
+ * Dùng `sort_index` chứ KHÔNG dùng `number`: khi có volume/extra/part thì
+ * `number` không còn là thứ tự đọc (sắp theo number sẽ đẩy 'Extra Chapter 12'
+ * lên trước 'Chapter 243'). Xem migration 003_chapter_model.sql.
+ * `NULLS LAST` + fallback `number` để dữ liệu chưa backfill vẫn có thứ tự hợp lý.
+ *
  * Vẫn không kèm `content` (chỉ endpoint chapter mới trả).
  */
 export async function getNovelBySlug(slug: string, userId: string | null): Promise<NovelDto> {
@@ -335,7 +341,7 @@ export async function getNovelBySlug(slug: string, userId: string | null): Promi
       END AS is_read
     FROM chapters c
     WHERE c.novel_id = $1
-    ORDER BY c.number ASC
+    ORDER BY c.sort_index ASC NULLS LAST, c.number ASC
     `,
     [row.id, userId],
   );

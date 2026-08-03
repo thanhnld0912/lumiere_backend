@@ -14,8 +14,12 @@
 // Enum / union
 // ─────────────────────────────────────────────────────────────
 
-/** Khớp types.ts:29 */
-export type NovelStatus = 'Ongoing' | 'Completed' | 'Hiatus';
+/**
+ * Khớp enum `novel_status` ở database và union `Novel.status` bên frontend.
+ * Ba giá trị đầu là gốc; 'Dropped' và 'Unknown' thêm ở migration
+ * 001_status_enum.sql để crawler map được trạng thái của NovelUpdates.
+ */
+export type NovelStatus = 'Ongoing' | 'Completed' | 'Hiatus' | 'Dropped' | 'Unknown';
 
 export type UserRole = 'user' | 'admin';
 
