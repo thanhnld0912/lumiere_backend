@@ -94,6 +94,12 @@ export class NovelUpdatesNormalizer {
 
       totalChapters: status.totalChapters,
       latestChapter,
+      /*
+       * NovelUpdates chỉ cho biết chương mới nhất ở bảng phát hành trên trang
+       * series. Trả mảng rỗng để importer KHÔNG đụng tới danh sách chương đang
+       * có — khác hẳn với "novel này không có chương nào".
+       */
+      chapters: [],
 
       contentHash,
       crawledAt: ctx.now,

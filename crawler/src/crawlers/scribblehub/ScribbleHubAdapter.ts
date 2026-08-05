@@ -10,11 +10,21 @@ import type { NormalizedLatestRelease, NormalizedNovel } from '../../dto/index.j
 import { ScribbleHubNormalizer } from './ScribbleHubNormalizer.js';
 import { buildSeriesUrl } from './mappings.js';
 import {
+  isScribbleHubChapter,
   isScribbleHubStory,
   isScribbleHubUpdate,
   readEnvelope,
+  type ScribbleHubChapter,
   type ScribbleHubStory,
 } from './types.js';
+
+/**
+ * Trần số trang mục lục cho MỘT truyện.
+ *
+ * 50 chương/trang × 40 trang = 2.000 chương. Đủ cho gần như mọi web novel, và là
+ * chốt chặn để một truyện có `meta.totalPages` sai không kéo dài lần chạy vô hạn.
+ */
+const MAX_CHAPTER_PAGES = 40;
 
 /**
  * Source Adapter cho ScribbleHub — nguồn dùng REST API.
@@ -117,7 +127,15 @@ export class ScribbleHubAdapter extends BaseApiCrawler implements ISourceAdapter
           continue;
         }
 
-        results.push(this.normalizer.normalizeNovel(story, normalizeContext));
+        /*
+         * Lấy TOÀN BỘ mục lục, không chỉ chương mới nhất.
+         *
+         * Thiếu bước này thì mỗi novel chỉ có một dòng trong bảng `chapters` và
+         * người đọc thấy mục lục trống rỗng dù truyện có hàng trăm chương.
+         */
+        const chapters = await this.fetchAllChapters(target.externalId, log);
+
+        results.push(this.normalizer.normalizeNovel(story, normalizeContext, chapters));
       } catch (error) {
         /*
          * BlockedError là fatal — ném tiếp để dừng cả run. Lỗi khác thì chỉ bỏ
@@ -132,6 +150,62 @@ export class ScribbleHubAdapter extends BaseApiCrawler implements ISourceAdapter
     }
 
     return results;
+  }
+
+  /**
+   * Lấy toàn bộ mục lục của một truyện, tự duyệt hết các trang.
+   *
+   * Endpoint trả `per_page` tối đa 50, nên truyện 300 chương cần 6 request. Đó
+   * là lý do việc này chỉ làm ở mode `refresh` (hàng tháng) chứ không ở `latest`
+   * (6 giờ một lần).
+   *
+   * Lỗi ở đây KHÔNG làm hỏng cả novel: trả về mảng rỗng thì importer giữ nguyên
+   * danh sách chương đang có, và metadata vẫn được cập nhật bình thường.
+   */
+  private async fetchAllChapters(
+    externalId: string,
+    log: ReturnType<BaseApiCrawler['logger']>,
+  ): Promise<ScribbleHubChapter[]> {
+    const path = this.config.paths.storyChapters.replace('{id}', externalId);
+    const chapters: ScribbleHubChapter[] = [];
+
+    let page = 1;
+    let totalPages = 1;
+
+    try {
+      while (page <= totalPages && page <= MAX_CHAPTER_PAGES) {
+        const url = this.url(path, { page });
+        const payload = await this.fetchJson<unknown>(url, log);
+        const { items, meta, skipped } = readEnvelope(payload, isScribbleHubChapter);
+
+        if (skipped > 0) {
+          log.warn({ externalId, skipped, page }, 'bỏ qua chương sai hình dạng');
+        }
+
+        chapters.push(...items);
+        totalPages = meta?.totalPages ?? 1;
+
+        // Trang rỗng -> hết. Thoát để không lặp vô hạn nếu meta sai.
+        if (items.length === 0) break;
+        page += 1;
+      }
+
+      if (page > MAX_CHAPTER_PAGES) {
+        log.warn(
+          { externalId, fetched: chapters.length, maxPages: MAX_CHAPTER_PAGES },
+          'chạm trần số trang mục lục — danh sách chương bị cắt bớt',
+        );
+      }
+    } catch (error) {
+      if (isFatal(error)) throw error;
+      log.warn(
+        { externalId, err: String(error).slice(0, 150) },
+        'không lấy được mục lục — giữ nguyên danh sách chương đang có',
+      );
+      return [];
+    }
+
+    return chapters;
   }
 
   private toNovelRef(story: ScribbleHubStory): NovelRef {

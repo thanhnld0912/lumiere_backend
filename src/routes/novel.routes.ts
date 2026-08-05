@@ -30,10 +30,18 @@ router.get(
   asyncHandler(novelController.detail),
 );
 
-// Chapter BẮT BUỘC nested dưới novel: chapter slug không unique toàn cục (F2).
+/**
+ * Nội dung chương — CẦN ĐĂNG NHẬP.
+ *
+ * Khác với danh sách và trang chi tiết (xem được khi chưa đăng nhập): đọc truyện
+ * là tính năng dành cho thành viên. Duyệt và tìm kiếm vẫn mở để khách biết thư
+ * viện có gì, nhưng mở một chương ra đọc thì phải có tài khoản.
+ *
+ * Chapter BẮT BUỘC nested dưới novel: chapter slug không unique toàn cục (F2).
+ */
 router.get(
   '/:slug/chapters/:chapterSlug',
-  optionalAuth,
+  requireAuth,
   validate(chapterParamSchema, 'params'),
   asyncHandler(novelController.chapter),
 );

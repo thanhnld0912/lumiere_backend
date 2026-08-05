@@ -8,6 +8,7 @@ import type { NormalizeContext } from '../../src/core/contracts/INormalizer.js';
 import { ScribbleHubNormalizer } from '../../src/crawlers/scribblehub/ScribbleHubNormalizer.js';
 import { mapSlug, mapStoryStatus } from '../../src/crawlers/scribblehub/mappings.js';
 import {
+  isScribbleHubChapter,
   isScribbleHubStory,
   isScribbleHubUpdate,
   readEnvelope,
@@ -187,6 +188,71 @@ describe('ScribbleHubNormalizer — /updates (mode latest)', () => {
     const source = items[0];
     assert.ok(first?.chapter !== null && first?.chapter !== undefined);
     assert.equal(first.chapter.number, source?.latestChapter.number);
+  });
+});
+
+/**
+ * Hồi quy cho lỗi "crawl không hết chương".
+ *
+ * TRIỆU CHỨNG: truyện 21 chương chỉ có 1 dòng trong bảng `chapters`, mục lục ở
+ * NovelDetailView gần như trống.
+ * NGUYÊN NHÂN: normalizer dựng đúng MỘT tham chiếu từ `chapterCount`, và adapter
+ * chưa bao giờ gọi `/stories/{id}/chapters`.
+ */
+describe('mục lục đầy đủ — hồi quy', () => {
+  const story = (load('story-detail.json') as { data: ScribbleHubStory }).data;
+  const { items: chapterList } = readEnvelope(
+    load('story-chapters.json'),
+    isScribbleHubChapter,
+  );
+
+  it('fixture mục lục đọc được', () => {
+    assert.ok(chapterList.length > 1, `chỉ có ${chapterList.length} chương`);
+  });
+
+  it('KHÔNG truyền mục lục -> chỉ 1 chương (hành vi cũ, vẫn giữ cho nguồn thiếu dữ liệu)', () => {
+    const novel = normalizer.normalizeNovel(story, CTX);
+    assert.equal(novel.chapters.length, 0, 'mảng rỗng = nguồn không cho mục lục');
+    assert.ok(novel.latestChapter !== null, 'vẫn suy được chương mới nhất từ chapterCount');
+  });
+
+  it('CÓ truyền mục lục -> chuẩn hoá đủ chương', () => {
+    const novel = normalizer.normalizeNovel(story, CTX, chapterList);
+    assert.equal(novel.chapters.length, chapterList.length);
+  });
+
+  it('mỗi chương có slug hợp lệ và sortIndex là số', () => {
+    const novel = normalizer.normalizeNovel(story, CTX, chapterList);
+    for (const chapter of novel.chapters) {
+      assert.match(chapter.slug, /^[a-z0-9]+(-[a-z0-9]+)*$/, chapter.slug);
+      assert.match(chapter.sortIndex, /^\d+$/);
+      assert.ok(chapter.publishedAt instanceof Date, 'publishedAt phải là Date thật');
+    }
+  });
+
+  it('slug không trùng nhau — nếu trùng, upsert sẽ ghi đè lẫn nhau', () => {
+    const novel = normalizer.normalizeNovel(story, CTX, chapterList);
+    const slugs = novel.chapters.map((chapter) => chapter.slug);
+    assert.equal(new Set(slugs).size, slugs.length);
+  });
+
+  it('sortIndex tăng theo số chương -> thứ tự đọc đúng', () => {
+    const novel = normalizer.normalizeNovel(story, CTX, chapterList);
+    const sorted = [...novel.chapters].sort((a, b) =>
+      BigInt(a.sortIndex) < BigInt(b.sortIndex) ? -1 : 1,
+    );
+    for (let i = 1; i < sorted.length; i += 1) {
+      assert.ok(
+        (sorted[i]?.number ?? 0) >= (sorted[i - 1]?.number ?? 0),
+        'sắp theo sortIndex phải cho ra số chương tăng dần',
+      );
+    }
+  });
+
+  it('chương mới nhất lấy từ mục lục thật, không suy từ chapterCount', () => {
+    const novel = normalizer.normalizeNovel(story, CTX, chapterList);
+    const maxNumber = Math.max(...chapterList.map((chapter) => chapter.number));
+    assert.equal(novel.latestChapter?.number, maxNumber);
   });
 });
 

@@ -13,6 +13,8 @@
     "doctor": "tsx src/dev/doctor.ts",
     "probe": "node scripts/probe-source.mjs",
     "inspect": "tsx src/dev/inspect.ts",
+    "chapter-gap": "tsx src/dev/chapter-gap.ts",
+    "purge-seed": "tsx src/dev/purge-seed.ts",
     "test": "node --import tsx --test \"tests/**/*.test.ts\"",
     "crawl": "tsx src/cli/index.ts",
     "crawl:discover": "tsx src/cli/index.ts --mode discover",

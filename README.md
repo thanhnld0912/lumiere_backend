@@ -196,7 +196,7 @@ Base URL: `/api` · Auth: `Authorization: Bearer <token>`
 | `GET` | `/api/auth/me` | 🔒 | Thông tin user + `stats` |
 | `GET` | `/api/novels` | ○ | Danh sách novel (`?q=&genre=&status=&limit=&offset=`) |
 | `GET` | `/api/novels/:slug` | ○ | Chi tiết + **đầy đủ** chapters |
-| `GET` | `/api/novels/:slug/chapters/:chapterSlug` | ○ | Nội dung chương (`content: string[]`) |
+| `GET` | `/api/novels/:slug/chapters/:chapterSlug` | 🔒 | Nội dung chương (`content: string[]`) — **đọc truyện cần đăng nhập** |
 | `POST` | `/api/novels/:slug/bookmark` | 🔒 | Thêm bookmark |
 | `DELETE` | `/api/novels/:slug/bookmark` | 🔒 | Bỏ bookmark |
 | `PUT` | `/api/novels/:slug/chapters/:chapterSlug/progress` | 🔒 | Đánh dấu đã đọc + vị trí đọc |

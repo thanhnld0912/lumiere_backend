@@ -13,6 +13,7 @@
     "typecheck": "tsc --noEmit",
     "db:schema": "node scripts/run-sql.mjs database/schema.sql",
     "db:seed": "node scripts/run-sql.mjs database/seed.sql",
+    "db:seed:users": "node scripts/run-sql.mjs database/seed-users.sql",
     "db:migrate": "npm run db:migrate:001 && npm run db:migrate:002 && npm run db:migrate:003",
     "db:migrate:001": "node scripts/run-sql.mjs database/migrations/001_status_enum.sql",
     "db:migrate:002": "node scripts/run-sql.mjs database/migrations/002_crawler_support.sql",

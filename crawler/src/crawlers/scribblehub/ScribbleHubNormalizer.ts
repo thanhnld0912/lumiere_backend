@@ -23,11 +23,31 @@ import type { ScribbleHubChapter, ScribbleHubStory, ScribbleHubUpdate } from './
 export class ScribbleHubNormalizer {
   readonly name = 'scribblehub:normalizer';
 
-  normalizeNovel(story: ScribbleHubStory, ctx: NormalizeContext): NormalizedNovel {
+  /**
+   * @param chapterList danh sách chương đầy đủ từ /stories/{id}/chapters.
+   *   Bỏ trống thì chỉ dựng được một tham chiếu tối thiểu từ `chapterCount` —
+   *   đủ cho `last_chapter_at` nhưng mục lục sẽ chỉ có một dòng.
+   */
+  normalizeNovel(
+    story: ScribbleHubStory,
+    ctx: NormalizeContext,
+    chapterList: readonly ScribbleHubChapter[] = [],
+  ): NormalizedNovel {
     const slug = mapSlug(story.slug, story.id);
     const statusMapping = mapStoryStatus(story.status);
 
-    const latestChapter = this.buildLatestChapterFromStory(story);
+    const chapters = chapterList.map((chapter) => this.normalizeChapter(chapter));
+
+    /*
+     * Chương mới nhất = chương có sortIndex lớn nhất trong danh sách thật.
+     * Không có danh sách thì mới suy từ `chapterCount`.
+     */
+    const latestChapter =
+      chapters.length > 0
+        ? chapters.reduce((newest, current) =>
+            BigInt(current.sortIndex) > BigInt(newest.sortIndex) ? current : newest,
+          )
+        : this.buildLatestChapterFromStory(story);
 
     /*
      * Hash được tính trên các field NGHĨA, cố ý BỎ những thứ đổi liên tục
@@ -77,6 +97,7 @@ export class ScribbleHubNormalizer {
 
       totalChapters: Math.max(0, Math.trunc(story.chapterCount)),
       latestChapter,
+      chapters,
 
       contentHash,
       crawledAt: ctx.now,

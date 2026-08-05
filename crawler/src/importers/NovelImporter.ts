@@ -176,15 +176,30 @@ export class NovelImporter {
     if (latest === null) return 0;
 
     const previousMax = await chapters.findMaxNumber(novelId);
-    await chapters.upsert(novelId, latest);
+
+    /*
+     * Nguồn cho ĐỦ mục lục -> ghi hết. Không có thì chỉ ghi chương mới nhất.
+     *
+     * Mảng rỗng nghĩa là "nguồn không cung cấp danh sách", KHÁC với "novel không
+     * có chương nào" — nên không được xoá danh sách đang có. Nhờ vậy một lượt
+     * `latest` (vốn chỉ biết chương mới nhất) không xoá mất mục lục mà `refresh`
+     * đã dựng đầy đủ.
+     */
+    if (novel.chapters.length > 0) {
+      for (const chapter of novel.chapters) {
+        await chapters.upsert(novelId, chapter);
+      }
+    } else {
+      await chapters.upsert(novelId, latest);
+    }
 
     /*
      * ⚠️ CỐ Ý KHÔNG gọi `syncTotalChapters` ở đây.
      *
-     * Hàm đó đặt total_chapters = COUNT(*) của bảng chapters. Nhưng ta chỉ lưu
-     * CHƯƠNG MỚI NHẤT, nên nó sẽ ghi đè con số đúng của nguồn (22) bằng số dòng
-     * ta có (1) — làm NovelDetailView hiển thị "1 Chapters" cho một truyện 22
-     * chương.
+     * Hàm đó đặt total_chapters = COUNT(*) của bảng chapters. Con số của NGUỒN
+     * mới là chuẩn: nguồn nào không cho mục lục (như NovelUpdates) thì ta chỉ có
+     * một dòng, và COUNT(*) sẽ ghi đè 22 thành 1 — NovelDetailView hiển thị
+     * "1 Chapters" cho một truyện 22 chương.
      *
      * `novels.total_chapters` đã được ghi từ `novel.totalChapters` do nguồn
      * cung cấp, và đó mới là con số đáng tin. Chỉ nên đồng bộ lại theo COUNT(*)

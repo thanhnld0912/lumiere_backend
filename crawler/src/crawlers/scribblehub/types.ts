@@ -109,6 +109,16 @@ export function isScribbleHubStory(value: unknown): value is ScribbleHubStory {
   );
 }
 
+export function isScribbleHubChapter(value: unknown): value is ScribbleHubChapter {
+  if (!isRecord(value)) return false;
+  return (
+    typeof value['id'] === 'number' &&
+    typeof value['number'] === 'number' &&
+    typeof value['title'] === 'string' &&
+    typeof value['publishedAt'] === 'string'
+  );
+}
+
 export function isScribbleHubUpdate(value: unknown): value is ScribbleHubUpdate {
   if (!isRecord(value)) return false;
   const chapter = value['latestChapter'];

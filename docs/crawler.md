@@ -46,8 +46,24 @@ REST API cùng dùng chung mọi tầng phía trên.
 | Mode | Làm gì | Ghi gì | Nhịp | Chi phí |
 |---|---|---|---|---|
 | `latest` | đọc feed chương mới | **chỉ** `chapters` + `sync_events` | 6 giờ | 1 request / hàng chục novel |
-| `refresh` | nạp metadata đầy đủ | `novels` + 6 bảng liên quan | 1 tháng | 1 request / novel |
+| `refresh` | nạp metadata + **toàn bộ mục lục** | `novels` + 6 bảng liên quan | 1 tháng | 1 + N request / novel |
 | `discover` | duyệt danh mục tìm novel mới | **không ghi gì** | chạy tay | nhiều request |
+
+### Mục lục đầy đủ chỉ lấy ở `refresh`
+
+`refresh` gọi thêm `/stories/{id}/chapters` và duyệt hết phân trang (50 chương/trang,
+trần 40 trang = 2.000 chương). Truyện 300 chương tốn 6 request — đó là lý do việc
+này chỉ làm hàng tháng, không làm ở `latest`.
+
+`NormalizedNovel.chapters` rỗng nghĩa là **"nguồn không cho mục lục"**, khác hẳn
+"novel không có chương nào". Importer chỉ ghi khi mảng có phần tử, nên một lượt
+`latest` (chỉ biết chương mới nhất) không xoá mất mục lục mà `refresh` đã dựng.
+
+Kiểm tra độ đầy đủ bất cứ lúc nào:
+
+```bash
+npm run chapter-gap     # so total_chapters nguồn báo với số dòng thực trong DB
+```
 
 **Vì sao `latest` không cập nhật metadata:** feed chỉ cho biết chương nào vừa ra —
 không có genre, không có mô tả, không có rating. Ghi vào `novels` sẽ đè dữ liệu
@@ -171,7 +187,10 @@ npm run crawl -- --mode refresh --force               # bỏ qua content_hash
 
 npm run probe -- https://www.scribblehub.com          # thăm dò nguồn mới
 npm run inspect                                        # xem crawler đã ghi gì
-npm test                                               # 153 test, không cần mạng
+npm run chapter-gap                                    # so số chương nguồn báo vs trong DB
+npm run purge-seed                                     # xem trước dữ liệu seed sẽ xoá
+npm run purge-seed -- --apply                          # thực sự xoá seed
+npm test                                               # 160 test, không cần mạng
 ```
 
 ### Các cờ

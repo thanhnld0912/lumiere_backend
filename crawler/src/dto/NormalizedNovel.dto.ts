@@ -53,6 +53,17 @@ export interface NormalizedNovel {
   readonly latestChapter: NormalizedChapterRef | null;
 
   /**
+   * TOÀN BỘ danh sách chương, nếu adapter lấy được.
+   *
+   * Mảng rỗng nghĩa là "nguồn không cho danh sách" — KHÁC với "novel không có
+   * chương nào". Importer chỉ ghi khi mảng có phần tử, để một nguồn chỉ cho biết
+   * chương mới nhất không xoá mất danh sách đã có.
+   *
+   * Vẫn KHÔNG kèm nội dung chương: `NormalizedChapterRef` không có trường text.
+   */
+  readonly chapters: readonly NormalizedChapterRef[];
+
+  /**
    * sha256 của chính object này (đã bỏ các field biến động như crawledAt).
    * Bằng nhau -> bỏ qua UPDATE hoàn toàn. Đây là thứ giữ cho `updated_at` và
    * `sync_events` khỏi bị nhiễu ở mỗi lần refresh.
