@@ -33,6 +33,21 @@ const NOVEL_SELECT = `
     n.ratings_count,
     n.status,
     n.total_chapters,
+
+    /*
+     * Số chương THỰC SỰ có trong catalog, đếm từ bảng chapters.
+     *
+     * KHÁC với n.total_chapters — vốn là con số NGUỒN báo (VD 991). Crawler cố ý
+     * chỉ nạp một phần mục lục, nên hai số này lệch nhau là chuyện bình thường,
+     * không phải lỗi dữ liệu.
+     *
+     * Phải đếm bằng SQL chứ không lấy độ dài mảng chapters trả về: endpoint danh
+     * sách chỉ kèm 1-2 chương rút gọn, nên đếm mảng sẽ ra số vô nghĩa.
+     *
+     * (Chú ý: comment này nằm TRONG template literal của TypeScript, nên không
+     * được dùng dấu backtick để trích code — nó sẽ kết thúc chuỗi giữa chừng.)
+     */
+    (SELECT COUNT(*) FROM chapters ch WHERE ch.novel_id = n.id)::int AS available_chapters,
     n.synopsis,
     n.release_frequency,
     n.total_views,
@@ -104,6 +119,12 @@ function toNovelDto(row: NovelRow, chapters: ChapterDto[]): NovelDto {
     ratingsCount: formatRatingsCount(row.ratings_count),
     status: row.status,
     totalChapters: row.total_chapters,
+    availableChapters: row.available_chapters,
+    /*
+     * Kẹp về >= 0: nếu nguồn hạ `total_chapters` xuống thấp hơn số chương ta đã
+     * lưu, con số âm sẽ hiện ra UI thành "-3 chương chưa đồng bộ".
+     */
+    missingChapters: Math.max(0, row.total_chapters - row.available_chapters),
     genres: row.genres ?? [],
     synopsis: row.synopsis,
     chapters,

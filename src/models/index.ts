@@ -67,7 +67,26 @@ export interface NovelDto {
   rating: number;
   ratingsCount: string; // đã format, VD '12.4k'
   status: NovelStatus;
+
+  /**
+   * Tổng số chương theo NGUỒN báo (`novels.total_chapters`), VD 991.
+   *
+   * KHÔNG BAO GIỜ suy từ `chapters.length` — mảng đó chỉ chứa phần catalog đã
+   * nạp, và ở endpoint danh sách còn bị rút gọn xuống 1-2 phần tử.
+   */
   totalChapters: number;
+
+  /** Số chương thực sự có trong bảng `chapters` — tức số chương đọc/xem được. */
+  availableChapters: number;
+
+  /**
+   * `totalChapters - availableChapters`, kẹp về >= 0.
+   *
+   * Frontend cần con số này để nói rõ "còn N chương chưa đồng bộ" thay vì để
+   * người dùng tự suy ra và hiểu nhầm là truyện chỉ có vài chương.
+   */
+  missingChapters: number;
+
   genres: string[];
   synopsis: string;
   chapters: ChapterDto[];
@@ -163,6 +182,8 @@ export interface NovelRow {
   ratings_count: number;
   status: NovelStatus;
   total_chapters: number;
+  /** COUNT(*) từ bảng chapters — số chương đã catalog, khác total_chapters. */
+  available_chapters: number;
   synopsis: string;
   release_frequency: string | null;
   total_views: string;
