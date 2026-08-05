@@ -1,5 +1,6 @@
 import { sourceRegistry } from '../core/registry/SourceRegistry.js';
 import { NovelUpdatesAdapter } from './novelupdates/NovelUpdatesAdapter.js';
+import { ScribbleHubAdapter } from './scribblehub/ScribbleHubAdapter.js';
 
 /**
  * Nơi DUY NHẤT biết những Source Adapter cụ thể nào đang tồn tại.
@@ -15,12 +16,19 @@ let registered = false;
 export function registerSourceAdapters(): void {
   if (registered) return;
 
+  /*
+   * ScribbleHub đứng trước vì đây là nguồn ĐANG DÙNG ĐƯỢC (REST API chính thức).
+   *
+   * NovelUpdates vẫn đăng ký để code không bị mục, nhưng hiện trả 403 cho mọi
+   * request — xem §11 của CRAWLER_ARCHITECTURE.md. Gọi nó sẽ dừng ngay với
+   * BlockedError thay vì thử lại.
+   */
+  sourceRegistry.register(new ScribbleHubAdapter());
   sourceRegistry.register(new NovelUpdatesAdapter());
   // sourceRegistry.register(new RoyalRoadAdapter());
-  // sourceRegistry.register(new ScribbleHubAdapter());
 
   registered = true;
 }
 
-export { NovelUpdatesAdapter };
+export { NovelUpdatesAdapter, ScribbleHubAdapter };
 export { sourceRegistry };

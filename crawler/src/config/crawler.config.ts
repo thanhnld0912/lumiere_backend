@@ -22,6 +22,8 @@ export const DEFAULT_HTTP: HttpConfig = {
 
 export const crawlerConfig = {
   maxItemsPerRun: env.CRAWL_MAX_ITEMS_PER_RUN,
+  /** Nguồn dùng khi lệnh không truyền `--source`. */
+  defaultSource: env.CRAWL_DEFAULT_SOURCE,
   dryRun: env.CRAWL_DRY_RUN,
   userAgent: env.CRAWLER_USER_AGENT,
 

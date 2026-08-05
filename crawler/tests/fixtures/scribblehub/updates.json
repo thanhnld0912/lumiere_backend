@@ -1,0 +1,3340 @@
+{
+  "data": [
+    {
+      "story": {
+        "id": 2452411,
+        "title": "One/two (GL)",
+        "slug": "2452411-onetwo-gl",
+        "author": {
+          "id": 272614,
+          "displayName": "Northern_Light03",
+          "username": "Northern_Light03",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/68/ava_272614_1784195250.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/122/onetwo-gl_2452411_1784310887.jpg",
+        "description": "One/Two\n\nMona is the kind of girl who always has a sarcastic comeback, a fearless attitude, and zero patience for unnecessary drama. But when she finds herself caught between friendship and love, she begins to question something she never thought about before...\n\n\"Which is more important—friendship or love?'\n\nAs hilarious misunderstandings, siblings fighting, unforgettable school memories, heartfelt family moments, and unexpected relationships shape their lives, Mona and her friends learn that growing up isn't about having all the answers. It's about discovering what—and who—truly matters.\n\nA heartwarming high school story filled with comedy, romance, friendship & family bonding, laughter & emotions that stay with you long after the last page.\n\nTime is money my friend. Choose with your own choice.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 7,
+            "name": "Comedy",
+            "slug": "comedy"
+          },
+          {
+            "id": 892,
+            "name": "Girls Love",
+            "slug": "girls-love"
+          },
+          {
+            "id": 906,
+            "name": "Josei",
+            "slug": "josei"
+          },
+          {
+            "id": 909,
+            "name": "Mystery",
+            "slug": "mystery"
+          },
+          {
+            "id": 6,
+            "name": "Romance",
+            "slug": "romance"
+          },
+          {
+            "id": 911,
+            "name": "School Life",
+            "slug": "school-life"
+          },
+          {
+            "id": 914,
+            "name": "Slice of Life",
+            "slug": "slice-of-life"
+          }
+        ],
+        "mainGenre": {
+          "id": 892,
+          "name": "Girls Love",
+          "slug": "girls-love"
+        },
+        "tags": [
+          {
+            "id": 147,
+            "name": "All-Girls School",
+            "slug": "all-girls-school"
+          },
+          {
+            "id": 247,
+            "name": "Childhood Friends",
+            "slug": "childhood-friends"
+          },
+          {
+            "id": 297,
+            "name": "Cute Story",
+            "slug": "cute-story"
+          },
+          {
+            "id": 358,
+            "name": "Enemies Become Lovers",
+            "slug": "enemies-become-lovers"
+          },
+          {
+            "id": 412,
+            "name": "Friendship",
+            "slug": "friendship"
+          },
+          {
+            "id": 764,
+            "name": "Siblings Care",
+            "slug": "siblings-care"
+          },
+          {
+            "id": 834,
+            "name": "Tomboyish Female Lead",
+            "slug": "tomboyish-female-lead"
+          }
+        ],
+        "ratingAverage": 5,
+        "ratingCount": 2,
+        "readCount": 494,
+        "readersCount": 15,
+        "favoritesCount": 21,
+        "chapterCount": 21,
+        "wordCount": 15593,
+        "lastUpdated": "2026-08-04T11:32:17+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2484125,
+        "title": "Unfold Past...Chapter 21",
+        "number": 21,
+        "publishedAt": "2026-08-04T11:32:17+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2417001,
+        "title": "Written for You",
+        "slug": "2417001-written-for-you",
+        "author": {
+          "id": 244529,
+          "displayName": "Zakerukeru",
+          "username": "Zakerukeru",
+          "avatarUrl": "https://cdn.scribblehub.com/default/avatarnew.png"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/120/Written-for-You_2417001_1782628644.jpg",
+        "description": "\"I hope that, three years from now, I'll have at least one person I can truly call a friend.\"\nFor as long as she could remember, Miyuki Yukimura had always lived on the outside of everyone else's world.\nConversations never lasted. Friendships never began. Even after entering college, she believed nothing would change—until a single performance by the university's theater club quietly captured her heart.\nUnable to act yet unable to look away, Miyuki decides to join the club, where she meets Fuyumi Yuzuhara, a calm and distant girl whose presence somehow feels strangely comforting. As rehearsals become routines and ordinary days slowly turn into unforgettable memories, the distance between them begins to fade.\nAlongside five new friends, Miyuki discovers that college isn't only about chasing dreams or preparing for the future. Sometimes, it's about finding the people who make even the most ordinary moments worth remembering.\nSome encounters happen by chance.\nSome stories are written by fate.\nAnd some people quietly change your life before you even realize it.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 903,
+            "name": "Drama",
+            "slug": "drama"
+          },
+          {
+            "id": 892,
+            "name": "Girls Love",
+            "slug": "girls-love"
+          },
+          {
+            "id": 914,
+            "name": "Slice of Life",
+            "slug": "slice-of-life"
+          }
+        ],
+        "mainGenre": {
+          "id": 903,
+          "name": "Drama",
+          "slug": "drama"
+        },
+        "tags": [
+          {
+            "id": 125,
+            "name": "Acting",
+            "slug": "acting"
+          },
+          {
+            "id": 264,
+            "name": "College/University",
+            "slug": "college-university"
+          },
+          {
+            "id": 267,
+            "name": "Coming of Age",
+            "slug": "coming-of-age"
+          },
+          {
+            "id": 315,
+            "name": "Depression",
+            "slug": "depression"
+          },
+          {
+            "id": 380,
+            "name": "Family Conflict",
+            "slug": "family-conflict"
+          },
+          {
+            "id": 412,
+            "name": "Friendship",
+            "slug": "friendship"
+          },
+          {
+            "id": 759,
+            "name": "Girl's Love Subplot",
+            "slug": "girls-love-subplot"
+          },
+          {
+            "id": 476,
+            "name": "Identity Crisis",
+            "slug": "identity-crisis"
+          },
+          {
+            "id": 484,
+            "name": "Inferiority Complex",
+            "slug": "inferiority-complex"
+          },
+          {
+            "id": 490,
+            "name": "Introverted Protagonist",
+            "slug": "introverted-protagonist"
+          },
+          {
+            "id": 517,
+            "name": "Loneliness",
+            "slug": "loneliness"
+          },
+          {
+            "id": 811,
+            "name": "Suicides",
+            "slug": "suicides"
+          }
+        ],
+        "ratingAverage": 0,
+        "ratingCount": 0,
+        "readCount": 491,
+        "readersCount": 13,
+        "favoritesCount": 22,
+        "chapterCount": 14,
+        "wordCount": 16166,
+        "lastUpdated": "2026-08-04T11:27:47+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2484124,
+        "title": "Chapter 13 - Just Enjoy It",
+        "number": 14,
+        "publishedAt": "2026-08-04T11:27:47+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2008316,
+        "title": "Shinrabansho: Myriad Souls",
+        "slug": "2008316-shinrabansho-myriad-souls",
+        "author": {
+          "id": 870,
+          "displayName": "Rellawing",
+          "username": "Rellawing",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/0/ava_870_1670849921.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/100/shinrabansho-myriad-souls_2008316_1785551787.jpg",
+        "description": "When Susumu answers a call from his dead first love, it sets off a chain of events that should have killed him... instead, it marks him. A Noh-Face yokai strips away pieces of his identity and leaves him half-transformed, cursed with a “Cinderella Deadline”... He has only twenty-four hours to hunt down the creature that stole his face before he loses everything... his humanity, his identity, and his mind. \n\nHis only hope is the SSDS: Shinohara Spiritual Detective Services. He collides with a violent, pint-sized yuri-obsessed prodigy, a sweet-but-lethal vampire, a fox-eared angel with questionable priorities, and a shapeshifting tanuki menace who can turn into anything from a girl to a missile. \n\nTogether, they drag Susumu into Tokyo’s yokai underworld, where Noh-Face murders spread terror across the city and the truth behind the death that shattered his life waits like a blade in the dark. \n\nWill he become the monster he’s chasing?\n\nIf you’re looking for urban fantasy, yokai, horror, found-family, chaos, harem, sentai, absurdity, slapstick, comedy, tragedy, romance, identity, horror, fanservice, gender bending and unhinged supernatural shenanigans — this story is for you.\n\nTrue Genres:  Action, Comedy, Ecchi, Fantasy, Gender Bender, Girls Love, Harem, Horror, Martial Arts, Mystery, Psychological, Romance, Slice of Life (For those chapters), Supernatural, Tragedy (But I could only choose 9)\n\nThis book is the fully refined version of my third novel, and the entire first volume is already complete. I will be publishing it as a full, polished work. I know exactly what constitutes a successful and good story.. no more unrealistic expectations. Right now I'm just telling the story I want to, however it works out.\n\nIt will not be perfect... even after a full rewrite.\n\nBut the entire first book is complete, and I will be publishing the whole thing.\n\nExpectations:\nYou’ll smile.\nYou’ll cry.\nThe MC will be gender bent by the end of the first book.\nThe MC will hurt—a lot. Blood. Broken bones.\nThe MC will change and grow.\nThere will be action and real fights.\nThe main cast will be entirely female.\nThere will be plenty of yuri.\nThere will be an absurd amount of kissing and cuddling.\nThere will be no smut.\nThere will be plenty of ecchi fanservice.\n\nAnd this story won’t end with No Face, No Life. It's only the beginning. The series will continue as an ongoing serialized saga.\n\nNo set schedule for releases. A very popular author that I know doesn't publish regularly and her work is still wildly popular.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 7,
+            "name": "Comedy",
+            "slug": "comedy"
+          },
+          {
+            "id": 904,
+            "name": "Ecchi",
+            "slug": "ecchi"
+          },
+          {
+            "id": 905,
+            "name": "Gender Bender",
+            "slug": "gender-bender"
+          },
+          {
+            "id": 892,
+            "name": "Girls Love",
+            "slug": "girls-love"
+          },
+          {
+            "id": 1015,
+            "name": "Harem",
+            "slug": "harem"
+          },
+          {
+            "id": 909,
+            "name": "Mystery",
+            "slug": "mystery"
+          },
+          {
+            "id": 910,
+            "name": "Psychological",
+            "slug": "psychological"
+          },
+          {
+            "id": 5,
+            "name": "Supernatural",
+            "slug": "supernatural"
+          },
+          {
+            "id": 901,
+            "name": "Tragedy",
+            "slug": "tragedy"
+          }
+        ],
+        "mainGenre": {
+          "id": 7,
+          "name": "Comedy",
+          "slug": "comedy"
+        },
+        "tags": [
+          {
+            "id": 166,
+            "name": "Appearance Changes",
+            "slug": "appearance-changes"
+          },
+          {
+            "id": 238,
+            "name": "Character Growth",
+            "slug": "character-growth"
+          },
+          {
+            "id": 247,
+            "name": "Childhood Friends",
+            "slug": "childhood-friends"
+          },
+          {
+            "id": 266,
+            "name": "Comedic Undertone",
+            "slug": "comedic-undertone"
+          },
+          {
+            "id": 284,
+            "name": "Crime",
+            "slug": "crime"
+          },
+          {
+            "id": 302,
+            "name": "Dark",
+            "slug": "dark"
+          },
+          {
+            "id": 304,
+            "name": "Death",
+            "slug": "death"
+          },
+          {
+            "id": 305,
+            "name": "Death of Loved Ones",
+            "slug": "death-of-loved-ones"
+          },
+          {
+            "id": 315,
+            "name": "Depression",
+            "slug": "depression"
+          },
+          {
+            "id": 317,
+            "name": "Detectives",
+            "slug": "detectives"
+          },
+          {
+            "id": 476,
+            "name": "Identity Crisis",
+            "slug": "identity-crisis"
+          },
+          {
+            "id": 491,
+            "name": "Investigations",
+            "slug": "investigations"
+          },
+          {
+            "id": 531,
+            "name": "Magic",
+            "slug": "magic"
+          },
+          {
+            "id": 539,
+            "name": "Male to Female",
+            "slug": "male-to-female"
+          },
+          {
+            "id": 567,
+            "name": "Modern Day",
+            "slug": "modern-day"
+          },
+          {
+            "id": 1268,
+            "name": "Modern Fantasy",
+            "slug": "modern-fantasy"
+          },
+          {
+            "id": 573,
+            "name": "Monsters",
+            "slug": "monsters"
+          },
+          {
+            "id": 584,
+            "name": "Murders",
+            "slug": "murders"
+          },
+          {
+            "id": 592,
+            "name": "Mystery Solving",
+            "slug": "mystery-solving"
+          },
+          {
+            "id": 637,
+            "name": "Past Trauma",
+            "slug": "past-trauma"
+          },
+          {
+            "id": 713,
+            "name": "Romantic Subplot",
+            "slug": "romantic-subplot"
+          },
+          {
+            "id": 837,
+            "name": "Tragic Past",
+            "slug": "tragic-past"
+          },
+          {
+            "id": 838,
+            "name": "Transformation Ability",
+            "slug": "transformation-ability"
+          },
+          {
+            "id": 861,
+            "name": "Vampires",
+            "slug": "vampires"
+          },
+          {
+            "id": 882,
+            "name": "Youkai",
+            "slug": "youkai"
+          }
+        ],
+        "ratingAverage": 4.3,
+        "ratingCount": 16,
+        "readCount": 43443,
+        "readersCount": 311,
+        "favoritesCount": 1204,
+        "chapterCount": 180,
+        "wordCount": 502727,
+        "lastUpdated": "2026-08-04T11:35:36+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2484123,
+        "title": "3.03: Realistic Realty",
+        "number": 180,
+        "publishedAt": "2026-08-04T11:25:21+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2481007,
+        "title": "HANS: The Beginning of the Story",
+        "slug": "hans-the-beginning-of-the-story",
+        "author": {
+          "id": 275598,
+          "displayName": "ZeDev",
+          "username": "ZeDev",
+          "avatarUrl": "https://cdn.scribblehub.com/default/avatarnew.png"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/124/HANS-The-Beginning-of-the-Story_2481007_1785696115.jpg",
+        "description": "At the age of sixteen, Hans was nothing more than an ordinary high school student. One day, he fell asleep during class and found himself in a strange dream. Before him stood an unknown being that repeatedly asked him to shake its hand. Hans refused at first, unable to understand what it wanted. Eventually, curiosity got the better of him. The moment their hands touched, his body was engulfed in golden flames. He woke up with a start, falling from his chair. Convinced it had all been nothing more than a bizarre dream, he returned to his normal life. What Hans didn't realize was that the flames had been real. From that moment on, he was no longer an ordinary boy. He had awakened as a demon.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 9,
+            "name": "Action",
+            "slug": "action"
+          },
+          {
+            "id": 8,
+            "name": "Adventure",
+            "slug": "adventure"
+          },
+          {
+            "id": 7,
+            "name": "Comedy",
+            "slug": "comedy"
+          },
+          {
+            "id": 903,
+            "name": "Drama",
+            "slug": "drama"
+          },
+          {
+            "id": 909,
+            "name": "Mystery",
+            "slug": "mystery"
+          },
+          {
+            "id": 910,
+            "name": "Psychological",
+            "slug": "psychological"
+          },
+          {
+            "id": 913,
+            "name": "Seinen",
+            "slug": "seinen"
+          },
+          {
+            "id": 5,
+            "name": "Supernatural",
+            "slug": "supernatural"
+          },
+          {
+            "id": 901,
+            "name": "Tragedy",
+            "slug": "tragedy"
+          }
+        ],
+        "mainGenre": {
+          "id": 8,
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        "tags": [
+          {
+            "id": 156,
+            "name": "Angels",
+            "slug": "angels"
+          },
+          {
+            "id": 312,
+            "name": "Demons",
+            "slug": "demons"
+          },
+          {
+            "id": 531,
+            "name": "Magic",
+            "slug": "magic"
+          },
+          {
+            "id": 538,
+            "name": "Male Protagonist",
+            "slug": "male-protagonist"
+          },
+          {
+            "id": 573,
+            "name": "Monsters",
+            "slug": "monsters"
+          },
+          {
+            "id": 733,
+            "name": "Secrets",
+            "slug": "secrets"
+          },
+          {
+            "id": 871,
+            "name": "Weak to Strong",
+            "slug": "weak-to-strong"
+          }
+        ],
+        "ratingAverage": 5,
+        "ratingCount": 1,
+        "readCount": 111,
+        "readersCount": 4,
+        "favoritesCount": 0,
+        "chapterCount": 42,
+        "wordCount": 29271,
+        "lastUpdated": "2026-08-04T11:11:19+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2484115,
+        "title": "\"Immortal Mortal\"",
+        "number": 42,
+        "publishedAt": "2026-08-04T11:11:19+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 1085677,
+        "title": "Touch of Lightning (Lightning Touch Book 1)",
+        "slug": "1085677-touch-of-lightning-lightning-touch-book-1",
+        "author": {
+          "id": 157453,
+          "displayName": "SusanMcKenzie",
+          "username": "SusanMcKenzie",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/39/ava_157453_1711279458.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/54/touch-of-lightning-lightning-touch-book---excerpt-first--chapters_1085677_1715339211.jpg",
+        "description": "A dangerous job. A mining disaster. A declaration of love that may have come too late. \nHer job in a space station requires nerves of steel and a cold heart, but Lennina is paralyzed with fear for the life of her work partner each time there’s an earthquake on the planet’s surface. Her jealous boyfriend accuses her of having an affair with him and turns to violence when she denies it. \nBruised and broken, she ends the relationship. Then when a quake traps miners underground, she discovers her work partner means more to her than life itself. \nAs a new telepathic ability manifests itself, can Lennina use it to save the man she loves? \nTOUCH OF LIGHTNING is an exciting first book in the Lightning Touch Series that will transport sci-fi and paranormal fans to a distant space station, filled with suspense, danger, and romance. If you like reading stories about low-spice relationships with a slow-burn forbidden love and sassy, witty banter, you’ll love this friends-to-lovers sci-fi adventure with a HEA. \n© 2019 Susan McKenzie. All rights reserved.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 6,
+            "name": "Romance",
+            "slug": "romance"
+          },
+          {
+            "id": 912,
+            "name": "Sci-fi",
+            "slug": "sci-fi"
+          }
+        ],
+        "mainGenre": {
+          "id": 912,
+          "name": "Sci-fi",
+          "slug": "sci-fi"
+        },
+        "tags": [
+          {
+            "id": 146,
+            "name": "Aliens",
+            "slug": "aliens"
+          },
+          {
+            "id": 200,
+            "name": "Beautiful Female Lead",
+            "slug": "beautiful-female-lead"
+          },
+          {
+            "id": 259,
+            "name": "Co-Workers",
+            "slug": "co-workers"
+          },
+          {
+            "id": 392,
+            "name": "Fated Lovers",
+            "slug": "fated-lovers"
+          },
+          {
+            "id": 396,
+            "name": "Female Protagonist",
+            "slug": "female-protagonist"
+          },
+          {
+            "id": 412,
+            "name": "Friendship",
+            "slug": "friendship"
+          },
+          {
+            "id": 494,
+            "name": "Jealousy",
+            "slug": "jealousy"
+          },
+          {
+            "id": 524,
+            "name": "Love Interest Falls in Love First",
+            "slug": "love-interest-falls-in-love-first"
+          },
+          {
+            "id": 626,
+            "name": "Outer Space",
+            "slug": "outer-space"
+          },
+          {
+            "id": 684,
+            "name": "Psychic Powers",
+            "slug": "psychic-powers"
+          },
+          {
+            "id": 780,
+            "name": "Slow Romance",
+            "slug": "slow-romance"
+          },
+          {
+            "id": 788,
+            "name": "Special Abilities",
+            "slug": "special-abilities"
+          }
+        ],
+        "ratingAverage": 0,
+        "ratingCount": 0,
+        "readCount": 163,
+        "readersCount": 6,
+        "favoritesCount": 0,
+        "chapterCount": 14,
+        "wordCount": 17738,
+        "lastUpdated": "2026-08-04T11:09:05+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2484111,
+        "title": "Chapter 14: We Had a Bit of a Tiff",
+        "number": 14,
+        "publishedAt": "2026-08-04T11:09:05+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2405217,
+        "title": "Surviving The Tutorial With An OP Girlfriend",
+        "slug": "surviving-the-tutorial-with-an-op-girlfriend",
+        "author": {
+          "id": 171740,
+          "displayName": "MadFireGod",
+          "username": "MadFireGod",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/42/ava_171740_1722917658.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/120/Surviving-The-Tutorial-With-An-OP-Girlfriend_2405217_1782043151.jpg",
+        "description": "How does a relatively normal guy survive an impossible tutorial when his girlfriend keeps charging headfirst into danger just because she's built different?\n\nNobody survives the Impossible Tutorial.\n\nThat isn't an opinion.\n\nIt's a fact.\n\nFor years, Players chosen by the Game from every nation on Earth have entered the Tutorial seeking power, glory, and fame. Some chose Easy. Some chose Hard. A few ambitious idiots chose Nightmare, and somehow survived.\n\nBut every person who chose Impossible died.\n\nAdam Colt knew this.\n\nHis girlfriend Mei Mori knew it too, but she didn't care.\n\nOne impulsive click later, she selected Impossible difficulty and vanished into the Tutorial.\n\nAdam had less than a second to make a decision.\n\nLet her go alone.\n\nOr follow her into a challenge nobody had ever survived.\n\nNow trapped inside a fantasy world on the highest difficulty setting imaginable, the two must complete the Tutorial's main questline:\n\nProtect the Human Kingdom, Survive the Demon King's invasion, and somehow defeat the Demon King himself.\n\nThe problem?\n\nImpossible difficulty isn't called Impossible for nothing.\n\nMonsters are stronger.\n\nResources are scarce.\n\nThe rules are borderline unfair.\n\nAnd the Tutorial is hiding far more than it's willing to reveal.\n\nFortunately, Mei is absurdly overpowered.\n\nUnfortunately, Adam has to survive long enough to benefit from it.\n\n— — —\n\nWhat to expect:\n\n• An OP gremlin of a girlfriend who treats impossible odds as a suggestion (not an actual gremlin…)\r\n• A capable protagonist who serves as the team's brain cell (he might only have a few left after all of Mei's antics)\r\n• Modern firearms in a fantasy world (powered by magic & gunpowder!)\r\n• RPG mechanics, classes, talents, and progression\r\n• A single romantic pairing (no harem)\r\n• Comedy, action, and plenty of bad decisions",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 9,
+            "name": "Action",
+            "slug": "action"
+          },
+          {
+            "id": 8,
+            "name": "Adventure",
+            "slug": "adventure"
+          },
+          {
+            "id": 7,
+            "name": "Comedy",
+            "slug": "comedy"
+          },
+          {
+            "id": 904,
+            "name": "Ecchi",
+            "slug": "ecchi"
+          },
+          {
+            "id": 19,
+            "name": "Fantasy",
+            "slug": "fantasy"
+          },
+          {
+            "id": 37,
+            "name": "Isekai",
+            "slug": "isekai"
+          },
+          {
+            "id": 1180,
+            "name": "LitRPG",
+            "slug": "litrpg"
+          },
+          {
+            "id": 6,
+            "name": "Romance",
+            "slug": "romance"
+          }
+        ],
+        "mainGenre": {
+          "id": 1180,
+          "name": "LitRPG",
+          "slug": "litrpg"
+        },
+        "tags": [
+          {
+            "id": 199,
+            "name": "Beautiful Couple",
+            "slug": "beautiful-couple"
+          },
+          {
+            "id": 270,
+            "name": "Confident Protagonist",
+            "slug": "confident-protagonist"
+          },
+          {
+            "id": 342,
+            "name": "Dungeons",
+            "slug": "dungeons"
+          },
+          {
+            "id": 346,
+            "name": "Early Romance",
+            "slug": "early-romance"
+          },
+          {
+            "id": 386,
+            "name": "Fantasy World",
+            "slug": "fantasy-world"
+          },
+          {
+            "id": 396,
+            "name": "Female Protagonist",
+            "slug": "female-protagonist"
+          },
+          {
+            "id": 399,
+            "name": "Firearms",
+            "slug": "firearms"
+          },
+          {
+            "id": 427,
+            "name": "Genius Protagonist",
+            "slug": "genius-protagonist"
+          },
+          {
+            "id": 444,
+            "name": "Gunfighters",
+            "slug": "gunfighters"
+          },
+          {
+            "id": 448,
+            "name": "Handsome Male Lead",
+            "slug": "handsome-male-lead"
+          },
+          {
+            "id": 942,
+            "name": "Healing",
+            "slug": "healing"
+          },
+          {
+            "id": 511,
+            "name": "Level System",
+            "slug": "level-system"
+          },
+          {
+            "id": 538,
+            "name": "Male Protagonist",
+            "slug": "male-protagonist"
+          },
+          {
+            "id": 579,
+            "name": "Multiple Protagonists",
+            "slug": "multiple-protagonists"
+          },
+          {
+            "id": 682,
+            "name": "Protagonist Strong from the Start",
+            "slug": "protagonist-strong-from-the-start"
+          },
+          {
+            "id": 774,
+            "name": "Skill Creation",
+            "slug": "skill-creation"
+          },
+          {
+            "id": 818,
+            "name": "System Administrator",
+            "slug": "system-administrator"
+          },
+          {
+            "id": 841,
+            "name": "Transported into a Game World",
+            "slug": "transported-into-a-game-world"
+          }
+        ],
+        "ratingAverage": 5,
+        "ratingCount": 3,
+        "readCount": 3052,
+        "readersCount": 42,
+        "favoritesCount": 155,
+        "chapterCount": 42,
+        "wordCount": 75284,
+        "lastUpdated": "2026-08-04T11:00:02+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2483559,
+        "title": "Chapter 42",
+        "number": 42,
+        "publishedAt": "2026-08-04T11:00:02+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2301282,
+        "title": "The Ninety-Ninth Bride",
+        "slug": "2301282-the-ninetyninth-bride",
+        "author": {
+          "id": 257132,
+          "displayName": "LyraKade",
+          "username": "LyraKade",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/64/ava_257132_1775620725.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/115/bound-to-a-cursed-king_2301282_1785288039.jpg",
+        "description": "Sable died after catching her boyfriend of five years cheating.\n\nWhen she wakes, it isn’t in a hospital—it’s in another world.\n\nNow living as the daughter of a minor noble family, Sable decides to do something she never managed in her old life: live for herself. No obligations. No sacrifices. No getting stuck in situations that don’t benefit her.\n\nThen a cursed king appears and asks her to marry him.\n\nAzrael has had ninety-eight wives.\nNone survived. None succeeded.\n\nSable refuses.\n\nShe has no interest in becoming number ninety-nine for a solution that has never worked—especially not for a man who expects her to say yes without question.\n\nUnfortunately, Azrael doesn’t leave.\n\n----------------------------------------------------------------------\nWhat to Expect: Slow-burn fantasy romance, Rational, pragmatic female lead, Morally grey male lead, Character-driven progression, No insta-love\n\nAlternative title(s): Bound to a Cursed King & I Refused the Demon's Proposal: The Curse isn't my problem\n\nApproved Platforms: Webnovel, Royal Road, Wattpad, Inkitt, Tapas & Scribble Hub",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 19,
+            "name": "Fantasy",
+            "slug": "fantasy"
+          },
+          {
+            "id": 37,
+            "name": "Isekai",
+            "slug": "isekai"
+          },
+          {
+            "id": 6,
+            "name": "Romance",
+            "slug": "romance"
+          }
+        ],
+        "mainGenre": {
+          "id": 6,
+          "name": "Romance",
+          "slug": "romance"
+        },
+        "tags": [
+          {
+            "id": 302,
+            "name": "Dark",
+            "slug": "dark"
+          },
+          {
+            "id": 312,
+            "name": "Demons",
+            "slug": "demons"
+          },
+          {
+            "id": 396,
+            "name": "Female Protagonist",
+            "slug": "female-protagonist"
+          },
+          {
+            "id": 545,
+            "name": "Marriage",
+            "slug": "marriage"
+          },
+          {
+            "id": 780,
+            "name": "Slow Romance",
+            "slug": "slow-romance"
+          }
+        ],
+        "ratingAverage": 0,
+        "ratingCount": 0,
+        "readCount": 132,
+        "readersCount": 3,
+        "favoritesCount": 0,
+        "chapterCount": 12,
+        "wordCount": 14506,
+        "lastUpdated": "2026-08-04T11:00:02+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2483636,
+        "title": "At the Edge of Joy",
+        "number": 12,
+        "publishedAt": "2026-08-04T11:00:02+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2381400,
+        "title": "Reader of the Novel’s Extra",
+        "slug": "2381400-reader-of-the-novels-extra",
+        "author": {
+          "id": 497,
+          "displayName": "HappyVainGlory",
+          "username": "HappyVainGlory",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/0/ava_497_1778334247.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/119/Reader-of-the-Novels-Extra_2381400_1780871720.jpg",
+        "description": "Waking up, Lee Shin found himself in an unfamiliar world AND an unfamiliar body. A world that he definitely DID not create, and a story he DEFINITELY did not write. But, ironically, one he never finished.\n\nHe had become an extra in a novel. But not just ANY novel. \n\nThe Novel's Extra. That novel. The one he stopped reading halfway through. The one that he last read close to ten years ago.\n\nF*ck.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 38,
+            "name": "Fanfiction",
+            "slug": "fanfiction"
+          },
+          {
+            "id": 911,
+            "name": "School Life",
+            "slug": "school-life"
+          },
+          {
+            "id": 914,
+            "name": "Slice of Life",
+            "slug": "slice-of-life"
+          }
+        ],
+        "mainGenre": {
+          "id": 38,
+          "name": "Fanfiction",
+          "slug": "fanfiction"
+        },
+        "tags": [
+          {
+            "id": 123,
+            "name": "Academy",
+            "slug": "academy"
+          },
+          {
+            "id": 148,
+            "name": "Alternate World",
+            "slug": "alternate-world"
+          },
+          {
+            "id": 159,
+            "name": "Anti-Magic",
+            "slug": "anti-magic"
+          },
+          {
+            "id": 200,
+            "name": "Beautiful Female Lead",
+            "slug": "beautiful-female-lead"
+          },
+          {
+            "id": 254,
+            "name": "Clever Protagonist",
+            "slug": "clever-protagonist"
+          },
+          {
+            "id": 255,
+            "name": "Clingy Lover",
+            "slug": "clingy-lover"
+          },
+          {
+            "id": 332,
+            "name": "Doting Love Interests",
+            "slug": "doting-love-interests"
+          },
+          {
+            "id": 389,
+            "name": "Fast Learner",
+            "slug": "fast-learner"
+          },
+          {
+            "id": 393,
+            "name": "Fearless Protagonist",
+            "slug": "fearless-protagonist"
+          },
+          {
+            "id": 418,
+            "name": "Game Elements",
+            "slug": "game-elements"
+          },
+          {
+            "id": 458,
+            "name": "Helpful Protagonist",
+            "slug": "helpful-protagonist"
+          },
+          {
+            "id": 460,
+            "name": "Heroes",
+            "slug": "heroes"
+          },
+          {
+            "id": 489,
+            "name": "Interdimensional Travel",
+            "slug": "interdimensional-travel"
+          },
+          {
+            "id": 504,
+            "name": "Lack of Common Sense",
+            "slug": "lack-of-common-sense"
+          },
+          {
+            "id": 524,
+            "name": "Love Interest Falls in Love First",
+            "slug": "love-interest-falls-in-love-first"
+          },
+          {
+            "id": 562,
+            "name": "Mismatched Couple",
+            "slug": "mismatched-couple"
+          },
+          {
+            "id": 1268,
+            "name": "Modern Fantasy",
+            "slug": "modern-fantasy"
+          },
+          {
+            "id": 662,
+            "name": "Popular Love Interests",
+            "slug": "popular-love-interests"
+          },
+          {
+            "id": 672,
+            "name": "Previous Life Talent",
+            "slug": "previous-life-talent"
+          },
+          {
+            "id": 682,
+            "name": "Protagonist Strong from the Start",
+            "slug": "protagonist-strong-from-the-start"
+          },
+          {
+            "id": 713,
+            "name": "Romantic Subplot",
+            "slug": "romantic-subplot"
+          },
+          {
+            "id": 736,
+            "name": "Seeing Things Other Humans Can't",
+            "slug": "seeing-things-other-humans-cant"
+          },
+          {
+            "id": 787,
+            "name": "Spear Wielder",
+            "slug": "spear-wielder"
+          },
+          {
+            "id": 803,
+            "name": "Strong to Stronger",
+            "slug": "strong-to-stronger"
+          },
+          {
+            "id": 842,
+            "name": "Transported into Another World",
+            "slug": "transported-into-another-world"
+          }
+        ],
+        "ratingAverage": 4.9,
+        "ratingCount": 10,
+        "readCount": 13452,
+        "readersCount": 98,
+        "favoritesCount": 869,
+        "chapterCount": 63,
+        "wordCount": 122799,
+        "lastUpdated": "2026-08-04T11:00:01+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2483536,
+        "title": "Chapter 63 - Unwinding after the duels",
+        "number": 63,
+        "publishedAt": "2026-08-04T11:00:01+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 1116193,
+        "title": "Trapped in Another World With No Magic",
+        "slug": "1116193-trapped-in-another-world-with-no-magic",
+        "author": {
+          "id": 164984,
+          "displayName": "Silas_Kriegsende",
+          "username": "Silas_Kriegsende",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/41/ava_164984_1717607073.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/55/trapped-in-another-world-with-no-magic_1116193_1752551653.jpg",
+        "description": "Daniel is just a regular blue collar Maintenance Mechanic working for a manufacturing company. As he's winding down at home from a day of messy work repairing a CNC mill, he is surprised by a sudden glow of light beneath him. And, in an instant, his world changes. Literally.\n\nDaniel finds himself now in the world of Zenkon, a world of fantasy beings and monsters, swords and magic, and perilous threats to the safety of the world. As if stepping into a fantasy light novel or video game, he has been apparently summoned by a sacred magic spell that requests a hero from the gods, and in reply, they sent Daniel and a young Japanese man named Rikuto. \n\nHowever, Daniel's luck doesn't seem to be good, as it's quickly discovered that, contrary to the nature of living things in the world of Zenkon, Daniel is the only one that possesses no magic or mana, making him immune to many types of magic, both beneficial and detrimental, but not protecting him from direct harm.\n\nAs such, Daniel will now have to find his way through this world using his own repair and manufacturing know-how, while Rikuto uses his own modern civics and economics knowledge to try to recover the Kingdom of Mornistae in the midst of a large scale global war.\n\nWhy were they summoned, and by what wisdom did the gods choose to send 'Divine Heroes'; one with magic and the other without, to a world of which the foundation is magic?",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 9,
+            "name": "Action",
+            "slug": "action"
+          },
+          {
+            "id": 8,
+            "name": "Adventure",
+            "slug": "adventure"
+          },
+          {
+            "id": 19,
+            "name": "Fantasy",
+            "slug": "fantasy"
+          },
+          {
+            "id": 1015,
+            "name": "Harem",
+            "slug": "harem"
+          },
+          {
+            "id": 37,
+            "name": "Isekai",
+            "slug": "isekai"
+          },
+          {
+            "id": 5,
+            "name": "Supernatural",
+            "slug": "supernatural"
+          }
+        ],
+        "mainGenre": {
+          "id": 8,
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        "tags": [
+          {
+            "id": 157,
+            "name": "Animal Characteristics",
+            "slug": "animal-characteristics"
+          },
+          {
+            "id": 159,
+            "name": "Anti-Magic",
+            "slug": "anti-magic"
+          },
+          {
+            "id": 197,
+            "name": "Beastkin",
+            "slug": "beastkin"
+          },
+          {
+            "id": 312,
+            "name": "Demons",
+            "slug": "demons"
+          },
+          {
+            "id": 337,
+            "name": "Dragons",
+            "slug": "dragons"
+          },
+          {
+            "id": 353,
+            "name": "Elemental Magic",
+            "slug": "elemental-magic"
+          },
+          {
+            "id": 399,
+            "name": "Firearms",
+            "slug": "firearms"
+          },
+          {
+            "id": 531,
+            "name": "Magic",
+            "slug": "magic"
+          },
+          {
+            "id": 532,
+            "name": "Magic Beasts",
+            "slug": "magic-beasts"
+          },
+          {
+            "id": 536,
+            "name": "Magical Technology",
+            "slug": "magical-technology"
+          },
+          {
+            "id": 573,
+            "name": "Monsters",
+            "slug": "monsters"
+          },
+          {
+            "id": 593,
+            "name": "Mythical Beasts",
+            "slug": "mythical-beasts"
+          },
+          {
+            "id": 812,
+            "name": "Summoned Hero",
+            "slug": "summoned-hero"
+          },
+          {
+            "id": 814,
+            "name": "Survival",
+            "slug": "survival"
+          },
+          {
+            "id": 821,
+            "name": "Technological Gap",
+            "slug": "technological-gap"
+          }
+        ],
+        "ratingAverage": 4.1,
+        "ratingCount": 39,
+        "readCount": 173462,
+        "readersCount": 769,
+        "favoritesCount": 4557,
+        "chapterCount": 314,
+        "wordCount": 1711997,
+        "lastUpdated": "2026-08-04T11:00:01+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2470374,
+        "title": "Chapter 285: Piernikowa’s Return to Her New Home",
+        "number": 314,
+        "publishedAt": "2026-08-04T11:00:01+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 221239,
+        "title": "Returning Transcendent Opens an Idol Agency",
+        "slug": "221239-returning-transcendent-opens-an-idol-agency",
+        "author": {
+          "id": 497,
+          "displayName": "HappyVainGlory",
+          "username": "HappyVainGlory",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/0/ava_497_1778334247.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/11/returning-transcendent-opens-an-idol-agency_221239_1746725534.jpg",
+        "description": "The Devilish Genius of Time and Effort. That Cheating Bastard. Idiot Savant. A man known by countless names in the Three Realms, one who collected every treasure, every ancient art, whose Dao of 'Accumulation' made him the richest and most hated person even amongst the Eternal Emperors.\n\nThe strongest Transcendent, the one envied by all beneath the heavens. After breaking past the bounds of existence, he-\n\n\"I'm heading home.\"\n\n\"W-Wait! Master!\"\n\n-Promptly packed his bags and returned to Earth.\n\nA story about a laidback overpowered guy who underestimated how hard it is to be abnormal in a normal world and gets swept up into the flow too quickly... And also ended up opening an idol agency.\n\nThus begins the tale of John Smith and his daily adventures back on Earth.\n\nCurrent cover art by: @Crymsie (Twitter/X)\n\n===\n\nPartially on Webnovel and Tapas in just a text version. Soon to be on Royal Road.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 914,
+            "name": "Slice of Life",
+            "slug": "slice-of-life"
+          }
+        ],
+        "mainGenre": {
+          "id": 914,
+          "name": "Slice of Life",
+          "slug": "slice-of-life"
+        },
+        "tags": [
+          {
+            "id": 228,
+            "name": "Business Management",
+            "slug": "business-management"
+          },
+          {
+            "id": 319,
+            "name": "Devoted Love Interests",
+            "slug": "devoted-love-interests"
+          },
+          {
+            "id": 454,
+            "name": "Heartwarming",
+            "slug": "heartwarming"
+          },
+          {
+            "id": 463,
+            "name": "Hiding True Abilities",
+            "slug": "hiding-true-abilities"
+          },
+          {
+            "id": 464,
+            "name": "Hiding True Identity",
+            "slug": "hiding-true-identity"
+          },
+          {
+            "id": 489,
+            "name": "Interdimensional Travel",
+            "slug": "interdimensional-travel"
+          },
+          {
+            "id": 528,
+            "name": "Low-key Protagonist",
+            "slug": "low-key-protagonist"
+          },
+          {
+            "id": 567,
+            "name": "Modern Day",
+            "slug": "modern-day"
+          },
+          {
+            "id": 1536,
+            "name": "Modern Time",
+            "slug": "modern-time"
+          },
+          {
+            "id": 585,
+            "name": "Music",
+            "slug": "music"
+          },
+          {
+            "id": 627,
+            "name": "Overpowered Protagonist",
+            "slug": "overpowered-protagonist"
+          },
+          {
+            "id": 635,
+            "name": "Part-Time Job",
+            "slug": "part-time-job"
+          },
+          {
+            "id": 706,
+            "name": "Returning from Another World",
+            "slug": "returning-from-another-world"
+          },
+          {
+            "id": 769,
+            "name": "Singers",
+            "slug": "singers"
+          },
+          {
+            "id": 872,
+            "name": "Wealthy Characters",
+            "slug": "wealthy-characters"
+          }
+        ],
+        "ratingAverage": 4.7,
+        "ratingCount": 420,
+        "readCount": 2611122,
+        "readersCount": 3821,
+        "favoritesCount": 59324,
+        "chapterCount": 560,
+        "wordCount": 1033573,
+        "lastUpdated": "2026-08-04T11:00:01+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2481482,
+        "title": "538 – [DEBUT] They took everything from me… so I took it back. #ProjectMirAIs_Protest – II",
+        "number": 562,
+        "publishedAt": "2026-08-04T11:00:01+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2382178,
+        "title": "The Noble System: Rise of House Marci",
+        "slug": "2382178-the-noble-system-rise-of-house-marci",
+        "author": {
+          "id": 266316,
+          "displayName": "JohnMus",
+          "username": "JohnMus",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/66/ava_266316_1780927854.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/119/the-noble-system-rise-of-house-marci_2382178_1780918638.jpg",
+        "description": "After dying because of corporate negligence, Ryan awakens as Ian von der Marci, the disgraced heir of one of the Four Great Noble Houses in a modern empire ruled by nobles, corporations, and political power. Armed with the Noble System and knowledge from his previous life, he must rebuild House Marci, outmaneuver rival houses, dominate future industries, and rise to the top of the empire.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 8,
+            "name": "Adventure",
+            "slug": "adventure"
+          },
+          {
+            "id": 903,
+            "name": "Drama",
+            "slug": "drama"
+          },
+          {
+            "id": 19,
+            "name": "Fantasy",
+            "slug": "fantasy"
+          },
+          {
+            "id": 37,
+            "name": "Isekai",
+            "slug": "isekai"
+          },
+          {
+            "id": 1180,
+            "name": "LitRPG",
+            "slug": "litrpg"
+          },
+          {
+            "id": 6,
+            "name": "Romance",
+            "slug": "romance"
+          },
+          {
+            "id": 911,
+            "name": "School Life",
+            "slug": "school-life"
+          },
+          {
+            "id": 912,
+            "name": "Sci-fi",
+            "slug": "sci-fi"
+          },
+          {
+            "id": 913,
+            "name": "Seinen",
+            "slug": "seinen"
+          }
+        ],
+        "mainGenre": {
+          "id": 37,
+          "name": "Isekai",
+          "slug": "isekai"
+        },
+        "tags": [
+          {
+            "id": 123,
+            "name": "Academy",
+            "slug": "academy"
+          },
+          {
+            "id": 228,
+            "name": "Business Management",
+            "slug": "business-management"
+          },
+          {
+            "id": 500,
+            "name": "Kingdom Building",
+            "slug": "kingdom-building"
+          },
+          {
+            "id": 567,
+            "name": "Modern Day",
+            "slug": "modern-day"
+          },
+          {
+            "id": 1268,
+            "name": "Modern Fantasy",
+            "slug": "modern-fantasy"
+          },
+          {
+            "id": 606,
+            "name": "Nobles",
+            "slug": "nobles"
+          },
+          {
+            "id": 780,
+            "name": "Slow Romance",
+            "slug": "slow-romance"
+          },
+          {
+            "id": 803,
+            "name": "Strong to Stronger",
+            "slug": "strong-to-stronger"
+          },
+          {
+            "id": 818,
+            "name": "System Administrator",
+            "slug": "system-administrator"
+          }
+        ],
+        "ratingAverage": 3.7,
+        "ratingCount": 3,
+        "readCount": 3095,
+        "readersCount": 31,
+        "favoritesCount": 60,
+        "chapterCount": 82,
+        "wordCount": 60886,
+        "lastUpdated": "2026-08-04T10:37:00+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2478293,
+        "title": "Chapter 82: Evelyn’s Warning",
+        "number": 82,
+        "publishedAt": "2026-08-04T10:37:00+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2474076,
+        "title": "Where Time Breaks",
+        "slug": "2474076-where-time-breaks",
+        "author": {
+          "id": 274996,
+          "displayName": "Rumiro",
+          "username": "Rumiro",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/68/ava_274996_1785379230.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/123/Where-Time-Breaks_2474076_1785381632.jpg",
+        "description": "He has died more times than anyone knows.\nEach time, the world resets—yet he alone remembers everything.\n\nNo one else recalls the broken timelines. No one else carries the weight of what has been lost.\n\nYuma continues to return, bound to a promise he never chose, saving a world that never remembers his sacrifice.\n\nBut when the cycle begins to fracture, the rules that kept everything intact start to collapse.\nAnd for the first time, he may no longer be able to face it alone.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 9,
+            "name": "Action",
+            "slug": "action"
+          },
+          {
+            "id": 8,
+            "name": "Adventure",
+            "slug": "adventure"
+          },
+          {
+            "id": 19,
+            "name": "Fantasy",
+            "slug": "fantasy"
+          },
+          {
+            "id": 909,
+            "name": "Mystery",
+            "slug": "mystery"
+          },
+          {
+            "id": 910,
+            "name": "Psychological",
+            "slug": "psychological"
+          },
+          {
+            "id": 911,
+            "name": "School Life",
+            "slug": "school-life"
+          },
+          {
+            "id": 901,
+            "name": "Tragedy",
+            "slug": "tragedy"
+          }
+        ],
+        "mainGenre": {
+          "id": 19,
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        "tags": [
+          {
+            "id": 123,
+            "name": "Academy",
+            "slug": "academy"
+          },
+          {
+            "id": 238,
+            "name": "Character Growth",
+            "slug": "character-growth"
+          },
+          {
+            "id": 501,
+            "name": "Kingdoms",
+            "slug": "kingdoms"
+          },
+          {
+            "id": 538,
+            "name": "Male Protagonist",
+            "slug": "male-protagonist"
+          },
+          {
+            "id": 558,
+            "name": "Military",
+            "slug": "military"
+          },
+          {
+            "id": 591,
+            "name": "Mysterious Past",
+            "slug": "mysterious-past"
+          },
+          {
+            "id": 606,
+            "name": "Nobles",
+            "slug": "nobles"
+          },
+          {
+            "id": 729,
+            "name": "Secret Identity",
+            "slug": "secret-identity"
+          },
+          {
+            "id": 784,
+            "name": "Soul Power",
+            "slug": "soul-power"
+          },
+          {
+            "id": 800,
+            "name": "Strategist",
+            "slug": "strategist"
+          },
+          {
+            "id": 828,
+            "name": "Time Loop",
+            "slug": "time-loop"
+          }
+        ],
+        "ratingAverage": 0,
+        "ratingCount": 0,
+        "readCount": 51,
+        "readersCount": 1,
+        "favoritesCount": 0,
+        "chapterCount": 18,
+        "wordCount": 23234,
+        "lastUpdated": "2026-08-04T10:35:33+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2474289,
+        "title": "Chapter 16 — The Smile That Didn’t Feel Right",
+        "number": 18,
+        "publishedAt": "2026-08-04T10:35:33+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2457634,
+        "title": "Small Worlds",
+        "slug": "2457634-small-worlds",
+        "author": {
+          "id": 273324,
+          "displayName": "HarukaWrites",
+          "username": "HarukaWrites",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/68/ava_273324_1784632729.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/122/small-worlds_2457634_1784739269.jpg",
+        "description": "Small Worlds is a slice-of-life novel about two women living ordinary lives on opposite sides of the world.\n\nLena has built a quiet life in the Netherlands, balancing a career in the music industry with a love for composing. In Japan, Aiko divides her time between freelance illustration and evenings spent sharing her art through livestreams.\n\nWhen Lena stumbles across one of Aiko's broadcasts, what begins as simple background noise becomes an unexpected window into another way of living. As one small curiosity leads to another, the distance between their separate worlds begins to shrink.\n\nTold through everyday moments, creative pursuits, and the passing of the seasons, Small Worlds is a gentle story about how ordinary lives can become extraordinary simply by making room for someone else.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 892,
+            "name": "Girls Love",
+            "slug": "girls-love"
+          },
+          {
+            "id": 6,
+            "name": "Romance",
+            "slug": "romance"
+          },
+          {
+            "id": 914,
+            "name": "Slice of Life",
+            "slug": "slice-of-life"
+          }
+        ],
+        "mainGenre": {
+          "id": 892,
+          "name": "Girls Love",
+          "slug": "girls-love"
+        },
+        "tags": [
+          {
+            "id": 238,
+            "name": "Character Growth",
+            "slug": "character-growth"
+          },
+          {
+            "id": 241,
+            "name": "Chat Rooms",
+            "slug": "chat-rooms"
+          },
+          {
+            "id": 266,
+            "name": "Comedic Undertone",
+            "slug": "comedic-undertone"
+          },
+          {
+            "id": 279,
+            "name": "Couple Growth",
+            "slug": "couple-growth"
+          },
+          {
+            "id": 400,
+            "name": "First Love",
+            "slug": "first-love"
+          },
+          {
+            "id": 412,
+            "name": "Friendship",
+            "slug": "friendship"
+          },
+          {
+            "id": 454,
+            "name": "Heartwarming",
+            "slug": "heartwarming"
+          },
+          {
+            "id": 505,
+            "name": "Language Barrier",
+            "slug": "language-barrier"
+          },
+          {
+            "id": 515,
+            "name": "Living Alone",
+            "slug": "living-alone"
+          },
+          {
+            "id": 520,
+            "name": "Long-distance Relationship",
+            "slug": "long-distance-relationship"
+          },
+          {
+            "id": 567,
+            "name": "Modern Day",
+            "slug": "modern-day"
+          },
+          {
+            "id": 616,
+            "name": "Online Romance",
+            "slug": "online-romance"
+          },
+          {
+            "id": 780,
+            "name": "Slow Romance",
+            "slug": "slow-romance"
+          }
+        ],
+        "ratingAverage": 0,
+        "ratingCount": 0,
+        "readCount": 441,
+        "readersCount": 3,
+        "favoritesCount": 0,
+        "chapterCount": 6,
+        "wordCount": 3925,
+        "lastUpdated": "2026-08-04T10:07:45+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2465745,
+        "title": "Chapter 6: “Lost in Translation”",
+        "number": 6,
+        "publishedAt": "2026-08-04T10:07:45+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2434115,
+        "title": "ZWORD : Echoes Of Ash",
+        "slug": "2434115-zword--echoes-of-ash",
+        "author": {
+          "id": 271027,
+          "displayName": "SNM",
+          "username": "SNM",
+          "avatarUrl": "https://cdn.scribblehub.com/default/avatarnew.png"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/121/ZWORD--Echoes-Of-Ash_2434115_1783426962.jpg",
+        "description": "The Zwords were said to have vanished long ago.\nHistory claims they were defeated.\nHistory lies.\nRayan lives as the descendant of a forgotten people forced to hide their identity beneath the rule of the Zenith Empire. Without Power, without status, and with no reason to believe the legends of his ancestors, his only goal is survival.\nBut when he witnesses the execution of a man for claiming to be a Zword, Rayan discovers that the Empire still fears a race the world believes is extinct.\nSome truths were buried.\nSome swords were never broken.\nAnd some echoes refuse to fade.\nZword: Echoes of Ash is a dark progression fantasy filled with ancient swordsmanship, hidden bloodlines, political intrigue, kingdom-building, powerful enemies, and a slow-burn journey from an ordinary boy to the last hope of a forgotten civilization.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 9,
+            "name": "Action",
+            "slug": "action"
+          },
+          {
+            "id": 8,
+            "name": "Adventure",
+            "slug": "adventure"
+          },
+          {
+            "id": 19,
+            "name": "Fantasy",
+            "slug": "fantasy"
+          },
+          {
+            "id": 21,
+            "name": "Historical",
+            "slug": "historical"
+          },
+          {
+            "id": 909,
+            "name": "Mystery",
+            "slug": "mystery"
+          },
+          {
+            "id": 901,
+            "name": "Tragedy",
+            "slug": "tragedy"
+          }
+        ],
+        "mainGenre": {
+          "id": 9,
+          "name": "Action",
+          "slug": "action"
+        },
+        "tags": [
+          {
+            "id": 123,
+            "name": "Academy",
+            "slug": "academy"
+          },
+          {
+            "id": 140,
+            "name": "Adventurers",
+            "slug": "adventurers"
+          },
+          {
+            "id": 213,
+            "name": "Bloodlines",
+            "slug": "bloodlines"
+          },
+          {
+            "id": 343,
+            "name": "Dwarfs",
+            "slug": "dwarfs"
+          },
+          {
+            "id": 354,
+            "name": "Elves",
+            "slug": "elves"
+          },
+          {
+            "id": 464,
+            "name": "Hiding True Identity",
+            "slug": "hiding-true-identity"
+          },
+          {
+            "id": 606,
+            "name": "Nobles",
+            "slug": "nobles"
+          },
+          {
+            "id": 814,
+            "name": "Survival",
+            "slug": "survival"
+          },
+          {
+            "id": 869,
+            "name": "Wars",
+            "slug": "wars"
+          }
+        ],
+        "ratingAverage": 0,
+        "ratingCount": 0,
+        "readCount": 539,
+        "readersCount": 2,
+        "favoritesCount": 0,
+        "chapterCount": 27,
+        "wordCount": 79604,
+        "lastUpdated": "2026-08-04T10:00:01+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2482184,
+        "title": "The Training He Never Had",
+        "number": 27,
+        "publishedAt": "2026-08-04T10:00:01+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2451978,
+        "title": "Leochrupidis: Minus One",
+        "slug": "2451978-leochrupidis-minus-one",
+        "author": {
+          "id": 198558,
+          "displayName": "Freueae",
+          "username": "Freueae",
+          "avatarUrl": "https://cdn.scribblehub.com/default/avatarnew.png"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/122/Leochrupidis-Minus-One_2451978_1784292874.jpg",
+        "description": "There were barriers—barriers that extended upward endlessly. What lay beyond these barriers remained unbeknown to humanity. Yet, from beyond them emerged unimaginable entities known as Partians. They were eerie, aberrant creatures—often anthropomorphic, but imbued with unnatural strength. An amalgam of both human and animal genes, they far transcended the frontiers of human capability. \nSeemingly, they were deemed to be humanity's gravest enemy. Within the barriers, that was.\n\nThat day—after the invasion—everything changed. Sent away from danger, Kisatsu woke up in an unfamiliar room three days after the invasion had taken everything from him. A nation away from home, facing all odds, he swore to retrieve his older brother—everything he had left.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 9,
+            "name": "Action",
+            "slug": "action"
+          },
+          {
+            "id": 19,
+            "name": "Fantasy",
+            "slug": "fantasy"
+          },
+          {
+            "id": 22,
+            "name": "Horror",
+            "slug": "horror"
+          },
+          {
+            "id": 909,
+            "name": "Mystery",
+            "slug": "mystery"
+          },
+          {
+            "id": 5,
+            "name": "Supernatural",
+            "slug": "supernatural"
+          },
+          {
+            "id": 901,
+            "name": "Tragedy",
+            "slug": "tragedy"
+          }
+        ],
+        "mainGenre": {
+          "id": 19,
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        "tags": [
+          {
+            "id": 123,
+            "name": "Academy",
+            "slug": "academy"
+          },
+          {
+            "id": 138,
+            "name": "Adopted Protagonist",
+            "slug": "adopted-protagonist"
+          },
+          {
+            "id": 161,
+            "name": "Antihero Protagonist",
+            "slug": "antihero-protagonist"
+          },
+          {
+            "id": 169,
+            "name": "Aristocracy",
+            "slug": "aristocracy"
+          },
+          {
+            "id": 174,
+            "name": "Arrogant Characters",
+            "slug": "arrogant-characters"
+          },
+          {
+            "id": 196,
+            "name": "Beast Companions",
+            "slug": "beast-companions"
+          },
+          {
+            "id": 197,
+            "name": "Beastkin",
+            "slug": "beastkin"
+          },
+          {
+            "id": 198,
+            "name": "Beasts",
+            "slug": "beasts"
+          },
+          {
+            "id": 202,
+            "name": "Betrayal",
+            "slug": "betrayal"
+          },
+          {
+            "id": 221,
+            "name": "Brainwashing",
+            "slug": "brainwashing"
+          },
+          {
+            "id": 225,
+            "name": "Brotherhood",
+            "slug": "brotherhood"
+          },
+          {
+            "id": 236,
+            "name": "Cautious Protagonist",
+            "slug": "cautious-protagonist"
+          },
+          {
+            "id": 238,
+            "name": "Character Growth",
+            "slug": "character-growth"
+          },
+          {
+            "id": 276,
+            "name": "Corruption",
+            "slug": "corruption"
+          },
+          {
+            "id": 288,
+            "name": "Cruel Characters",
+            "slug": "cruel-characters"
+          },
+          {
+            "id": 302,
+            "name": "Dark",
+            "slug": "dark"
+          },
+          {
+            "id": 305,
+            "name": "Death of Loved Ones",
+            "slug": "death-of-loved-ones"
+          },
+          {
+            "id": 314,
+            "name": "Depictions of Cruelty",
+            "slug": "depictions-of-cruelty"
+          },
+          {
+            "id": 337,
+            "name": "Dragons",
+            "slug": "dragons"
+          },
+          {
+            "id": 366,
+            "name": "Evil Organizations",
+            "slug": "evil-organizations"
+          },
+          {
+            "id": 385,
+            "name": "Fantasy Creatures",
+            "slug": "fantasy-creatures"
+          },
+          {
+            "id": 386,
+            "name": "Fantasy World",
+            "slug": "fantasy-world"
+          },
+          {
+            "id": 439,
+            "name": "Gore",
+            "slug": "gore"
+          },
+          {
+            "id": 501,
+            "name": "Kingdoms",
+            "slug": "kingdoms"
+          },
+          {
+            "id": 502,
+            "name": "Knights",
+            "slug": "knights"
+          }
+        ],
+        "ratingAverage": 0,
+        "ratingCount": 0,
+        "readCount": 126,
+        "readersCount": 1,
+        "favoritesCount": 0,
+        "chapterCount": 21,
+        "wordCount": 41969,
+        "lastUpdated": "2026-08-04T10:00:00+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2478073,
+        "title": "Chapter 20: Choice and Weakness",
+        "number": 21,
+        "publishedAt": "2026-08-04T10:00:00+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2154135,
+        "title": "Where It All Began",
+        "slug": "2154135-where-it-all-began",
+        "author": {
+          "id": 246980,
+          "displayName": "Evelynofficial",
+          "username": "Evelynofficial",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/61/ava_246980_1781176234.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/107/Where-It-All-Began_2154135_1769846112.jpg",
+        "description": "Family isn't always where you are born - sometimes, it's where someone refuses to let you feel alone.\n    \n  Nathan Lang was two years old when the world ended.\n \n  It began again the day he was given a home - loud, chaotic, overwhelming... and full of a love he didn't know how to accept.\n\n   A sunshine boy who would become his promise.\n\n   A fire that would never leave his side.\n\n   A family that chose each other, again and again.\n\n   Family is not blood.\n\n   Love is not simple.\n\n   And forever is something you fight for.\n\n   Because some stories start with destiny...\nAnd some start with a hand reaching out and saying,\n\"Then be someone with me.\"\n\n   When Forever Began is an emotional, chaotic, cinematic family saga\nabout love, loyalty, found family, and the secrets that bind them.\n\n   And This is Volume 01-- Where It All Began.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 891,
+            "name": "Boys Love",
+            "slug": "boys-love"
+          },
+          {
+            "id": 7,
+            "name": "Comedy",
+            "slug": "comedy"
+          },
+          {
+            "id": 903,
+            "name": "Drama",
+            "slug": "drama"
+          },
+          {
+            "id": 6,
+            "name": "Romance",
+            "slug": "romance"
+          },
+          {
+            "id": 911,
+            "name": "School Life",
+            "slug": "school-life"
+          },
+          {
+            "id": 914,
+            "name": "Slice of Life",
+            "slug": "slice-of-life"
+          },
+          {
+            "id": 901,
+            "name": "Tragedy",
+            "slug": "tragedy"
+          }
+        ],
+        "mainGenre": {
+          "id": 903,
+          "name": "Drama",
+          "slug": "drama"
+        },
+        "tags": [
+          {
+            "id": 137,
+            "name": "Adopted Children",
+            "slug": "adopted-children"
+          },
+          {
+            "id": 138,
+            "name": "Adopted Protagonist",
+            "slug": "adopted-protagonist"
+          },
+          {
+            "id": 173,
+            "name": "Arranged Marriage",
+            "slug": "arranged-marriage"
+          },
+          {
+            "id": 225,
+            "name": "Brotherhood",
+            "slug": "brotherhood"
+          },
+          {
+            "id": 231,
+            "name": "Calm Protagonist",
+            "slug": "calm-protagonist"
+          },
+          {
+            "id": 247,
+            "name": "Childhood Friends",
+            "slug": "childhood-friends"
+          },
+          {
+            "id": 248,
+            "name": "Childhood Love",
+            "slug": "childhood-love"
+          },
+          {
+            "id": 249,
+            "name": "Childhood Promise",
+            "slug": "childhood-promise"
+          },
+          {
+            "id": 255,
+            "name": "Clingy Lover",
+            "slug": "clingy-lover"
+          },
+          {
+            "id": 267,
+            "name": "Coming of Age",
+            "slug": "coming-of-age"
+          },
+          {
+            "id": 268,
+            "name": "Complex Family Relationships",
+            "slug": "complex-family-relationships"
+          },
+          {
+            "id": 281,
+            "name": "Cousins",
+            "slug": "cousins"
+          },
+          {
+            "id": 359,
+            "name": "Engagement",
+            "slug": "engagement"
+          },
+          {
+            "id": 378,
+            "name": "Family",
+            "slug": "family"
+          },
+          {
+            "id": 407,
+            "name": "Forced Marriage",
+            "slug": "forced-marriage"
+          },
+          {
+            "id": 412,
+            "name": "Friendship",
+            "slug": "friendship"
+          },
+          {
+            "id": 519,
+            "name": "Long Separations",
+            "slug": "long-separations"
+          },
+          {
+            "id": 520,
+            "name": "Long-distance Relationship",
+            "slug": "long-distance-relationship"
+          },
+          {
+            "id": 526,
+            "name": "Love Triangles",
+            "slug": "love-triangles"
+          },
+          {
+            "id": 544,
+            "name": "Manly Gay Couple",
+            "slug": "manly-gay-couple"
+          },
+          {
+            "id": 567,
+            "name": "Modern Day",
+            "slug": "modern-day"
+          },
+          {
+            "id": 780,
+            "name": "Slow Romance",
+            "slug": "slow-romance"
+          },
+          {
+            "id": 837,
+            "name": "Tragic Past",
+            "slug": "tragic-past"
+          },
+          {
+            "id": 852,
+            "name": "Unconditional Love",
+            "slug": "unconditional-love"
+          },
+          {
+            "id": 883,
+            "name": "Younger Brothers",
+            "slug": "younger-brothers"
+          }
+        ],
+        "ratingAverage": 5,
+        "ratingCount": 1,
+        "readCount": 819,
+        "readersCount": 2,
+        "favoritesCount": 0,
+        "chapterCount": 49,
+        "wordCount": 106252,
+        "lastUpdated": "2026-08-04T09:56:17+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2484049,
+        "title": "Chapter 48: The Frozen Heart",
+        "number": 49,
+        "publishedAt": "2026-08-04T09:56:17+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2308868,
+        "title": "The Devil’s Reign:The first law of void",
+        "slug": "the-devils-reignthe-first-law-of-void",
+        "author": {
+          "id": 259681,
+          "displayName": "Leonsparda",
+          "username": "Leonsparda",
+          "avatarUrl": "https://cdn.scribblehub.com/default/avatarnew.png"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/115/The-Devils-ReignThe-first-law-of-void_2308868_1777276968.jpg",
+        "description": "Cast out of Heaven and stripped of his name, the former archdevil now walks the mortal world as a shadow of what he once was.\n\nBetrayed by the very beings he once ruled beside, he has only one goal-to reclaim his throne, no matter the cost.\n\nBut the world he returns to is no longer the same. New powers have risen. Old enemies are waiting.\n\nAnd the greatest threat might not be Heaven... but what he is slowly becoming.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 9,
+            "name": "Action",
+            "slug": "action"
+          },
+          {
+            "id": 8,
+            "name": "Adventure",
+            "slug": "adventure"
+          },
+          {
+            "id": 7,
+            "name": "Comedy",
+            "slug": "comedy"
+          },
+          {
+            "id": 903,
+            "name": "Drama",
+            "slug": "drama"
+          },
+          {
+            "id": 19,
+            "name": "Fantasy",
+            "slug": "fantasy"
+          },
+          {
+            "id": 1015,
+            "name": "Harem",
+            "slug": "harem"
+          },
+          {
+            "id": 37,
+            "name": "Isekai",
+            "slug": "isekai"
+          },
+          {
+            "id": 907,
+            "name": "Martial Arts",
+            "slug": "martial-arts"
+          },
+          {
+            "id": 5,
+            "name": "Supernatural",
+            "slug": "supernatural"
+          }
+        ],
+        "mainGenre": {
+          "id": 9,
+          "name": "Action",
+          "slug": "action"
+        },
+        "tags": [
+          {
+            "id": 124,
+            "name": "Accelerated Growth",
+            "slug": "accelerated-growth"
+          },
+          {
+            "id": 156,
+            "name": "Angels",
+            "slug": "angels"
+          },
+          {
+            "id": 161,
+            "name": "Antihero Protagonist",
+            "slug": "antihero-protagonist"
+          },
+          {
+            "id": 277,
+            "name": "Cosmic Wars",
+            "slug": "cosmic-wars"
+          },
+          {
+            "id": 302,
+            "name": "Dark",
+            "slug": "dark"
+          },
+          {
+            "id": 312,
+            "name": "Demons",
+            "slug": "demons"
+          },
+          {
+            "id": 386,
+            "name": "Fantasy World",
+            "slug": "fantasy-world"
+          },
+          {
+            "id": 531,
+            "name": "Magic",
+            "slug": "magic"
+          },
+          {
+            "id": 594,
+            "name": "Mythology",
+            "slug": "mythology"
+          },
+          {
+            "id": 774,
+            "name": "Skill Creation",
+            "slug": "skill-creation"
+          }
+        ],
+        "ratingAverage": 4,
+        "ratingCount": 2,
+        "readCount": 3255,
+        "readersCount": 27,
+        "favoritesCount": 123,
+        "chapterCount": 108,
+        "wordCount": 94679,
+        "lastUpdated": "2026-08-04T09:46:04+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2484034,
+        "title": "Chapter 108:A Promise is A Promise",
+        "number": 108,
+        "publishedAt": "2026-08-04T09:46:04+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2460472,
+        "title": "Wanderer: the magician",
+        "slug": "2460472-wanderer-the-magician",
+        "author": {
+          "id": 273644,
+          "displayName": "Danger_Danger123",
+          "username": "Danger_Danger123",
+          "avatarUrl": "https://cdn.scribblehub.com/default/avatarnew.png"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/123/Wanderer-the-magician_2460472_1784719277.jpg",
+        "description": "Basim, a daydreaming young man from the peaceful village of Golden Valley, discovers he possesses a rare supernatural ability called Insight after a series of chaotic events thrusts him into a hidden world of wielders, magical organizations, and deadly conspiracies. When his mother mysteriously vanishes and he is recruited by the enigmatic Sam to join the Falcons, Basim must navigate treacherous cities, survive assassination attempts, and unravel the truth about his own powers—all while hilariously fumbling through romantic encounters, accidentally being mistaken for a god, and trying desperately not to get killed by terrifying allies or enemies alike.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 9,
+            "name": "Action",
+            "slug": "action"
+          },
+          {
+            "id": 8,
+            "name": "Adventure",
+            "slug": "adventure"
+          },
+          {
+            "id": 7,
+            "name": "Comedy",
+            "slug": "comedy"
+          },
+          {
+            "id": 21,
+            "name": "Historical",
+            "slug": "historical"
+          },
+          {
+            "id": 909,
+            "name": "Mystery",
+            "slug": "mystery"
+          },
+          {
+            "id": 5,
+            "name": "Supernatural",
+            "slug": "supernatural"
+          }
+        ],
+        "mainGenre": {
+          "id": 9,
+          "name": "Action",
+          "slug": "action"
+        },
+        "tags": [
+          {
+            "id": 183,
+            "name": "Average-looking Protagonist",
+            "slug": "average-looking-protagonist"
+          },
+          {
+            "id": 185,
+            "name": "Awkward Protagonist",
+            "slug": "awkward-protagonist"
+          },
+          {
+            "id": 238,
+            "name": "Character Growth",
+            "slug": "character-growth"
+          },
+          {
+            "id": 267,
+            "name": "Coming of Age",
+            "slug": "coming-of-age"
+          },
+          {
+            "id": 353,
+            "name": "Elemental Magic",
+            "slug": "elemental-magic"
+          },
+          {
+            "id": 354,
+            "name": "Elves",
+            "slug": "elves"
+          },
+          {
+            "id": 372,
+            "name": "Eye Powers",
+            "slug": "eye-powers"
+          },
+          {
+            "id": 462,
+            "name": "Hidden Abilities",
+            "slug": "hidden-abilities"
+          },
+          {
+            "id": 500,
+            "name": "Kingdom Building",
+            "slug": "kingdom-building"
+          },
+          {
+            "id": 511,
+            "name": "Level System",
+            "slug": "level-system"
+          },
+          {
+            "id": 531,
+            "name": "Magic",
+            "slug": "magic"
+          },
+          {
+            "id": 543,
+            "name": "Manipulative Characters",
+            "slug": "manipulative-characters"
+          },
+          {
+            "id": 606,
+            "name": "Nobles",
+            "slug": "nobles"
+          },
+          {
+            "id": 657,
+            "name": "Politics",
+            "slug": "politics"
+          },
+          {
+            "id": 730,
+            "name": "Secret Organizations",
+            "slug": "secret-organizations"
+          },
+          {
+            "id": 814,
+            "name": "Survival",
+            "slug": "survival"
+          },
+          {
+            "id": 871,
+            "name": "Weak to Strong",
+            "slug": "weak-to-strong"
+          },
+          {
+            "id": 878,
+            "name": "World Travel",
+            "slug": "world-travel"
+          },
+          {
+            "id": 879,
+            "name": "World Tree",
+            "slug": "world-tree"
+          }
+        ],
+        "ratingAverage": 0,
+        "ratingCount": 0,
+        "readCount": 106,
+        "readersCount": 2,
+        "favoritesCount": 3,
+        "chapterCount": 9,
+        "wordCount": 10915,
+        "lastUpdated": "2026-08-04T09:41:05+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2484025,
+        "title": "Chapter:9 Something's wrong",
+        "number": 9,
+        "publishedAt": "2026-08-04T09:41:05+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2387510,
+        "title": "A girl’s best friend.",
+        "slug": "2387510-a-girls-best-friend",
+        "author": {
+          "id": 163119,
+          "displayName": "okashihime",
+          "username": "okashihime",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/40/ava_163119_1716042305.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/119/A-girls-best-friend_2387510_1781179816.jpg",
+        "description": "Taylor at age eleven received a invitation letter to a magic school. A school her dead dad went to, where he learned about magic and stuff.\nTaylor knew magic was real. She had magic of her own to control all the bugs around her.\nA new school meant new friends, new opportunities, and of course she wasn't missing out on that.\n\nFull title: Giant murderous spiders are a girl's best friend.\nA HP x Worm crossover fanfiction.\n\n-------\n\nThis is a crackfic, inspired by other fanfictions I enjoyed, included but not limited to: Intercession, a wand for skitter, Hogwarts an escalation, Fyre, Fyre, Burning Skitter, among others. Any semblance is not coincidental.\n\nIt's been ages since I read the HP books and Worm story. My knowledge is probably tainted by fandom, which is fine. If you find something that is egregiously different from canon, feel free to drop a line and tell me about it. I won't promise to change things tho.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 8,
+            "name": "Adventure",
+            "slug": "adventure"
+          },
+          {
+            "id": 7,
+            "name": "Comedy",
+            "slug": "comedy"
+          },
+          {
+            "id": 38,
+            "name": "Fanfiction",
+            "slug": "fanfiction"
+          },
+          {
+            "id": 19,
+            "name": "Fantasy",
+            "slug": "fantasy"
+          },
+          {
+            "id": 911,
+            "name": "School Life",
+            "slug": "school-life"
+          },
+          {
+            "id": 914,
+            "name": "Slice of Life",
+            "slug": "slice-of-life"
+          }
+        ],
+        "mainGenre": {
+          "id": 38,
+          "name": "Fanfiction",
+          "slug": "fanfiction"
+        },
+        "tags": [
+          {
+            "id": 123,
+            "name": "Academy",
+            "slug": "academy"
+          },
+          {
+            "id": 219,
+            "name": "Bookworm",
+            "slug": "bookworm"
+          },
+          {
+            "id": 227,
+            "name": "Bullying",
+            "slug": "bullying"
+          },
+          {
+            "id": 376,
+            "name": "Familial Love",
+            "slug": "familial-love"
+          },
+          {
+            "id": 412,
+            "name": "Friendship",
+            "slug": "friendship"
+          },
+          {
+            "id": 531,
+            "name": "Magic",
+            "slug": "magic"
+          },
+          {
+            "id": 532,
+            "name": "Magic Beasts",
+            "slug": "magic-beasts"
+          },
+          {
+            "id": 692,
+            "name": "Racism",
+            "slug": "racism"
+          }
+        ],
+        "ratingAverage": 5,
+        "ratingCount": 8,
+        "readCount": 3803,
+        "readersCount": 75,
+        "favoritesCount": 185,
+        "chapterCount": 24,
+        "wordCount": 50548,
+        "lastUpdated": "2026-08-04T09:38:11+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2484014,
+        "title": "Chapter 24",
+        "number": 24,
+        "publishedAt": "2026-08-04T09:37:44+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2455290,
+        "title": "Naruto: Konoha’s Mob",
+        "slug": "2455290-naruto-konohas-mob",
+        "author": {
+          "id": 273138,
+          "displayName": "Dozi",
+          "username": "Dozi",
+          "avatarUrl": "https://cdn.scribblehub.com/default/avatarnew.png"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/122/Naruto-Konohas-Mob_2455290_1784460094.jpg",
+        "description": "Tomorrow, I’m heading to the battlefield. And the only skill I can actually show for myself—is the Body Flicker I’ve drilled over and over, just to run away?\nKonoha Year 36. Kazamatsuri Tōji was born into a third-rate family in the village. Forced into early graduation, he unwillingly became a shinobi…\nThis is the story of an ordinary Konoha shinobi—no Sharingan, no Byakugan, no system.\n————————————————————————————————————————————————\nWhat to expect:  Gradual strength progression. Meaningful growth. \"Slow\" paced.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 9,
+            "name": "Action",
+            "slug": "action"
+          },
+          {
+            "id": 8,
+            "name": "Adventure",
+            "slug": "adventure"
+          },
+          {
+            "id": 38,
+            "name": "Fanfiction",
+            "slug": "fanfiction"
+          }
+        ],
+        "mainGenre": {
+          "id": 9,
+          "name": "Action",
+          "slug": "action"
+        },
+        "tags": [
+          {
+            "id": 192,
+            "name": "Based on an Anime",
+            "slug": "based-on-an-anime"
+          },
+          {
+            "id": 231,
+            "name": "Calm Protagonist",
+            "slug": "calm-protagonist"
+          },
+          {
+            "id": 462,
+            "name": "Hidden Abilities",
+            "slug": "hidden-abilities"
+          }
+        ],
+        "ratingAverage": 4.8,
+        "ratingCount": 5,
+        "readCount": 2193,
+        "readersCount": 29,
+        "favoritesCount": 55,
+        "chapterCount": 62,
+        "wordCount": 40771,
+        "lastUpdated": "2026-08-04T09:19:27+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2483972,
+        "title": "CH_62",
+        "number": 62,
+        "publishedAt": "2026-08-04T09:19:21+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2446739,
+        "title": "The Seven Warring States-Blurb",
+        "slug": "2446739-the-seven-warring-statesblurb",
+        "author": {
+          "id": 271063,
+          "displayName": "GritMing",
+          "username": "GritMing",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/67/ava_271063_1784217428.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/122/The-Seven-Warring-States_2446739_1784031740.jpg",
+        "description": "The Warring States period: an age when the old order collapsed and seven kingdoms fought for survival. *Seven Kingdoms at War* retells two centuries of history across fourteen volumes — Su Qin's alliance of six against Qin, Zhang Yi's counter-strategy that unravels it, the fatal rivalry between Sun Bin and Pang Juan — each volume taut with the tension of swords half-drawn.\n\nThink of it as an Eastern *Game of Thrones*: shifting alliances, betrayal as strategy, no throne anyone can hold for long. But the parallel runs deeper than politics. This was also the age of Socrates and Plato — while Athens debated justice and the good life, China's own hundred schools of thought were asking the same questions a continent away. Each volume pairs its historical arc with a Western thinker as philosophical anchor — from Hobbes to Camus, Darwin to Herbert Simon — placing Eastern strategy in direct dialogue with Western thought.\n\nThis isn't history served as exotic spectacle. It's a mirror for problems every era faces: how to survive when trust is scarce, how to hold an alliance together when every partner has reason to betray it.\n\nWritten in parallel Chinese and English — not as translation, but as two traditions illuminating the same questions.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 903,
+            "name": "Drama",
+            "slug": "drama"
+          },
+          {
+            "id": 21,
+            "name": "Historical",
+            "slug": "historical"
+          },
+          {
+            "id": 910,
+            "name": "Psychological",
+            "slug": "psychological"
+          },
+          {
+            "id": 901,
+            "name": "Tragedy",
+            "slug": "tragedy"
+          }
+        ],
+        "mainGenre": {
+          "id": 21,
+          "name": "Historical",
+          "slug": "historical"
+        },
+        "tags": [
+          {
+            "id": 501,
+            "name": "Kingdoms",
+            "slug": "kingdoms"
+          },
+          {
+            "id": 557,
+            "name": "Merchants",
+            "slug": "merchants"
+          },
+          {
+            "id": 562,
+            "name": "Mismatched Couple",
+            "slug": "mismatched-couple"
+          },
+          {
+            "id": 579,
+            "name": "Multiple Protagonists",
+            "slug": "multiple-protagonists"
+          },
+          {
+            "id": 606,
+            "name": "Nobles",
+            "slug": "nobles"
+          },
+          {
+            "id": 643,
+            "name": "Philosophical",
+            "slug": "philosophical"
+          },
+          {
+            "id": 654,
+            "name": "Poisons",
+            "slug": "poisons"
+          },
+          {
+            "id": 657,
+            "name": "Politics",
+            "slug": "politics"
+          },
+          {
+            "id": 660,
+            "name": "Poor Protagonist",
+            "slug": "poor-protagonist"
+          },
+          {
+            "id": 661,
+            "name": "Poor to Rich",
+            "slug": "poor-to-rich"
+          },
+          {
+            "id": 675,
+            "name": "Prison",
+            "slug": "prison"
+          },
+          {
+            "id": 707,
+            "name": "Revenge",
+            "slug": "revenge"
+          },
+          {
+            "id": 715,
+            "name": "Royalty",
+            "slug": "royalty"
+          },
+          {
+            "id": 743,
+            "name": "Serial Killers",
+            "slug": "serial-killers"
+          },
+          {
+            "id": 747,
+            "name": "Sex Friends",
+            "slug": "sex-friends"
+          },
+          {
+            "id": 775,
+            "name": "Slave Harem",
+            "slug": "slave-harem"
+          },
+          {
+            "id": 782,
+            "name": "Social Outcasts",
+            "slug": "social-outcasts"
+          },
+          {
+            "id": 789,
+            "name": "Spies",
+            "slug": "spies"
+          },
+          {
+            "id": 799,
+            "name": "Strategic Battles",
+            "slug": "strategic-battles"
+          },
+          {
+            "id": 800,
+            "name": "Strategist",
+            "slug": "strategist"
+          },
+          {
+            "id": 814,
+            "name": "Survival",
+            "slug": "survival"
+          },
+          {
+            "id": 844,
+            "name": "Trap",
+            "slug": "trap"
+          },
+          {
+            "id": 869,
+            "name": "Wars",
+            "slug": "wars"
+          }
+        ],
+        "ratingAverage": 0,
+        "ratingCount": 0,
+        "readCount": 85,
+        "readersCount": 3,
+        "favoritesCount": 0,
+        "chapterCount": 29,
+        "wordCount": 62095,
+        "lastUpdated": "2026-08-04T09:09:19+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2483957,
+        "title": "A Note on The Seven Warring States — Going on Hiatus",
+        "number": 29,
+        "publishedAt": "2026-08-04T09:09:19+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2421968,
+        "title": "Dark Caracal",
+        "slug": "dark-caracal",
+        "author": {
+          "id": 269957,
+          "displayName": "DARKCARACAL",
+          "username": "DARKCARACAL",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/67/ava_269957_1782848326.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/121/dark-caracal_2421968_1783006331.jpg",
+        "description": "Dark Caracal is a dark fantasy story about shadows, secrets, and transformation. In a world where darkness has a will of its own, one boy is chosen by a mysterious shadow that watches, learns, and evolves.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 9,
+            "name": "Action",
+            "slug": "action"
+          },
+          {
+            "id": 909,
+            "name": "Mystery",
+            "slug": "mystery"
+          },
+          {
+            "id": 5,
+            "name": "Supernatural",
+            "slug": "supernatural"
+          }
+        ],
+        "mainGenre": {
+          "id": 9,
+          "name": "Action",
+          "slug": "action"
+        },
+        "tags": [
+          {
+            "id": 238,
+            "name": "Character Growth",
+            "slug": "character-growth"
+          },
+          {
+            "id": 369,
+            "name": "Evolution",
+            "slug": "evolution"
+          },
+          {
+            "id": 509,
+            "name": "Leadership",
+            "slug": "leadership"
+          },
+          {
+            "id": 538,
+            "name": "Male Protagonist",
+            "slug": "male-protagonist"
+          }
+        ],
+        "ratingAverage": 0,
+        "ratingCount": 0,
+        "readCount": 155,
+        "readersCount": 1,
+        "favoritesCount": 0,
+        "chapterCount": 11,
+        "wordCount": 7318,
+        "lastUpdated": "2026-08-04T09:03:33+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2483950,
+        "title": "SEASON TWO — PHASE THREE EPISODE 1 — THE OPENING",
+        "number": 11,
+        "publishedAt": "2026-08-04T09:03:33+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2465641,
+        "title": "For the Worth of Your Life",
+        "slug": "2465641-for-the-worth-of-your-life",
+        "author": {
+          "id": 274151,
+          "displayName": "Cozy_Zephyr",
+          "username": "Cozy_Zephyr",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/68/ava_274151_1784968196.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/123/For-the-Worth-of-Your-Life_2465641_1784967037.jpg",
+        "description": "A Tale of a Hero, Kenji Sovern, forced to become the son of the Demon Lord.\n\nNow seen as a threat from his own kind and the Demons who're supposed to support him, he's left in a simple eternal boring limbo.\n\nNow roaming the world as Anze Leondell, he seeks for a way to become human once more. Will he manage to become human once more? Or will he stay as the Demon Prince for eternity?",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 9,
+            "name": "Action",
+            "slug": "action"
+          },
+          {
+            "id": 8,
+            "name": "Adventure",
+            "slug": "adventure"
+          },
+          {
+            "id": 7,
+            "name": "Comedy",
+            "slug": "comedy"
+          },
+          {
+            "id": 19,
+            "name": "Fantasy",
+            "slug": "fantasy"
+          },
+          {
+            "id": 901,
+            "name": "Tragedy",
+            "slug": "tragedy"
+          }
+        ],
+        "mainGenre": {
+          "id": 19,
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        "tags": [
+          {
+            "id": 202,
+            "name": "Betrayal",
+            "slug": "betrayal"
+          },
+          {
+            "id": 302,
+            "name": "Dark",
+            "slug": "dark"
+          },
+          {
+            "id": 409,
+            "name": "Former Hero",
+            "slug": "former-hero"
+          },
+          {
+            "id": 531,
+            "name": "Magic",
+            "slug": "magic"
+          },
+          {
+            "id": 587,
+            "name": "Mutations",
+            "slug": "mutations"
+          },
+          {
+            "id": 627,
+            "name": "Overpowered Protagonist",
+            "slug": "overpowered-protagonist"
+          }
+        ],
+        "ratingAverage": 0,
+        "ratingCount": 0,
+        "readCount": 28,
+        "readersCount": 2,
+        "favoritesCount": 0,
+        "chapterCount": 8,
+        "wordCount": 17773,
+        "lastUpdated": "2026-08-04T10:58:29+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2484103,
+        "title": "Chapter 7: The Longing",
+        "number": 8,
+        "publishedAt": "2026-08-04T08:58:46+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 1119890,
+        "title": "The Gate Traveler",
+        "slug": "1119890-the-gate-traveler",
+        "author": {
+          "id": 165896,
+          "displayName": "TravelingDreamer",
+          "username": "TravelingDreamer",
+          "avatarUrl": "https://cdn.scribblehub.com/avatar/l/41/ava_165896_1757428030.jpg"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/55/the-gate-traveler-slice-of-life-litrpg_1119890_1728243277.jpg",
+        "description": "A LOW-STAKES, COZY, SLICE-OF-LIFE WORLD-HOPPING ADVENTURE\n\nJohn, a 37-year-old widower, is feeling lost. Grief, regrets, and the weight of the past push him to long for something new, something different. So when he finds a way to travel between worlds through dimensional Gates, he takes it. Some research, a bit of training, and he’s off.\n\nSure, his class has the potential to be overpowered, but he’s not in it for fights, fame, or power, and truth be told, he's not hero material. He’s here to breathe again. To heal. To see what else is out there in the multiverse. He moves at his own pace, helps out when he feels like it—sometimes as a healer, sometimes as something else—and keeps track of it all in a kind of diary. It’s more about the journey than the destination. About magic, new places, and figuring out how to live again.\n\nThis isn’t some dark, gritty tale full of battles or world-ending stakes. It’s about traveling with friends. Awkward conversations, good food, learning magic, and way too much shopping. It’s about the little things that make life worth it—and how even small actions can sometimes ripple out with a butterfly effect. Scattered throughout the story are short side stories. Glimpses into other worlds, other travelers, or the consequences of his choices. They all circle back eventually, adding layers to John’s path and filling in the bigger picture.\n\nThis is a different kind of LitRPG. It’s slower paced, written in a semi-journal style, and focuses just as much on the inner journey as it does on the outer one. Big parts of the story happen on Earth, before he leaves, and when he occasionally comes back.\n\nPictures generated by AI accompany the story. Or, to put it in John’s words, “Traveling without taking pictures is a travesty.” Starting with Book Two, songs are also woven into the story, created with SUNO AI.\n\nSo kick back, grab a coffee or a snack, and take a break from reality. Join John, the Gate Traveler, on a never-ending vacation.\n\nRelease Schedule: New chapters every Sunday, Tuesday, and Thursday, no later than 6:00 PM GMT+3.\n\nComments and corrections are welcome and appreciated. I always want to hear what you think😊.\n\nEnjoy,\nTraveling Dreamer\n\nIMPORTANT NOTICE: The Gate Traveler is published exclusively on Royal Road, Scribble Hub, and my Patreon under Traveling Dreamer. If you're reading it anywhere else, it has been posted without my permission.\n\nIf you'd like to help protect my work, please send me a DM on Royal Road or Scribble Hub letting me know where you found it. Thank you for helping me protect my story.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 19,
+            "name": "Fantasy",
+            "slug": "fantasy"
+          },
+          {
+            "id": 37,
+            "name": "Isekai",
+            "slug": "isekai"
+          },
+          {
+            "id": 1180,
+            "name": "LitRPG",
+            "slug": "litrpg"
+          },
+          {
+            "id": 914,
+            "name": "Slice of Life",
+            "slug": "slice-of-life"
+          }
+        ],
+        "mainGenre": {
+          "id": 914,
+          "name": "Slice of Life",
+          "slug": "slice-of-life"
+        },
+        "tags": [
+          {
+            "id": 148,
+            "name": "Alternate World",
+            "slug": "alternate-world"
+          },
+          {
+            "id": 489,
+            "name": "Interdimensional Travel",
+            "slug": "interdimensional-travel"
+          },
+          {
+            "id": 531,
+            "name": "Magic",
+            "slug": "magic"
+          },
+          {
+            "id": 538,
+            "name": "Male Protagonist",
+            "slug": "male-protagonist"
+          },
+          {
+            "id": 878,
+            "name": "World Travel",
+            "slug": "world-travel"
+          }
+        ],
+        "ratingAverage": 4.4,
+        "ratingCount": 77,
+        "readCount": 361578,
+        "readersCount": 1076,
+        "favoritesCount": 18846,
+        "chapterCount": 506,
+        "wordCount": 1418595,
+        "lastUpdated": "2026-08-04T08:49:29+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2483915,
+        "title": "B8—Chapter 16: Oddities All Around",
+        "number": 506,
+        "publishedAt": "2026-08-04T08:49:29+00:00"
+      }
+    },
+    {
+      "story": {
+        "id": 2447420,
+        "title": "Trapped in Godrealm",
+        "slug": "trapped-in-godrealm",
+        "author": {
+          "id": 269195,
+          "displayName": "FaggoAC",
+          "username": "FaggoAC",
+          "avatarUrl": "https://cdn.scribblehub.com/default/avatarnew.png"
+        },
+        "coverUrl": "https://cdn.scribblehub.com/images/122/Trapped-in-Godrealm_2447420_1784053121.jpg",
+        "description": "Yang Ling was just a professional gold farmer looking to relax in the newly released VR game, Godrealm.\n\nInstead, he found himself trapped inside.\n\nThe environment was brutal.\r\nMonsters roamed everywhere.\r\nResources were scarce.\n\nAnd worst of all—\n\nThere was no logout button.\n\nWith no way to escape and death lurking around every corner, Yang Ling had only one option left:\n\nMine ore.\r\nLevel up.\r\nAllocate stats.\r\nAnd survive at all costs.\n\nWhat began as a desperate struggle for survival slowly turned into something far greater.\n\nBecause in this world, the strongest players weren’t heroes—\n\nThey were the ones willing to grind endlessly.",
+        "status": "ongoing",
+        "genres": [
+          {
+            "id": 9,
+            "name": "Action",
+            "slug": "action"
+          },
+          {
+            "id": 8,
+            "name": "Adventure",
+            "slug": "adventure"
+          },
+          {
+            "id": 19,
+            "name": "Fantasy",
+            "slug": "fantasy"
+          },
+          {
+            "id": 37,
+            "name": "Isekai",
+            "slug": "isekai"
+          },
+          {
+            "id": 1180,
+            "name": "LitRPG",
+            "slug": "litrpg"
+          },
+          {
+            "id": 907,
+            "name": "Martial Arts",
+            "slug": "martial-arts"
+          }
+        ],
+        "mainGenre": {
+          "id": 1180,
+          "name": "LitRPG",
+          "slug": "litrpg"
+        },
+        "tags": [
+          {
+            "id": 148,
+            "name": "Alternate World",
+            "slug": "alternate-world"
+          },
+          {
+            "id": 238,
+            "name": "Character Growth",
+            "slug": "character-growth"
+          },
+          {
+            "id": 290,
+            "name": "Cultivation",
+            "slug": "cultivation"
+          },
+          {
+            "id": 342,
+            "name": "Dungeons",
+            "slug": "dungeons"
+          },
+          {
+            "id": 418,
+            "name": "Game Elements",
+            "slug": "game-elements"
+          },
+          {
+            "id": 419,
+            "name": "Game Ranking System",
+            "slug": "game-ranking-system"
+          },
+          {
+            "id": 441,
+            "name": "Grinding",
+            "slug": "grinding"
+          },
+          {
+            "id": 449,
+            "name": "Hard-Working Protagonist",
+            "slug": "hard-working-protagonist"
+          },
+          {
+            "id": 511,
+            "name": "Level System",
+            "slug": "level-system"
+          },
+          {
+            "id": 538,
+            "name": "Male Protagonist",
+            "slug": "male-protagonist"
+          },
+          {
+            "id": 573,
+            "name": "Monsters",
+            "slug": "monsters"
+          },
+          {
+            "id": 814,
+            "name": "Survival",
+            "slug": "survival"
+          },
+          {
+            "id": 841,
+            "name": "Transported into a Game World",
+            "slug": "transported-into-a-game-world"
+          },
+          {
+            "id": 871,
+            "name": "Weak to Strong",
+            "slug": "weak-to-strong"
+          },
+          {
+            "id": 1141,
+            "name": "Xuanhuan",
+            "slug": "xuanhuan"
+          }
+        ],
+        "ratingAverage": 5,
+        "ratingCount": 1,
+        "readCount": 553,
+        "readersCount": 8,
+        "favoritesCount": 18,
+        "chapterCount": 26,
+        "wordCount": 38933,
+        "lastUpdated": "2026-08-04T08:48:00+00:00",
+        "isMature": false,
+        "isAccessible": true
+      },
+      "latestChapter": {
+        "id": 2479100,
+        "title": "Chapter 26: Idiots",
+        "number": 26,
+        "publishedAt": "2026-08-04T08:48:00+00:00"
+      }
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "perPage": 25,
+    "total": 698,
+    "totalPages": 28
+  }
+}

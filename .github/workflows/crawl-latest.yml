@@ -1,0 +1,80 @@
+name: Crawl · latest
+
+# Mode RẺ NHẤT: một request cho biết hàng chục novel vừa có chương mới.
+# Nó chỉ ghi sync_events (feed cho GET /api/timeline) và đưa novel chưa biết vào
+# hàng đợi refresh — KHÔNG cập nhật metadata.
+on:
+  schedule:
+    # 6 giờ một lần. Cron chỉ GỌI CLI, không chứa logic gì.
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Nguồn (bỏ trống = CRAWL_DEFAULT_SOURCE)'
+        required: false
+        type: string
+      limit:
+        description: 'Trần số item'
+        required: false
+        default: '100'
+        type: string
+
+# Hai lần cron KHÔNG được chồng lên nhau: chạy song song sẽ tạo sync_events trùng
+# và tranh chấp trên cùng những dòng novel.
+concurrency:
+  group: crawl-latest
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: crawler
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: crawler/package-lock.json
+
+      - name: Cài dependency
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Doctor kiểm tra kết nối DB, migration đã chạy chưa, và đối chiếu công
+      # thức sort_index giữa TypeScript với Postgres. Hỏng ở đây thì crawl chắc
+      # chắn hỏng — dừng luôn thay vì ghi dữ liệu sai.
+      - name: Doctor (dừng workflow nếu hỏng)
+        run: npm run doctor
+        env:
+          CRAWLER_DATABASE_URL: ${{ secrets.CRAWLER_DATABASE_URL }}
+
+      - name: Crawl
+        id: crawl
+        run: |
+          set -o pipefail
+          npm run crawl:latest -- \
+            ${SOURCE:+--source "$SOURCE"} \
+            --limit "${LIMIT:-100}" 2>&1 | tee crawl.log
+        env:
+          CRAWLER_DATABASE_URL: ${{ secrets.CRAWLER_DATABASE_URL }}
+          CRAWLER_USER_AGENT: ${{ vars.CRAWLER_USER_AGENT }}
+          SOURCE: ${{ inputs.source }}
+          LIMIT: ${{ inputs.limit }}
+
+      # Chỉ giữ log khi HỎNG — chạy thành công thì log không có gì để điều tra.
+      # BlockedError thoát với mã 0 nên KHÔNG rơi vào nhánh này.
+      - name: Lưu log khi hỏng
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: crawl-latest-log-${{ github.run_id }}
+          path: crawler/crawl.log
+          retention-days: 14

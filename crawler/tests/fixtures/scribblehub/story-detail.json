@@ -1,0 +1,98 @@
+{
+  "data": {
+    "id": 2441502,
+    "title": "Crimson Star",
+    "slug": "2441502-crimson-star",
+    "author": {
+      "id": 271689,
+      "displayName": "S.BlFesta",
+      "username": "S.BlFesta",
+      "avatarUrl": "https://cdn.scribblehub.com/avatar/l/67/ava_271689_1784540965.jpg"
+    },
+    "coverUrl": "https://cdn.scribblehub.com/images/122/Crimson-Star_2441502_1783768844.jpg",
+    "description": "Lucian finds himself in a new world with no one to rely on but his military skills, a group of outcasts and powers gain from his new world. He will have to navigate a world he doesn’t understand, with enemies in every corner, and dreams his not sure are just dreams. In Order to protect those he loves and survive what’s coming he will need all the help he can get. With the slightest chance he might make his way back to home and world his not sure he wants to return to.\n\nWith a chance to start over in a new world is it worth it to go back to a world and a past that might be best left forgotten and buried?",
+    "status": "ongoing",
+    "genres": [
+      {
+        "id": 9,
+        "name": "Action",
+        "slug": "action"
+      },
+      {
+        "id": 19,
+        "name": "Fantasy",
+        "slug": "fantasy"
+      },
+      {
+        "id": 1015,
+        "name": "Harem",
+        "slug": "harem"
+      },
+      {
+        "id": 37,
+        "name": "Isekai",
+        "slug": "isekai"
+      },
+      {
+        "id": 1180,
+        "name": "LitRPG",
+        "slug": "litrpg"
+      },
+      {
+        "id": 907,
+        "name": "Martial Arts",
+        "slug": "martial-arts"
+      },
+      {
+        "id": 908,
+        "name": "Mecha",
+        "slug": "mecha"
+      },
+      {
+        "id": 6,
+        "name": "Romance",
+        "slug": "romance"
+      }
+    ],
+    "mainGenre": {
+      "id": 1180,
+      "name": "LitRPG",
+      "slug": "litrpg"
+    },
+    "tags": [
+      {
+        "id": 157,
+        "name": "Animal Characteristics",
+        "slug": "animal-characteristics"
+      },
+      {
+        "id": 166,
+        "name": "Appearance Changes",
+        "slug": "appearance-changes"
+      },
+      {
+        "id": 231,
+        "name": "Calm Protagonist",
+        "slug": "calm-protagonist"
+      },
+      {
+        "id": 960,
+        "name": "Cyberpunk",
+        "slug": "cyberpunk"
+      }
+    ],
+    "ratingAverage": 0,
+    "ratingCount": 0,
+    "readCount": 239,
+    "readersCount": 5,
+    "favoritesCount": 0,
+    "chapterCount": 21,
+    "wordCount": 35301,
+    "lastUpdated": "2026-08-04T11:38:08+00:00",
+    "isMature": false,
+    "isAccessible": true,
+    "chaptersPerWeek": 6,
+    "firstChapterId": 2441509,
+    "hasGlossary": false
+  }
+}

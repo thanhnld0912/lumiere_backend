@@ -12,6 +12,15 @@ import type { CrawlContext } from '../types.js';
 export interface ImportContext extends CrawlContext {
   /** uuid của nguồn ở bảng `sources`, tra sẵn một lần cho cả run. */
   readonly sourceUuid: string;
+
+  /**
+   * Bỏ qua so sánh content_hash, ghi lại bất kể có đổi hay không.
+   *
+   * Cần thiết vì update detection có một điểm mù: khi lỗi nằm ở ĐƯỜNG GHI của
+   * chính crawler (không phải ở dữ liệu nguồn), hash vẫn khớp nên bản ghi hỏng
+   * sẽ nằm lại vĩnh viễn. Sửa code xong phải có cách ép nạp lại.
+   */
+  readonly force: boolean;
 }
 
 export interface IImporter<TNormalized> {

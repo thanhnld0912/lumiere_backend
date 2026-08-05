@@ -1,0 +1,241 @@
+{
+  "data": [
+    {
+      "id": 2441509,
+      "storyId": 2441502,
+      "title": "So I died today",
+      "number": 1,
+      "content": "",
+      "wordCount": 909,
+      "publishedAt": "2026-07-11T11:20:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2441518,
+      "storyId": 2441502,
+      "title": "Second Chances",
+      "number": 2,
+      "content": "",
+      "wordCount": 1486,
+      "publishedAt": "2026-07-11T11:26:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2441520,
+      "storyId": 2441502,
+      "title": "Old man",
+      "number": 3,
+      "content": "",
+      "wordCount": 3483,
+      "publishedAt": "2026-07-11T11:27:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2441523,
+      "storyId": 2441502,
+      "title": "First steps and new faces",
+      "number": 4,
+      "content": "",
+      "wordCount": 1594,
+      "publishedAt": "2026-07-11T11:29:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2441525,
+      "storyId": 2441502,
+      "title": "First fight",
+      "number": 5,
+      "content": "",
+      "wordCount": 2190,
+      "publishedAt": "2026-07-11T11:30:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2441527,
+      "storyId": 2441502,
+      "title": "Cursed Wounds and Strangers",
+      "number": 6,
+      "content": "",
+      "wordCount": 1066,
+      "publishedAt": "2026-07-11T11:32:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2441530,
+      "storyId": 2441502,
+      "title": "Ambition Of the unknown",
+      "number": 7,
+      "content": "",
+      "wordCount": 874,
+      "publishedAt": "2026-07-11T11:35:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2445829,
+      "storyId": 2441502,
+      "title": "Meeting Royals",
+      "number": 8,
+      "content": "",
+      "wordCount": 1528,
+      "publishedAt": "2026-07-13T23:49:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2445831,
+      "storyId": 2441502,
+      "title": "Soul Merging",
+      "number": 9,
+      "content": "",
+      "wordCount": 1398,
+      "publishedAt": "2026-07-13T23:51:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2456838,
+      "storyId": 2441502,
+      "title": "Short Fuse",
+      "number": 10,
+      "content": "",
+      "wordCount": 2612,
+      "publishedAt": "2026-07-20T05:00:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2456844,
+      "storyId": 2441502,
+      "title": "Second Awakening",
+      "number": 11,
+      "content": "",
+      "wordCount": 1196,
+      "publishedAt": "2026-07-20T05:00:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2456850,
+      "storyId": 2441502,
+      "title": "Gramps",
+      "number": 12,
+      "content": "",
+      "wordCount": 2487,
+      "publishedAt": "2026-07-20T05:00:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2469401,
+      "storyId": 2441502,
+      "title": "World System",
+      "number": 13,
+      "content": "",
+      "wordCount": 2865,
+      "publishedAt": "2026-07-27T05:00:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2469407,
+      "storyId": 2441502,
+      "title": "Quick fight",
+      "number": 14,
+      "content": "",
+      "wordCount": 3703,
+      "publishedAt": "2026-07-27T05:00:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2474632,
+      "storyId": 2441502,
+      "title": "Bonds and Bloodlust",
+      "number": 15,
+      "content": "",
+      "wordCount": 1622,
+      "publishedAt": "2026-07-30T13:05:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2474666,
+      "storyId": 2441502,
+      "title": "Lazy System",
+      "number": 16,
+      "content": "",
+      "wordCount": 1867,
+      "publishedAt": "2026-07-30T13:17:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2478380,
+      "storyId": 2441502,
+      "title": "Magic Training 101",
+      "number": 17,
+      "content": "",
+      "wordCount": 1057,
+      "publishedAt": "2026-08-01T10:11:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2482134,
+      "storyId": 2441502,
+      "title": "The Test",
+      "number": 18,
+      "content": "",
+      "wordCount": 1317,
+      "publishedAt": "2026-08-03T10:09:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2482282,
+      "storyId": 2441502,
+      "title": "The Tower 1",
+      "number": 19,
+      "content": "",
+      "wordCount": 963,
+      "publishedAt": "2026-08-03T11:51:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2482313,
+      "storyId": 2441502,
+      "title": "The Tower II",
+      "number": 20,
+      "content": "",
+      "wordCount": 1084,
+      "publishedAt": "2026-08-03T12:13:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    },
+    {
+      "id": 2484132,
+      "storyId": 2441502,
+      "title": "The Tower III",
+      "number": 21,
+      "content": "",
+      "wordCount": 1091,
+      "publishedAt": "2026-08-04T11:36:00+00:00",
+      "previousChapterId": null,
+      "nextChapterId": null
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "perPage": 50,
+    "total": 21,
+    "totalPages": 1
+  }
+}

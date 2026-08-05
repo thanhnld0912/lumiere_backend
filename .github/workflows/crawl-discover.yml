@@ -1,0 +1,73 @@
+name: Crawl · discover
+
+# Duyệt danh mục tìm novel MỚI.
+#
+# CHỈ chạy tay (workflow_dispatch) — không có lịch tự động. Đây là việc mở rộng
+# thư viện, làm khi có chủ đích, không phải việc bảo trì định kỳ.
+#
+# Bản thân discover KHÔNG ghi gì; nó trả về danh sách con trỏ rồi CrawlerService
+# chạy tiếp một lượt refresh để nạp metadata đầy đủ.
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Nguồn (bỏ trống = CRAWL_DEFAULT_SOURCE)'
+        required: false
+        type: string
+      limit:
+        description: 'Trần số novel phát hiện + nạp trong lần chạy này'
+        required: false
+        default: '200'
+        type: string
+
+concurrency:
+  group: crawl-discover
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    defaults:
+      run:
+        working-directory: crawler
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: crawler/package-lock.json
+
+      - name: Cài dependency
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Doctor (dừng workflow nếu hỏng)
+        run: npm run doctor
+        env:
+          CRAWLER_DATABASE_URL: ${{ secrets.CRAWLER_DATABASE_URL }}
+
+      - name: Crawl
+        run: |
+          set -o pipefail
+          npm run crawl:discover -- \
+            ${SOURCE:+--source "$SOURCE"} \
+            --limit "${LIMIT:-200}" 2>&1 | tee crawl.log
+        env:
+          CRAWLER_DATABASE_URL: ${{ secrets.CRAWLER_DATABASE_URL }}
+          CRAWLER_USER_AGENT: ${{ vars.CRAWLER_USER_AGENT }}
+          SOURCE: ${{ inputs.source }}
+          LIMIT: ${{ inputs.limit }}
+
+      - name: Lưu log khi hỏng
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: crawl-discover-log-${{ github.run_id }}
+          path: crawler/crawl.log
+          retention-days: 14

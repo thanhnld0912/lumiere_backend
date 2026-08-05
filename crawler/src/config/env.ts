@@ -30,6 +30,15 @@ const envSchema = z.object({
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
 
   /**
+   * Nguồn dùng khi lệnh không truyền `--source`.
+   *
+   * Có biến này thì `npm run crawl:latest` (và các workflow GitHub Actions) không
+   * phải hardcode tên nguồn — đổi nguồn mặc định chỉ cần sửa env, không phải sửa
+   * package.json lẫn ba file YAML.
+   */
+  CRAWL_DEFAULT_SOURCE: z.string().min(1).default('scribblehub'),
+
+  /**
    * Định danh crawler. Bắt buộc có cách liên hệ — vừa là phép lịch sự với site
    * nguồn, vừa là tự bảo vệ: IP của GitHub Actions runner dùng chung, bị chặn
    * thì không tự gỡ được.

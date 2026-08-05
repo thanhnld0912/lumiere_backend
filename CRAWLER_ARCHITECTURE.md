@@ -1084,6 +1084,79 @@ cả hai đều có API/feed công khai) **không phải sửa gì ở tầng co
 
 ---
 
+## §12 — SO SÁNH BA NGUỒN (đo 2026-08-03)
+
+| | NovelUpdates | RoyalRoad | **ScribbleHub** |
+|---|:---:|:---:|:---:|
+| `robots.txt` | ❌ 403 | ✅ 200 | ✅ 200 |
+| HTML | ❌ 403 | ✅ 200 | ❌ 403 |
+| RSS | ❌ 403 | — (404) | ✅ 200 *(rỗng)* |
+| REST API | ❌ 403 | — | ✅ **200, mở, không cần auth** |
+| Cách lấy dữ liệu | *(không có)* | scrape HTML | **API có cấu trúc** |
+
+### ⭐ ScribbleHub có API chính thức
+
+`https://www.scribblehub.com/wp-json/fictionapp/v1/` — 130 route, đây là API mà ứng dụng di động
+của chính họ dùng. Không cần token cho các endpoint đọc.
+
+Route dùng được ngay:
+
+| Route | Dùng cho mode |
+|---|---|
+| `/updates?per_page=N` | **`latest`** — trả `{story, latestChapter}`, đủ cả metadata lẫn chương mới |
+| `/stories?per_page=N` | `discover` |
+| `/stories/{id}` | `refresh` |
+| `/stories/{id}/chapters` | danh sách chương |
+
+Trường mà `/stories` trả về:
+
+```
+id, title, slug, author{id,displayName,username,avatarUrl}, coverUrl, description,
+status, genres, mainGenre, tags, ratingAverage, ratingCount,
+readCount, readersCount, favoritesCount, chapterCount, wordCount,
+lastUpdated, isMature, isAccessible
+```
+
+### 🟢 ScribbleHub giải quyết luôn quyết định D5
+
+`readCount` / `readersCount` là **số lượt đọc THẬT**. Nghĩa là `novels.total_views` không cần chỉ
+số suy ra nào cả — cũng không cần né tránh hiển thị. Điều mà NovelUpdates không cung cấp được.
+
+Tương tự: `favoritesCount` là tín hiệu phổ biến thật, `ratingAverage` + `ratingCount` đủ để tính
+Bayesian, `lastUpdated` map thẳng sang `last_chapter_at`.
+
+### Hệ quả kiến trúc: cần một lớp cha thứ hai
+
+`BaseCrawler` hiện dựng `CheerioCrawler` — hợp cho nguồn HTML. Nguồn API cần
+`BaseApiCrawler` (dùng `HttpCrawler` của Crawlee hoặc fetch có rate limit).
+
+**Hợp đồng `ISourceAdapter` KHÔNG đổi**: adapter vẫn trả `RawNovel` / `RawLatestRelease`, còn lấy
+bằng cách nào là việc riêng của nó. Đây chính là phép thử cho abstraction — và nó đứng vững.
+
+### ⚠️ RoyalRoad: robots.txt chặn hàng loạt crawler AI
+
+```
+User-agent: GPTBot          Disallow: /
+User-agent: CCBot           Disallow: /
+User-agent: Google-Extended Disallow: /
+User-agent: ClaudeBot       Disallow: /
+User-agent: Amazonbot       Disallow: /
+User-agent: Bytespider      Disallow: /
+User-agent: meta-externalagent  Disallow: /
+```
+
+`User-agent: *` thì vẫn cho phép (trừ `/vote`, `/review/`, `/report/`), nên một crawler tự khai
+báo như LumiereBot về mặt kỹ thuật là được phép. Nhưng danh sách trên cho thấy rõ thái độ của họ
+với việc thu thập tự động quy mô lớn. Nếu chọn RoyalRoad thì nên hỏi ý họ trước.
+
+### Khuyến nghị
+
+**ScribbleHub làm nguồn đầu tiên.** API chính thức, robots.txt thoáng, dữ liệu giàu hơn, và không
+có selector nào để hỏng. NovelUpdates giữ nguyên code đã viết — 121 test vẫn xanh — chờ giải quyết
+được vụ 403 thì kích hoạt lại.
+
+---
+
 ## 8. GHI CHÚ VẬN HÀNH
 
 - **Kết nối DB cho crawler: host POOLER + port 5432 (session mode).**

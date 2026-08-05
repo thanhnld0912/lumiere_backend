@@ -5,9 +5,12 @@ import {
   canLatest,
   canRefresh,
 } from '../core/contracts/ISourceAdapter.js';
-import { CrawlerError } from '../core/errors/index.js';
+import { BlockedError, CrawlerError } from '../core/errors/index.js';
 import type { CrawlContext, NovelRef } from '../core/types.js';
+import type { RunSummary } from '../core/result/index.js';
+import { closePool } from '../database/pool.js';
 import { extractPathSlug } from '../extractors/url.extractor.js';
+import { CrawlerService } from '../services/index.js';
 import { logger } from '../utils/logger.js';
 import { HELP_TEXT, parseArgs } from './args.js';
 
@@ -55,11 +58,24 @@ async function main(): Promise<void> {
 
   const log = logger.child({ runId: ctx.runId, source: ctx.sourceId, mode: ctx.mode });
 
+  /*
+   * Không dry-run -> đi qua CrawlerService để THỰC SỰ ghi database:
+   * nó mở sync_run, import từng novel trong transaction riêng, ghi sync_events,
+   * rồi đóng sổ. Dry-run thì gọi thẳng adapter và chỉ in ra.
+   */
   if (!ctx.dryRun) {
-    log.warn(
-      'Phase 5 chưa có tầng ghi database — lần chạy này chỉ crawl và in kết quả. ' +
-        'Dùng --dry-run để bỏ cảnh báo này.',
-    );
+    const summary = await new CrawlerService().run(adapter, ctx.mode, {
+      maxItems: args.limit,
+      dryRun: false,
+      force: args.force,
+      ...(args.urls.length > 0 || args.ids.length > 0
+        ? { targets: buildRefreshTargets(args.urls, args.ids, ctx.sourceId) }
+        : {}),
+    });
+
+    printRunSummary(summary);
+    if (args.json) console.log(JSON.stringify(summary, null, 2));
+    return;
   }
 
   const startedAt = Date.now();
@@ -86,7 +102,7 @@ async function main(): Promise<void> {
     case 'refresh': {
       if (!canRefresh(adapter)) throw new Error(`${adapter.sourceId} không hỗ trợ mode refresh`);
 
-      const targets = buildRefreshTargets(args.urls, ctx.sourceId);
+      const targets = buildRefreshTargets(args.urls, args.ids, ctx.sourceId);
       if (targets.length === 0) {
         /*
          * Chưa có RunPlanner (Phase 9) để chọn novel cũ nhất từ
@@ -115,14 +131,32 @@ async function main(): Promise<void> {
   log.info({ count, durationMs, dryRun: ctx.dryRun }, 'hoàn tất');
 }
 
-/** Đổi URL người dùng nhập thành NovelRef, tách external_id từ đường dẫn. */
-function buildRefreshTargets(urls: readonly string[], sourceId: string): NovelRef[] {
+/**
+ * Dựng danh sách mục tiêu cho mode `refresh`.
+ *
+ * `--id` là cách ĐÁNG TIN CẬY hơn, vì cách suy ra external_id từ URL khác nhau
+ * theo từng nguồn:
+ *   NovelUpdates : /series/<slug>/        -> external_id = slug
+ *   ScribbleHub  : /series/<id>/<slug>/   -> external_id = id
+ * CLI không nên chứa luật riêng của từng nguồn. `--url` vẫn giữ cho tiện, nhưng
+ * chỉ dùng được với nguồn có external_id nằm ở đoạn cuối đường dẫn.
+ */
+function buildRefreshTargets(
+  urls: readonly string[],
+  ids: readonly string[],
+  sourceId: string,
+): NovelRef[] {
   const targets: NovelRef[] = [];
+
+  for (const externalId of ids) {
+    // Adapter tự dựng URL thật từ external_id — nó mới biết cấu trúc của nguồn.
+    targets.push({ sourceId, externalId, sourceUrl: '' });
+  }
 
   for (const url of urls) {
     const externalId = extractPathSlug(url, '/series/');
     if (externalId === null) {
-      logger.warn({ url }, 'bỏ qua: không tách được external_id (URL series không hợp lệ?)');
+      logger.warn({ url }, 'bỏ qua: không tách được external_id từ URL — thử dùng --id');
       continue;
     }
     targets.push({ sourceId, externalId, sourceUrl: url });
@@ -131,32 +165,52 @@ function buildRefreshTargets(urls: readonly string[], sourceId: string): NovelRe
   return targets;
 }
 
-/** Bảng tóm tắt ngắn — dễ soi bằng mắt hơn JSON khi có hàng chục dòng. */
+/**
+ * Bảng tóm tắt ngắn — dễ soi bằng mắt hơn JSON khi có hàng chục dòng.
+ *
+ * Đọc theo shape ĐÃ CHUẨN HOÁ (NormalizedNovel / NormalizedLatestRelease),
+ * giống nhau ở mọi nguồn — đó là điểm lợi của việc adapter trả dữ liệu canonical
+ * thay vì raw riêng từng site.
+ */
 function printSummary(mode: string, payload: unknown, count: number): void {
   console.log(`\n${mode}: ${count} item\n`);
   if (!Array.isArray(payload)) return;
 
   for (const item of payload.slice(0, 15)) {
     const record = item as Record<string, unknown>;
+
     switch (mode) {
-      case 'latest':
+      case 'latest': {
+        const chapter = record['chapter'] as Record<string, unknown> | null;
+        const group = record['translationGroupName'];
         console.log(
-          `  ${String(record['chapterLabel']).padEnd(12)} ${String(record['novelTitle'])}` +
-            `  [${String(record['translationGroup'])}]`,
+          `  ${truncate(text(record['novelTitle']), 44).padEnd(46)}` +
+            `│ ${text(chapter?.['displayTitle'], '(không rõ chương)')}` +
+            (group === null || group === undefined ? '' : `  [${String(group)}]`),
         );
         break;
+      }
+
       case 'discover':
-        console.log(`  ${String(record['externalId'])}`);
+        console.log(`  ${text(record['externalId'])}  ${text(record['sourceUrl'], '')}`);
         break;
-      case 'refresh':
+
+      case 'refresh': {
+        const chapter = record['latestChapter'] as Record<string, unknown> | null;
+        const publishedAt = chapter?.['publishedAt'];
+        const genres = record['genres'];
         console.log(
-          `  ${String(record['title'])}\n` +
-            `    status : ${String(record['status'])}\n` +
-            `    rating : ${String(record['rating'])}\n` +
-            `    latest : ${String(record['latestChapterLabel'])} (${String(record['latestChapterDate'])})\n` +
-            `    genres : ${(record['genres'] as string[] | undefined)?.slice(0, 5).join(', ') ?? ''}`,
+          `  ${text(record['title'])}\n` +
+            `    status : ${text(record['status'])}\n` +
+            `    rating : ${text(record['rating'])} (${text(record['ratingsCount'])} phiếu)\n` +
+            `    chương : ${text(record['totalChapters'])} — mới nhất: ` +
+            `${text(chapter?.['displayTitle'], '(không có)')}` +
+            `${publishedAt instanceof Date ? ` @ ${publishedAt.toISOString().slice(0, 10)}` : ''}\n` +
+            `    genres : ${Array.isArray(genres) ? genres.slice(0, 5).join(', ') : ''}`,
         );
         break;
+      }
+
       default:
         console.log(`  ${JSON.stringify(item)}`);
     }
@@ -166,17 +220,84 @@ function printSummary(mode: string, payload: unknown, count: number): void {
   console.log('');
 }
 
-main().catch((error: unknown) => {
-  if (error instanceof UsageError) {
-    console.error(`\n${error.message}\n\nChạy --help để xem hướng dẫn.\n`);
-  } else if (error instanceof CrawlerError) {
-    // Lỗi có chủ đích: in message + ngữ cảnh, không cần stack trace.
-    logger.error({ context: error.context, fatal: error.isFatal }, error.message);
-  } else {
-    logger.error(
-      { err: error instanceof Error ? error.stack : String(error) },
-      'lỗi ngoài dự kiến',
-    );
+/**
+ * Tóm tắt một lần chạy CÓ GHI database.
+ *
+ * `unchanged` được tách riêng khỏi `updated` là có chủ đích: ở mode refresh thì
+ * phần lớn novel sẽ là `unchanged` nhờ so content_hash, và nhìn thấy con số đó
+ * là cách nhanh nhất để biết update detection đang hoạt động.
+ */
+function printRunSummary(summary: RunSummary): void {
+  const t = summary.totals;
+  console.log(`\n${summary.sourceId} / ${summary.mode}  —  ${summary.durationMs}ms\n`);
+  console.log(`  đã xem     : ${t.seen}`);
+  console.log(`  tạo mới    : ${t.created}`);
+  console.log(`  cập nhật   : ${t.updated}`);
+  console.log(`  không đổi  : ${t.unchanged}   ← content_hash trùng, bỏ qua ghi`);
+  console.log(`  bỏ qua     : ${t.skipped}`);
+  console.log(`  thất bại   : ${t.failed}`);
+  console.log(`  chương mới : ${t.chaptersAdded}`);
+
+  if (summary.truncated) {
+    console.log(`\n  ⚠️  Chạm trần --limit — dữ liệu bị cắt bớt, chưa xử lý hết.`);
   }
-  process.exit(1);
-});
+
+  for (const failure of summary.failures.slice(0, 5)) {
+    console.log(`\n  ✖ ${failure.externalId}: ${failure.error?.message ?? failure.reason ?? ''}`);
+  }
+  console.log('');
+}
+
+/** Hiển thị giá trị có thể vắng mặt mà không in ra chuỗi 'undefined'. */
+function text(value: unknown, fallback = '—'): string {
+  return value === null || value === undefined ? fallback : String(value);
+}
+
+function truncate(value: string, max: number): string {
+  return value.length <= max ? value : `${value.slice(0, max - 1)}…`;
+}
+
+/*
+ * Đóng pool ở MỌI nhánh thoát.
+ *
+ * `pg.Pool` giữ socket mở nên event loop không bao giờ rỗng — thiếu bước này
+ * thì tiến trình treo sau khi in xong kết quả, và trên GitHub Actions job sẽ
+ * chạy tới hết 6 giờ timeout.
+ */
+main()
+  .then(() => closePool())
+  .catch(async (error: unknown) => {
+    await closePool().catch(() => undefined);
+
+    /*
+     * BỊ CHẶN -> THOÁT VỚI MÃ 0.
+     *
+     * Nguồn trả 403 không phải lỗi của mình, và cũng không phải thứ thử lại được
+     * — thử lại chỉ tăng nguy cơ bị cấm IP vĩnh viễn. Trả mã 0 để GitHub Actions
+     * KHÔNG đánh dấu workflow là hỏng và KHÔNG kích hoạt retry: đây là kết quả
+     * hợp lệ ("nguồn hiện không cho truy cập"), không phải sự cố hạ tầng.
+     *
+     * Thông báo vẫn được ghi ở mức warn để người vận hành thấy trong log.
+     */
+    if (error instanceof BlockedError) {
+      logger.warn(
+        { context: error.context },
+        'nguồn từ chối truy cập (403/429) — kết thúc bình thường, KHÔNG retry',
+      );
+      process.exit(0);
+    }
+
+    if (error instanceof UsageError) {
+      console.error(`\n${error.message}\n\nChạy --help để xem hướng dẫn.\n`);
+    } else if (error instanceof CrawlerError) {
+      // Lỗi có chủ đích: in message + ngữ cảnh, không cần stack trace.
+      logger.error({ context: error.context, fatal: error.isFatal }, error.message);
+    } else {
+      logger.error(
+        { err: error instanceof Error ? error.stack : String(error) },
+        'lỗi ngoài dự kiến',
+      );
+    }
+
+    process.exit(1);
+  });

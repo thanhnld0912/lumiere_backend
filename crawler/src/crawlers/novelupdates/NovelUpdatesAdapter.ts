@@ -2,13 +2,20 @@ import type { CheerioCrawlingContext } from '@crawlee/cheerio';
 import { novelUpdatesConfig, type NovelUpdatesConfig } from '../../config/sources/novelupdates.config.js';
 import { BaseCrawler } from '../../core/BaseCrawler.js';
 import type { ISourceAdapter } from '../../core/contracts/ISourceAdapter.js';
+import type { NormalizeContext } from '../../core/contracts/INormalizer.js';
 import type { CrawlContext, CrawlMode, NovelRef, SourceId } from '../../core/types.js';
-import type { RawLatestRelease, RawNovel } from '../../dto/index.js';
+import type {
+  NormalizedLatestRelease,
+  NormalizedNovel,
+  RawLatestRelease,
+  RawNovel,
+} from '../../dto/index.js';
 import {
   NovelUpdatesBrowseParser,
   NovelUpdatesLatestParser,
   NovelUpdatesSeriesParser,
 } from '../../parsers/novelupdates/index.js';
+import { NovelUpdatesNormalizer } from './NovelUpdatesNormalizer.js';
 
 /**
  * Source Adapter ĐẦU TIÊN — NovelUpdates.
@@ -27,9 +34,14 @@ export class NovelUpdatesAdapter extends BaseCrawler implements ISourceAdapter {
   private readonly seriesParser = new NovelUpdatesSeriesParser();
   private readonly latestParser = new NovelUpdatesLatestParser();
   private readonly browseParser = new NovelUpdatesBrowseParser();
+  private readonly normalizer = new NovelUpdatesNormalizer();
 
   supports(mode: CrawlMode): boolean {
     return this.config.modes.includes(mode);
+  }
+
+  private normalizeContext(ctx: CrawlContext): NormalizeContext {
+    return { sourceId: this.sourceId, config: this.config, now: ctx.startedAt };
   }
 
   /**
@@ -38,14 +50,15 @@ export class NovelUpdatesAdapter extends BaseCrawler implements ISourceAdapter {
    * Chế độ RẺ NHẤT của cả hệ thống: đúng MỘT request cho biết ~80 novel vừa có
    * chương mới. Vì vậy nó chạy 6 giờ/lần, trong khi `refresh` chỉ chạy hàng tháng.
    */
-  async latest(ctx: CrawlContext): Promise<readonly RawLatestRelease[]> {
+  async latest(ctx: CrawlContext): Promise<readonly NormalizedLatestRelease[]> {
     const url = new URL(this.config.paths.latestReleases, this.config.baseUrl).toString();
 
     const output = await this.crawl<RawLatestRelease>(ctx, [url], (crawlingContext) =>
       this.latestParser.parse(crawlingContext.$, this.parseContext(crawlingContext)),
     );
 
-    return output.items;
+    const normalizeContext = this.normalizeContext(ctx);
+    return output.items.map((raw) => this.normalizer.normalizeLatest(raw, normalizeContext));
   }
 
   /**
@@ -58,7 +71,7 @@ export class NovelUpdatesAdapter extends BaseCrawler implements ISourceAdapter {
   async refresh(
     ctx: CrawlContext,
     targets: readonly NovelRef[],
-  ): Promise<readonly RawNovel[]> {
+  ): Promise<readonly NormalizedNovel[]> {
     if (targets.length === 0) return [];
 
     const urls = targets.map((target) => target.sourceUrl);
@@ -67,7 +80,8 @@ export class NovelUpdatesAdapter extends BaseCrawler implements ISourceAdapter {
       this.seriesParser.parse(crawlingContext.$, this.parseContext(crawlingContext)),
     ]);
 
-    return output.items;
+    const normalizeContext = this.normalizeContext(ctx);
+    return output.items.map((raw) => this.normalizer.normalizeNovel(raw, normalizeContext));
   }
 
   /**

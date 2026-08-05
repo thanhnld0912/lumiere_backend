@@ -1,5 +1,6 @@
 import type { SourceId } from '../../core/types.js';
 import { novelUpdatesConfig } from './novelupdates.config.js';
+import { scribbleHubConfig } from './scribblehub.config.js';
 import type { SourceConfig } from './types.js';
 
 /**
@@ -9,8 +10,9 @@ import type { SourceConfig } from './types.js';
  * khác phải sửa.
  */
 const configs: readonly SourceConfig[] = [
+  scribbleHubConfig,
   novelUpdatesConfig,
-  // RoyalRoad, ScribbleHub, Foxaholic… thêm vào đây
+  // RoyalRoad, Foxaholic… thêm vào đây
 ];
 
 export const SOURCE_CONFIGS: ReadonlyMap<SourceId, SourceConfig> = new Map(
@@ -25,6 +27,7 @@ export function listEnabledSources(): readonly SourceConfig[] {
   return configs.filter((config) => config.enabled);
 }
 
-export { novelUpdatesConfig };
+export { novelUpdatesConfig, scribbleHubConfig };
 export type { NovelUpdatesConfig } from './novelupdates.config.js';
+export type { ScribbleHubConfig } from './scribblehub.config.js';
 export type { HttpConfig, PolitenessConfig, SourceConfig } from './types.js';

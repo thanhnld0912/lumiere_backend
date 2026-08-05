@@ -1,0 +1,82 @@
+name: Crawl · refresh
+
+# Mode ĐẮT NHẤT: nạp metadata đầy đủ (genre, tag, rating, status, mô tả).
+# Đây là job DUY NHẤT ghi vào bảng `novels`.
+#
+# RunPlanner chọn novel cũ nhất theo novel_sources.last_crawled_at (NULLS FIRST),
+# nên novel do latest/discover vừa phát hiện luôn được ưu tiên.
+on:
+  schedule:
+    # Mỗi tháng một lần, ngày 1 lúc 03:00 UTC.
+    - cron: '0 3 1 * *'
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Nguồn (bỏ trống = CRAWL_DEFAULT_SOURCE)'
+        required: false
+        type: string
+      limit:
+        description: 'Trần số novel cho lần chạy này'
+        required: false
+        default: '1000'
+        type: string
+      force:
+        description: 'Ghi lại bất kể content_hash (dùng sau khi sửa bug ghi)'
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: crawl-refresh
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    # Rộng hơn latest vì phải gọi API cho từng novel, có rate limit lịch sự.
+    timeout-minutes: 330
+    defaults:
+      run:
+        working-directory: crawler
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: crawler/package-lock.json
+
+      - name: Cài dependency
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Doctor (dừng workflow nếu hỏng)
+        run: npm run doctor
+        env:
+          CRAWLER_DATABASE_URL: ${{ secrets.CRAWLER_DATABASE_URL }}
+
+      - name: Crawl
+        run: |
+          set -o pipefail
+          npm run crawl:refresh -- \
+            ${SOURCE:+--source "$SOURCE"} \
+            --limit "${LIMIT:-1000}" \
+            ${FORCE:+--force} 2>&1 | tee crawl.log
+        env:
+          CRAWLER_DATABASE_URL: ${{ secrets.CRAWLER_DATABASE_URL }}
+          CRAWLER_USER_AGENT: ${{ vars.CRAWLER_USER_AGENT }}
+          SOURCE: ${{ inputs.source }}
+          LIMIT: ${{ inputs.limit }}
+          FORCE: ${{ inputs.force == true && '1' || '' }}
+
+      - name: Lưu log khi hỏng
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: crawl-refresh-log-${{ github.run_id }}
+          path: crawler/crawl.log
+          retention-days: 14
