@@ -1,9 +1,9 @@
 /**
- * Một chương ở dạng đã chuẩn hoá — **không có nội dung**.
+ * Một chương ở dạng đã chuẩn hoá.
  *
- * Theo yêu cầu hiện tại, crawler chỉ lấy tới mức "chương này tồn tại", chưa
- * crawl phần text. Điều đó khớp sẵn với trạng thái rỗng
- * "Chapter content not available yet" mà ReaderView đã có.
+ * Nội dung là TUỲ CHỌN (xem `content`): nguồn nào cho text thì có, nguồn nào chỉ
+ * cho mục lục thì chương vẫn tồn tại và ReaderView hiển thị trạng thái rỗng
+ * "Chapter content not available yet" đã có sẵn.
  *
  * Năm trường của D1 nằm ở đây: raw_chapter_title, display_title, chapter_number,
  * volume_number, is_extra.
@@ -39,6 +39,19 @@ export interface NormalizedChapterRef {
    * Number.MAX_SAFE_INTEGER ở dải volume cao. Xem utils/sortIndex.ts.
    */
   readonly sortIndex: string;
+
+  /**
+   * Nội dung chương, mỗi phần tử là MỘT đoạn văn.
+   *
+   * `undefined` = adapter chưa lấy nội dung cho chương này (chưa tới lượt hoặc
+   * đã chạm trần mỗi lần chạy). KHÁC với mảng rỗng = đã lấy nhưng chương thật sự
+   * không có chữ nào.
+   *
+   * Phân biệt hai trạng thái đó là bắt buộc: importer chỉ được ghi khi
+   * `undefined`, nếu không một lượt crawl không kèm nội dung sẽ XOÁ TRẮNG nội
+   * dung đã lưu.
+   */
+  readonly content?: readonly string[];
 
   readonly publishedAt: Date | null;
   readonly sourceUrl: string | null;

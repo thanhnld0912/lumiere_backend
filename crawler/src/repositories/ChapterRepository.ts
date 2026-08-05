@@ -2,13 +2,82 @@ import type { NormalizedChapterRef } from '../dto/index.js';
 import { BaseRepository } from './BaseRepository.js';
 
 /**
- * Bảng `chapters`.
+ * Bảng `chapters` và `chapter_contents`.
  *
- * ⚠️ TUYỆT ĐỐI không đụng tới `chapter_contents` — yêu cầu hiện tại là chưa
- * crawl nội dung chương. Chương được tạo mà không có nội dung sẽ hiển thị đúng
- * trạng thái rỗng "Chapter content not available yet" mà ReaderView đã có.
+ * Nội dung nằm ở bảng RIÊNG chứ không phải một cột của `chapters`, để câu truy
+ * vấn mục lục (novel 991 chương) không phải kéo theo hàng megabyte văn bản.
  */
 export class ChapterRepository extends BaseRepository {
+  /**
+   * Ghi nội dung chương.
+   *
+   * ⚠️ Mảng RỖNG bị bỏ qua, không ghi đè.
+   *
+   * Nguồn thỉnh thoảng trả chương trống (đang đăng dở, bị gỡ). Ghi mảng rỗng
+   * lên nội dung đã có sẽ XOÁ TRẮNG một chương đọc được — mất dữ liệu do một
+   * lần crawl lỗi. Ràng buộc CHECK ở DB cũng yêu cầu ít nhất một đoạn.
+   */
+  async upsertContent(chapterId: string, paragraphs: readonly string[]): Promise<boolean> {
+    if (paragraphs.length === 0) return false;
+
+    await this.execute(
+      `INSERT INTO chapter_contents (chapter_id, paragraphs, updated_at)
+       VALUES ($1, $2::text[], now())
+       ON CONFLICT (chapter_id) DO UPDATE
+         SET paragraphs = EXCLUDED.paragraphs,
+             updated_at = now()`,
+      [chapterId, [...paragraphs]],
+    );
+    return true;
+  }
+
+  /**
+   * SỐ CHƯƠNG đã có nội dung, tra theo danh tính bên nguồn.
+   *
+   * Đây là thứ cho phép adapter đi TIẾP thay vì tải lại: mỗi lần refresh chỉ lấy
+   * những chương còn thiếu, nên trần `contentChaptersPerNovel` dịch dần về cuối
+   * mục lục thay vì cắn mãi vào 50 chương đầu.
+   *
+   * Tra bằng (source_id, external_id) chứ không bằng novelId, vì người gọi là
+   * tầng service — nơi chỉ có danh tính bên nguồn trong tay.
+   */
+  async findNumbersWithContent(sourceId: string, externalId: string): Promise<Set<number>> {
+    const rows = await this.many<{ number: number }>(
+      `SELECT c.number
+       FROM novel_sources ns
+       JOIN chapters c          ON c.novel_id = ns.novel_id
+       JOIN chapter_contents cc ON cc.chapter_id = c.id
+       WHERE ns.source_id = $1 AND ns.external_id = $2`,
+      [sourceId, externalId],
+    );
+    return new Set(rows.map((row) => row.number));
+  }
+
+  /**
+   * slug -> id cho các chương đã tồn tại của một novel.
+   *
+   * Dùng ở đường "metadata không đổi": chương đã có sẵn trong bảng nên không cần
+   * UPSERT lại chỉ để lấy id — chỉ cần tra rồi ghi thẳng nội dung.
+   */
+  async findIdsBySlug(novelId: string, slugs: readonly string[]): Promise<Map<string, string>> {
+    if (slugs.length === 0) return new Map();
+
+    const rows = await this.many<{ id: string; slug: string }>(
+      `SELECT id, slug FROM chapters WHERE novel_id = $1 AND slug = ANY($2::text[])`,
+      [novelId, [...slugs]],
+    );
+    return new Map(rows.map((row) => [row.slug, row.id]));
+  }
+
+  /** Số dòng `chapters` đang lưu của một novel — dùng để phát hiện mục lục thiếu. */
+  async countByNovel(novelId: string): Promise<number> {
+    const row = await this.one<{ total: string }>(
+      'SELECT COUNT(*)::text AS total FROM chapters WHERE novel_id = $1',
+      [novelId],
+    );
+    return row ? Number.parseInt(row.total, 10) : 0;
+  }
+
   /** Số chương lớn nhất đang lưu — dùng để đếm chương mới cho sync_events. */
   async findMaxNumber(novelId: string): Promise<number> {
     const row = await this.one<{ max_number: number | null }>(

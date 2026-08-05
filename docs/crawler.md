@@ -286,7 +286,11 @@ bảng `sources`), không đụng `core/`, `dto/`, `database/`, `jobs/`, `cli/`.
 |---|---|---|
 | **ScribbleHub** | ✅ đang dùng | REST API chính thức, 130 route, không cần token |
 | **NovelUpdates** | ⛔ bị chặn | 403 ở **mọi** endpoint kể cả `robots.txt`. Code giữ nguyên, test vẫn xanh |
-| RoyalRoad | ⚪ chưa làm | `robots.txt` cho phép `*`, nhưng chặn hàng loạt crawler AI |
+| RoyalRoad | ⚪ chưa làm | `robots.txt` cho phép `*`, nhưng `User-agent: ClaudeBot / Disallow: /` |
+
+**Nội dung chương (§9): chỉ ScribbleHub có.** NovelUpdates là trang tổng hợp — nó liệt kê chương ở
+site khác chứ không giữ text, nên `NovelUpdatesAdapter` cố ý không có bước [3/5]. Chương của nó vẫn
+vào bảng `chapters` và ReaderView hiển thị trạng thái rỗng đã có sẵn. RoyalRoad chưa tồn tại.
 
 Chi tiết đo đạc: [CRAWLER_ARCHITECTURE.md](../CRAWLER_ARCHITECTURE.md) §11–§12.
 
@@ -301,5 +305,63 @@ Chi tiết đo đạc: [CRAWLER_ARCHITECTURE.md](../CRAWLER_ARCHITECTURE.md) §1
 | `Database schema is not initialised` | Chưa chạy `npm run db:migrate` ở thư mục backend. |
 | `bind message supplies N parameters…` | Sai parameter mapping. Guard trong `database/pool.ts` sẽ chỉ thẳng câu SQL. |
 | Nguồn trả 403 | CLI thoát mã 0, không retry. Chạy `npm run probe` từ mạng khác để phân định IP hay client. |
-| Dữ liệu sai nhưng crawl báo `không đổi` | Bug ở đường ghi — `content_hash` không tự lành. Chạy lại với `--force`. |
+| `chapter_contents` rỗng | Xem §9. Kiểm tra trước: code đã **commit và push** chưa — GitHub Actions chạy `origin/main`, không chạy working tree. |
+| Bản tóm tắt báo `nội dung: 0 ghi / N tải về` | Đường ghi hỏng thật. Chạy lại với `LOG_LEVEL=debug` và soi các mốc `[3/5]`→`[5/5]`. |
+| Bản tóm tắt báo `0 ghi / 0 tải về` | Bình thường nếu mọi chương đã đủ nội dung — `ctx.contentCoverage` đã bỏ qua chúng. |
+| Mục lục kẹt ở 1 chương | Đã tự lành từ §9: importer đối chiếu `COUNT(*)` với nguồn và ghi bù kể cả khi `content_hash` trùng. |
 | Tiến trình treo sau khi in kết quả | `pg.Pool` giữ event loop. CLI đã gọi `closePool()` ở mọi nhánh thoát. |
+
+---
+
+## 9. Nội dung chương
+
+### Đường đi, 5 mốc
+
+Mỗi mốc có một dòng log mang đúng nhãn đó — chạy với `LOG_LEVEL=debug` để thấy hết.
+
+```
+[1/5] ScribbleHubAdapter.fetchAllChapters      GET /stories/{id}/chapters   -> phát hiện chương
+[2/5] ScribbleHubAdapter.fetchChapterContents  lọc theo ctx.contentCoverage -> chọn chương cần tải
+[3/5]   └─ mỗi chương MỘT request              GET /chapters/{id}           -> HTML
+[4/5] ScribbleHubNormalizer.normalizeChapter   extractParagraphs()          -> string[]
+[5/5] NovelImporter -> ChapterRepository.upsertContent                      -> chapter_contents
+```
+
+`/stories/{id}/chapters` trả `content: ""` cho **mọi** chương — chỉ `/chapters/{id}` mới có text.
+Đó là lý do mốc [3/5] tốn một request cho mỗi chương.
+
+### Ba bất biến, phá cái nào cũng mất dữ liệu trong im lặng
+
+1. **`content === undefined` ≠ mảng rỗng.** `undefined` = chưa tới lượt tải; rỗng = đã tải nhưng
+   chương không có chữ. Importer chỉ ghi khi khác `undefined`, nếu không một lượt crawl không kèm
+   nội dung sẽ **xoá trắng** chương đang đọc được.
+2. **`upsertContent` bỏ qua mảng rỗng.** Nguồn thỉnh thoảng trả chương trống (đang đăng dở, bị gỡ).
+3. **Nội dung KHÔNG nằm trong `content_hash`.** Hash chỉ đo metadata của nguồn. Có test hồi quy.
+
+### `content_hash` không chứng minh dữ liệu đã đầy đủ
+
+Hash trùng chỉ nghĩa là *nguồn* không đổi. Nó **không** nghĩa là thứ ta đã lưu là đủ — và hai điều
+đó lệch nhau mỗi khi crawler học được cách lấy thêm dữ liệu. Nên `NovelImporter` đối chiếu trước
+khi thoát ở nhánh `unchanged`:
+
+- `COUNT(*)` bảng `chapters` < số chương nguồn → ghi bù toàn bộ mục lục
+- nội dung vừa tải về → ghi vào `chapter_contents`
+
+Cả hai đều không đụng bảng `novels`, nên `updated_at` không nhảy và Timeline không có sự kiện rác.
+Nhờ vậy mọi bản sửa ở đường ghi tự lan ra dữ liệu cũ mà **không cần `--force`**.
+
+### Chi phí
+
+`CRAWL_CONTENT_CHAPTERS_PER_NOVEL` (mặc định 50, đặt 0 để tắt) là trần số chương tải nội dung cho
+mỗi novel mỗi lần chạy. Ở 30 req/phút, 50 chương ≈ 100 giây cho một novel.
+
+`ctx.contentCoverage` bỏ qua chương đã có nội dung, nên trần **dịch dần về cuối mục lục** qua các
+lượt refresh. Thiếu nó thì trần luôn cắn vào cùng 50 chương đầu và chương 51 trở đi không bao giờ
+có nội dung.
+
+### Kiểm chứng
+
+```bash
+npm run content-check              # toàn bộ: nguồn / chapters / có nội dung / tổng đoạn
+npm run content-check -- crimson   # lọc theo slug, kèm mẫu văn bản thật
+```

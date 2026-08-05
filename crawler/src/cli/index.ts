@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { crawlerConfig } from '../config/crawler.config.js';
 import { registerSourceAdapters, sourceRegistry } from '../crawlers/index.js';
 import {
   canDiscover,
@@ -237,6 +238,28 @@ function printRunSummary(summary: RunSummary): void {
   console.log(`  bỏ qua     : ${t.skipped}`);
   console.log(`  thất bại   : ${t.failed}`);
   console.log(`  chương mới : ${t.chaptersAdded}`);
+  console.log(`  nội dung   : ${t.contentsWritten} ghi / ${t.contentsFetched} tải về`);
+
+  /*
+   * Cảnh báo TƯỜNG MINH khi tải được text mà không ghi được dòng nào.
+   *
+   * Đây chính là triệu chứng đã âm thầm tồn tại qua nhiều lần chạy: bảng
+   * `chapters` đầy lên, `chapter_contents` vẫn rỗng, mà bản tóm tắt không hề
+   * nhắc tới. Im lặng ở đây đọc y hệt như thành công.
+   *
+   * So `fetched` với `written` chứ không chỉ nhìn `written === 0`: novel đã đủ
+   * nội dung thì không tải gì cả, và đó là kết quả ĐÚNG, không phải sự cố.
+   */
+  if (t.contentsFetched > 0 && t.contentsWritten === 0) {
+    console.log(
+      `\n  ⚠️  Đã tải ${t.contentsFetched} chương text nhưng KHÔNG ghi được dòng nào` +
+        ` vào chapter_contents.\n      Đường ghi đang hỏng — chạy lại với LOG_LEVEL=debug.`,
+    );
+  }
+
+  if (summary.mode === 'refresh' && crawlerConfig.contentChaptersPerNovel === 0) {
+    console.log(`\n  ⚠️  CRAWL_CONTENT_CHAPTERS_PER_NOVEL = 0 — nội dung chương đang TẮT.`);
+  }
 
   if (summary.truncated) {
     console.log(`\n  ⚠️  Chạm trần --limit — dữ liệu bị cắt bớt, chưa xử lý hết.`);

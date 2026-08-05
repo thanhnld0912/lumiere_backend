@@ -18,6 +18,23 @@ export interface ItemOutcome {
   readonly slug?: string;
   /** Số chương mới phát hiện — nguồn cho sync_events.chapters_added_count. */
   readonly chaptersAdded?: number;
+  /**
+   * Số dòng `chapter_contents` vừa ghi.
+   *
+   * Tách riêng khỏi `action` là bắt buộc: một novel có metadata `unchanged` vẫn
+   * có thể vừa được ghi 50 chương nội dung. Gộp vào `updated` thì số liệu về
+   * update detection sai; bỏ đi thì bản tóm tắt báo "không đổi" trong khi vừa
+   * ghi hàng nghìn đoạn văn.
+   */
+  readonly contentsWritten?: number;
+  /**
+   * Số chương mà adapter THỰC SỰ tải được text về.
+   *
+   * Cần tách khỏi `contentsWritten` để phân biệt hai tình huống nhìn giống hệt
+   * nhau ở bản tóm tắt: "không tải gì vì đã đủ nội dung" (bình thường) và "tải
+   * về rồi nhưng không ghi được dòng nào" (đường ghi hỏng).
+   */
+  readonly contentsFetched?: number;
   readonly reason?: string;
   readonly error?: Error;
 }
@@ -39,6 +56,10 @@ export interface RunSummary {
     readonly skipped: number;
     readonly failed: number;
     readonly chaptersAdded: number;
+    /** Tổng số dòng `chapter_contents` đã ghi trong lần chạy. */
+    readonly contentsWritten: number;
+    /** Tổng số chương adapter tải được text về. */
+    readonly contentsFetched: number;
   };
 
   /**
@@ -58,6 +79,8 @@ export function emptyTotals(): RunSummary['totals'] {
     skipped: 0,
     failed: 0,
     chaptersAdded: 0,
+    contentsWritten: 0,
+    contentsFetched: 0,
   };
 }
 
@@ -71,6 +94,8 @@ export function tallyOutcomes(outcomes: readonly ItemOutcome[]): RunSummary['tot
     skipped: 0,
     failed: 0,
     chaptersAdded: 0,
+    contentsWritten: 0,
+    contentsFetched: 0,
   };
 
   for (const outcome of outcomes) {
@@ -92,6 +117,8 @@ export function tallyOutcomes(outcomes: readonly ItemOutcome[]): RunSummary['tot
         break;
     }
     totals.chaptersAdded += outcome.chaptersAdded ?? 0;
+    totals.contentsWritten += outcome.contentsWritten ?? 0;
+    totals.contentsFetched += outcome.contentsFetched ?? 0;
   }
 
   return totals;

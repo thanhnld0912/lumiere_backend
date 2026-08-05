@@ -48,6 +48,13 @@ const envSchema = z.object({
     .min(10)
     .default('LumiereBot/0.1 (+https://github.com/lumiere; contact@example.com)'),
 
+  /**
+   * Trần số chương TẢI NỘI DUNG cho mỗi novel, trong một lần chạy.
+   *
+   * Mỗi chương là một request riêng. Đặt 0 để tắt hẳn việc tải nội dung.
+   */
+  CRAWL_CONTENT_CHAPTERS_PER_NOVEL: z.coerce.number().int().min(0).max(5_000).default(50),
+
   /** Trần số novel xử lý trong MỘT lần chạy (D4: 1.000–5.000 cho mode refresh). */
   CRAWL_MAX_ITEMS_PER_RUN: z.coerce.number().int().min(1).max(50_000).default(1000),
 

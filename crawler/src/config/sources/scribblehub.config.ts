@@ -23,7 +23,23 @@ export interface ScribbleHubConfig extends SourceConfig {
     /** Chi tiết một truyện — nguồn cho mode `refresh`. `{id}` được thay thế. */
     readonly storyDetail: string;
     readonly storyChapters: string;
+    /**
+     * Nội dung MỘT chương. Endpoint danh sách trả `content: ""` cho mọi chương —
+     * chỉ endpoint này mới có text.
+     */
+    readonly chapterDetail: string;
   };
+
+  /**
+   * Trần số chương tải nội dung cho MỖI novel, trong MỘT lần chạy.
+   *
+   * Mỗi chương là một request. Novel 991 chương ở tốc độ lịch sự 30 req/phút mất
+   * 33 phút cho riêng nó — sẽ làm job vượt giới hạn 6 giờ của GitHub Actions.
+   *
+   * Đặt trần thì chương đầu có nội dung ngay, phần còn lại các lượt refresh sau
+   * lấy tiếp. Đặt 0 để tắt hẳn việc tải nội dung.
+   */
+  readonly contentChaptersPerNovel: number;
   /** Số item mỗi trang. API mặc định 25; giữ nguyên để không tạo tải bất thường. */
   readonly perPage: number;
 }
@@ -74,6 +90,8 @@ export const scribbleHubConfig: ScribbleHubConfig = {
     stories: '/stories',
     storyDetail: '/stories/{id}',
     storyChapters: '/stories/{id}/chapters',
+    chapterDetail: '/chapters/{id}',
   },
   perPage: 25,
+  contentChaptersPerNovel: crawlerConfig.contentChaptersPerNovel,
 };

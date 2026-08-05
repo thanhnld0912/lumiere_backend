@@ -27,6 +27,9 @@ export const crawlerConfig = {
   dryRun: env.CRAWL_DRY_RUN,
   userAgent: env.CRAWLER_USER_AGENT,
 
+  /** Trần số chương tải nội dung cho mỗi novel — mỗi chương là một request. */
+  contentChaptersPerNovel: env.CRAWL_CONTENT_CHAPTERS_PER_NOVEL,
+
   /** Số novel ghi mỗi lô. Đủ nhỏ để một lô hỏng không mất nhiều việc. */
   importBatchSize: 50,
 

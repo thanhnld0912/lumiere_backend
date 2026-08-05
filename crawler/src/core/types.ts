@@ -67,4 +67,17 @@ export interface CrawlContext {
   /** Huỷ giữa chừng — dùng khi CI sắp hết thời gian. */
   readonly signal?: AbortSignal;
   readonly startedAt: Date;
+
+  /**
+   * Số chương ĐÃ có nội dung trong database, cho một novel của nguồn này.
+   *
+   * Adapter dùng để BỎ QUA việc tải lại nội dung đã lưu. Thiếu bước này thì trần
+   * `contentChaptersPerNovel` luôn cắn vào cùng 50 chương đầu ở mọi lần chạy, và
+   * chương 51 trở đi KHÔNG BAO GIỜ có nội dung dù refresh bao nhiêu lần.
+   *
+   * Là callback chứ không phải dữ liệu: adapter không được biết database tồn
+   * tại, và luật "không có SQL trong crawler class" vẫn giữ nguyên. Vắng mặt
+   * (dry-run, unit test) thì adapter coi như chưa có gì và tải từ đầu.
+   */
+  readonly contentCoverage?: (externalId: string) => Promise<ReadonlySet<number>>;
 }

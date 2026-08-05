@@ -4,7 +4,7 @@ import { tallyOutcomes, type ItemOutcome, type RunSummary } from '../core/result
 import type { CrawlContext, CrawlMode, NovelRef } from '../core/types.js';
 import { withTransaction } from '../database/transaction.js';
 import { createJob, RefreshJob, type JobContext } from '../jobs/index.js';
-import { SourceRepository, SyncRepository } from '../repositories/index.js';
+import { ChapterRepository, SourceRepository, SyncRepository } from '../repositories/index.js';
 import { RunPlanner } from '../scheduler/RunPlanner.js';
 import { computeNextRunAt } from '../scheduler/schedule.config.js';
 import { childLogger } from '../utils/logger.js';
@@ -39,6 +39,13 @@ export class CrawlerService {
     options: RunOptions,
   ): Promise<RunSummary> {
     const startedAt = new Date();
+
+    /*
+     * Tra (và tự đăng ký) nguồn TRƯỚC khi crawl: hỏng ở đây thì mọi thao tác ghi
+     * sau đó đều vô nghĩa, nên fail sớm hơn là fail sau 20 phút.
+     */
+    const sourceUuid = await this.resolveSourceUuid(adapter);
+
     const ctx: CrawlContext = {
       runId: randomUUID(),
       sourceId: adapter.sourceId,
@@ -46,15 +53,18 @@ export class CrawlerService {
       maxItems: options.maxItems,
       dryRun: options.dryRun,
       startedAt,
+      /*
+       * Cho adapter biết chương nào ĐÃ có nội dung, để nó tải phần còn THIẾU.
+       *
+       * Chỉ nối ở đường có ghi database. Dry-run cố ý không có: nó phải mô tả
+       * đúng một lần chạy sạch, không phụ thuộc vào những gì đã lưu.
+       */
+      ...(options.dryRun
+        ? {}
+        : { contentCoverage: (externalId: string) => this.readContentCoverage(sourceUuid, externalId) }),
     };
 
     const log = childLogger({ runId: ctx.runId, source: ctx.sourceId, mode });
-
-    /*
-     * Tra (và tự đăng ký) nguồn TRƯỚC khi crawl: hỏng ở đây thì mọi thao tác ghi
-     * sau đó đều vô nghĩa, nên fail sớm hơn là fail sau 20 phút.
-     */
-    const sourceUuid = await this.resolveSourceUuid(adapter);
 
     // dry-run KHÔNG tạo sync_run — nó sẽ làm bẩn thống kê Timeline.
     const runId = ctx.dryRun ? null : await this.startRun(sourceUuid, mode);
@@ -138,6 +148,28 @@ export class CrawlerService {
         enabled: adapter.config.enabled,
       }),
     );
+  }
+
+  /**
+   * Số chương đã có nội dung của một novel — nguồn cho `ctx.contentCoverage`.
+   *
+   * Một câu SELECT cho mỗi novel, đổi lại tiết kiệm tới 50 request HTTP cho novel
+   * đã đồng bộ xong. Ở tốc độ lịch sự 30 req/phút, đó là 100 giây mỗi novel.
+   *
+   * Lỗi ở đây KHÔNG được làm hỏng lần chạy: coi như chưa có gì và tải lại — tốn
+   * thêm request nhưng dữ liệu vẫn đúng.
+   */
+  private async readContentCoverage(
+    sourceUuid: string,
+    externalId: string,
+  ): Promise<ReadonlySet<number>> {
+    try {
+      return await withTransaction((client) =>
+        new ChapterRepository(client).findNumbersWithContent(sourceUuid, externalId),
+      );
+    } catch {
+      return new Set<number>();
+    }
   }
 
   private startRun(sourceUuid: string, mode: CrawlMode): Promise<string> {

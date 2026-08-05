@@ -256,6 +256,60 @@ describe('mục lục đầy đủ — hồi quy', () => {
   });
 });
 
+/**
+ * Hồi quy cho lỗi `chapter_contents` rỗng.
+ *
+ * Ba tính chất dưới đây là hợp đồng giữa adapter và importer. Phá bất kỳ cái nào
+ * thì nội dung hoặc không được ghi, hoặc bị XOÁ TRẮNG — và cả hai đều im lặng.
+ */
+describe('nội dung chương — hồi quy', () => {
+  const story = (load('story-detail.json') as { data: ScribbleHubStory }).data;
+  const { items: chapterList } = readEnvelope(load('story-chapters.json'), isScribbleHubChapter);
+
+  it('KHÔNG truyền contents -> mọi chương có content === undefined', () => {
+    const novel = normalizer.normalizeNovel(story, CTX, chapterList);
+    for (const chapter of novel.chapters) {
+      assert.equal(chapter.content, undefined, 'undefined = chưa lấy, KHÁC với đã lấy mà rỗng');
+    }
+  });
+
+  it('chương CÓ trong map -> có content; chương không có -> vẫn undefined', () => {
+    const first = chapterList[0];
+    assert.ok(first !== undefined, 'fixture phải có ít nhất một chương');
+
+    const contents = new Map([[first.id, '<p>Đoạn một.</p><p>Đoạn hai.</p>']]);
+    const novel = normalizer.normalizeNovel(story, CTX, chapterList, contents);
+
+    const withContent = novel.chapters.find((chapter) => chapter.number === first.number);
+    assert.deepEqual(withContent?.content, ['Đoạn một.', 'Đoạn hai.']);
+
+    for (const chapter of novel.chapters) {
+      if (chapter.number !== first.number) assert.equal(chapter.content, undefined);
+    }
+  });
+
+  /*
+   * Nội dung KHÔNG được nằm trong content_hash.
+   *
+   * Nếu nằm trong, mỗi lần trần ngân sách dịch sang nhóm chương khác thì hash
+   * đổi, novel bị coi là "vừa cập nhật", và Timeline đầy sự kiện giả.
+   */
+  it('tải thêm nội dung KHÔNG làm đổi content_hash', () => {
+    const first = chapterList[0];
+    assert.ok(first !== undefined);
+
+    const before = normalizer.normalizeNovel(story, CTX, chapterList).contentHash;
+    const after = normalizer.normalizeNovel(
+      story,
+      CTX,
+      chapterList,
+      new Map([[first.id, '<p>Chữ.</p>']]),
+    ).contentHash;
+
+    assert.equal(before, after);
+  });
+});
+
 describe('ScribbleHub mappings', () => {
   it('status chữ thường của nguồn', () => {
     assert.equal(mapStoryStatus('ongoing').status, 'Ongoing');

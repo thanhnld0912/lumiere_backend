@@ -14,6 +14,7 @@
     "probe": "node scripts/probe-source.mjs",
     "inspect": "tsx src/dev/inspect.ts",
     "chapter-gap": "tsx src/dev/chapter-gap.ts",
+    "content-check": "tsx src/dev/content-check.ts",
     "purge-seed": "tsx src/dev/purge-seed.ts",
     "test": "node --import tsx --test \"tests/**/*.test.ts\"",
     "crawl": "tsx src/cli/index.ts",
@@ -21,9 +22,6 @@
     "crawl:latest": "tsx src/cli/index.ts --mode latest",
     "crawl:refresh": "tsx src/cli/index.ts --mode refresh",
     "crawl:novelupdates": "tsx src/cli/index.ts --source novelupdates",
-    "crawl:latest": "tsx src/cli/index.ts --source novelupdates --mode latest",
-    "crawl:refresh": "tsx src/cli/index.ts --source novelupdates --mode refresh",
-    "crawl:discover": "tsx src/cli/index.ts --source novelupdates --mode discover",
     "schedule": "tsx src/scheduler/runScheduled.ts"
   },
   "dependencies": {

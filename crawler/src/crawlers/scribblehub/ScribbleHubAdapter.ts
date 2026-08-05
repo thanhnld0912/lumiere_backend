@@ -134,8 +134,24 @@ export class ScribbleHubAdapter extends BaseApiCrawler implements ISourceAdapter
          * người đọc thấy mục lục trống rỗng dù truyện có hàng trăm chương.
          */
         const chapters = await this.fetchAllChapters(target.externalId, log);
+        log.info(
+          { externalId: target.externalId, discovered: chapters.length },
+          '[1/5] phát hiện chương',
+        );
 
-        results.push(this.normalizer.normalizeNovel(story, normalizeContext, chapters));
+        /*
+         * Nội dung chương nằm ở endpoint RIÊNG.
+         *
+         * `/stories/{id}/chapters` trả `content: ""` cho mọi chương — đo được
+         * trên dữ liệu thật. Chỉ `/chapters/{id}` mới có text. Nghĩa là mỗi
+         * chương tốn MỘT request, nên phải có trần chi phí (xem contentBudget).
+         */
+        const covered = (await ctx.contentCoverage?.(target.externalId)) ?? new Set<number>();
+        const contents = await this.fetchChapterContents(chapters, covered, log);
+
+        results.push(
+          this.normalizer.normalizeNovel(story, normalizeContext, chapters, contents),
+        );
       } catch (error) {
         /*
          * BlockedError là fatal — ném tiếp để dừng cả run. Lỗi khác thì chỉ bỏ
@@ -206,6 +222,99 @@ export class ScribbleHubAdapter extends BaseApiCrawler implements ISourceAdapter
     }
 
     return chapters;
+  }
+
+  /**
+   * Tải nội dung cho từng chương, trả map chapterId -> HTML.
+   *
+   * ⚠️ MỖI CHƯƠNG LÀ MỘT REQUEST. Với novel 991 chương và rate limit lịch sự
+   * 30 req/phút thì riêng một novel đã mất 33 phút. Vì vậy có trần
+   * `contentChaptersPerNovel`: vượt trần thì phần còn lại để lượt refresh sau
+   * lấy tiếp, thay vì làm job chạy quá 6 giờ và bị GitHub Actions giết.
+   *
+   * Chương nào lấy được thì có nội dung ngay; chương chưa tới lượt vẫn hiển thị
+   * đúng trạng thái "chưa đồng bộ" — không có gì hỏng.
+   */
+  private async fetchChapterContents(
+    chapters: readonly ScribbleHubChapter[],
+    covered: ReadonlySet<number>,
+    log: ReturnType<BaseApiCrawler['logger']>,
+  ): Promise<Map<number, string>> {
+    const contents = new Map<number, string>();
+    const budget = this.config.contentChaptersPerNovel;
+
+    if (budget <= 0) {
+      log.warn({ budget }, '[2/5] BỎ QUA nội dung — contentChaptersPerNovel = 0');
+      return contents;
+    }
+
+    /*
+     * Bỏ chương ĐÃ có nội dung, rồi ưu tiên chương ĐẦU trong phần còn lại.
+     *
+     * Không lọc `covered` thì trần luôn cắn vào cùng 50 chương đầu ở mọi lần
+     * chạy, và chương 51 trở đi không bao giờ có nội dung. Lọc rồi thì mỗi lượt
+     * refresh tiến thêm 50 chương — sau đủ lượt là đầy mục lục.
+     */
+    const missing = chapters
+      .filter((chapter) => !covered.has(chapter.number))
+      .sort((a, b) => a.number - b.number);
+    const targets = missing.slice(0, budget);
+
+    log.info(
+      { total: chapters.length, daCo: covered.size, conThieu: missing.length, seTai: targets.length },
+      '[2/5] chọn chương cần tải nội dung',
+    );
+
+    for (const chapter of targets) {
+      const url = `${this.config.apiBase}${this.config.paths.chapterDetail.replace(
+        '{id}',
+        String(chapter.id),
+      )}`;
+
+      try {
+        log.debug({ chapterId: chapter.id, number: chapter.number, url }, '[3/5] đang tải nội dung');
+        const payload = await this.fetchJson<unknown>(url, log);
+        const detail = (payload as { data?: unknown }).data ?? payload;
+
+        if (!isScribbleHubChapter(detail)) {
+          log.warn(
+            { chapterId: chapter.id, number: chapter.number },
+            '[3/5] response chương sai hình dạng — không lấy được nội dung',
+          );
+          continue;
+        }
+
+        if (typeof detail.content !== 'string' || detail.content.length === 0) {
+          log.warn(
+            { chapterId: chapter.id, number: chapter.number },
+            '[3/5] nguồn trả nội dung RỖNG — bỏ qua, không ghi đè',
+          );
+          continue;
+        }
+
+        contents.set(chapter.id, detail.content);
+        log.debug(
+          { chapterId: chapter.id, number: chapter.number, htmlLength: detail.content.length },
+          '[3/5] đã tải nội dung',
+        );
+      } catch (error) {
+        // Bị chặn thì dừng cả run; chương lỗi lẻ thì bỏ qua, phần còn lại vẫn ghi.
+        if (isFatal(error)) throw error;
+        log.warn(
+          { chapterId: chapter.id, err: String(error).slice(0, 120) },
+          '[3/5] không lấy được nội dung chương, bỏ qua',
+        );
+      }
+    }
+
+    if (missing.length > targets.length) {
+      log.warn(
+        { conLai: missing.length - targets.length, budget },
+        '[3/5] chạm trần nội dung mỗi novel — phần còn lại để lượt refresh sau',
+      );
+    }
+
+    return contents;
   }
 
   private toNovelRef(story: ScribbleHubStory): NovelRef {

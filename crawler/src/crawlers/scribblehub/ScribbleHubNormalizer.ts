@@ -4,6 +4,7 @@ import type {
   NormalizedLatestRelease,
   NormalizedNovel,
 } from '../../dto/index.js';
+import { extractParagraphs } from '../../extractors/content.extractor.js';
 import { cleanMultilineText, cleanText } from '../../extractors/text.extractor.js';
 import { hashContent } from '../../utils/hash.js';
 import { chapterSlug } from '../../utils/slugify.js';
@@ -32,11 +33,15 @@ export class ScribbleHubNormalizer {
     story: ScribbleHubStory,
     ctx: NormalizeContext,
     chapterList: readonly ScribbleHubChapter[] = [],
+    /** HTML nội dung theo chapterId; thiếu chương nào thì chương đó không có nội dung. */
+    contents: ReadonlyMap<number, string> = new Map(),
   ): NormalizedNovel {
     const slug = mapSlug(story.slug, story.id);
     const statusMapping = mapStoryStatus(story.status);
 
-    const chapters = chapterList.map((chapter) => this.normalizeChapter(chapter));
+    const chapters = chapterList.map((chapter) =>
+      this.normalizeChapter(chapter, contents.get(chapter.id)),
+    );
 
     /*
      * Chương mới nhất = chương có sortIndex lớn nhất trong danh sách thật.
@@ -132,14 +137,26 @@ export class ScribbleHubNormalizer {
   }
 
   /** Chương lấy từ endpoint /stories/{id}/chapters. */
-  normalizeChapter(chapter: ScribbleHubChapter): NormalizedChapterRef {
-    return this.buildChapterRef({
+  normalizeChapter(
+    chapter: ScribbleHubChapter,
+    contentHtml?: string,
+  ): NormalizedChapterRef {
+    const ref = this.buildChapterRef({
       number: chapter.number,
       title: chapter.title,
       publishedAt: chapter.publishedAt,
       id: chapter.id,
       wordCount: chapter.wordCount,
     });
+
+    // Không tải được nội dung -> KHÔNG set field, để importer biết là "chưa lấy"
+    // chứ không phải "lấy rồi nhưng rỗng".
+    if (contentHtml === undefined) return ref;
+
+    return {
+      ...ref,
+      content: extractParagraphs(contentHtml, { dropTitleLine: ref.title }),
+    };
   }
 
   /**
