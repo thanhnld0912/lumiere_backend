@@ -79,7 +79,7 @@ jobs:
             ${FORCE:+--force} 2>&1 | tee crawl.log
         env:
           CRAWLER_DATABASE_URL: ${{ secrets.CRAWLER_DATABASE_URL }}
-          CRAWLER_USER_AGENT: ${{ vars.CRAWLER_USER_AGENT }}
+          CRAWLER_USER_AGENT: ${{ secrets.CRAWLER_USER_AGENT }}
           # Dừng lấy việc mới sau 300 phút, chừa 30 phút để ghi database và dọn
           # hàng đợi trước khi runner hết giờ ở phút 330.
           CRAWL_MAX_RUN_MINUTES: '300'
