@@ -7,6 +7,7 @@ import type { NormalizeContext } from '../../core/contracts/INormalizer.js';
 import type { ISourceAdapter } from '../../core/contracts/ISourceAdapter.js';
 import type { CrawlContext, CrawlMode, NovelRef, SourceId } from '../../core/types.js';
 import type { NormalizedLatestRelease, NormalizedNovel } from '../../dto/index.js';
+import { profiler } from '../../utils/profiler.js';
 import { ScribbleHubNormalizer } from './ScribbleHubNormalizer.js';
 import { buildSeriesUrl } from './mappings.js';
 import {
@@ -115,11 +116,30 @@ export class ScribbleHubAdapter extends BaseApiCrawler implements ISourceAdapter
     const normalizeContext = this.normalizeContext(ctx);
     const results: NormalizedNovel[] = [];
 
-    for (const target of targets.slice(0, ctx.maxItems)) {
+    const planned = targets.slice(0, ctx.maxItems);
+
+    for (const target of planned) {
+      /*
+       * Hết giờ -> dừng lấy việc MỚI và trả về những gì đã có.
+       *
+       * Kiểm tra ở đầu vòng lặp chứ không giữa chừng: một novel đã tải xong mục
+       * lục và 40 chương thì phải để nó hoàn thành, bỏ dở là vứt đi công sức đã
+       * bỏ ra mà chẳng được gì.
+       */
+      if (ctx.deadline !== undefined && Date.now() >= ctx.deadline.getTime()) {
+        log.warn(
+          { xong: results.length, boLai: planned.length - results.length },
+          'chạm hạn chót — dừng lấy thêm, ghi những gì đã có',
+        );
+        break;
+      }
+
       const url = this.url(this.config.paths.storyDetail.replace('{id}', target.externalId), {});
 
       try {
-        const payload = await this.fetchJson<unknown>(url, log);
+        const payload = await profiler.time('refresh:story-detail', () =>
+          this.fetchJson<unknown>(url, log),
+        );
         const story = (payload as { data?: unknown }).data;
 
         if (!isScribbleHubStory(story)) {
@@ -133,7 +153,9 @@ export class ScribbleHubAdapter extends BaseApiCrawler implements ISourceAdapter
          * Thiếu bước này thì mỗi novel chỉ có một dòng trong bảng `chapters` và
          * người đọc thấy mục lục trống rỗng dù truyện có hàng trăm chương.
          */
-        const chapters = await this.fetchAllChapters(target.externalId, log);
+        const chapters = await profiler.time('refresh:toc', () =>
+          this.fetchAllChapters(target.externalId, log),
+        );
         log.info(
           { externalId: target.externalId, discovered: chapters.length },
           '[1/5] phát hiện chương',
@@ -146,8 +168,13 @@ export class ScribbleHubAdapter extends BaseApiCrawler implements ISourceAdapter
          * trên dữ liệu thật. Chỉ `/chapters/{id}` mới có text. Nghĩa là mỗi
          * chương tốn MỘT request, nên phải có trần chi phí (xem contentBudget).
          */
-        const covered = (await ctx.contentCoverage?.(target.externalId)) ?? new Set<number>();
-        const contents = await this.fetchChapterContents(chapters, covered, log);
+        const covered = await profiler.time(
+          'refresh:content-coverage',
+          async () => (await ctx.contentCoverage?.(target.externalId)) ?? new Set<number>(),
+        );
+        const contents = await profiler.time('refresh:chapter-bodies', () =>
+          this.fetchChapterContents(chapters, covered, log),
+        );
 
         results.push(
           this.normalizer.normalizeNovel(story, normalizeContext, chapters, contents),

@@ -30,6 +30,9 @@ export const crawlerConfig = {
   /** Trần số chương tải nội dung cho mỗi novel — mỗi chương là một request. */
   contentChaptersPerNovel: env.CRAWL_CONTENT_CHAPTERS_PER_NOVEL,
 
+  /** Trần thời gian một lần chạy, phút. 0 = không giới hạn. */
+  maxRunMinutes: env.CRAWL_MAX_RUN_MINUTES,
+
   /** Số novel ghi mỗi lô. Đủ nhỏ để một lô hỏng không mất nhiều việc. */
   importBatchSize: 50,
 

@@ -1,10 +1,13 @@
 name: Crawl · refresh
 
-# Mode ĐẮT NHẤT: nạp metadata đầy đủ (genre, tag, rating, status, mô tả).
-# Đây là job DUY NHẤT ghi vào bảng `novels`.
+# Mode ĐẮT NHẤT, và là job DUY NHẤT làm việc nặng:
+#   metadata + mục lục + chương + NỘI DUNG chương.
 #
-# RunPlanner chọn novel cũ nhất theo novel_sources.last_crawled_at (NULLS FIRST),
-# nên novel do latest/discover vừa phát hiện luôn được ưu tiên.
+# Đây cũng là job DUY NHẤT ghi vào bảng `novels` và DUY NHẤT rút việc khỏi
+# `crawl_queue`. `discover`/`latest` chỉ GHI vào hàng đợi.
+#
+# RunPlanner lấy việc theo thứ tự: crawl_queue trước (novel chưa từng có dữ
+# liệu), rồi tới novel cũ nhất theo novel_sources.last_crawled_at.
 on:
   schedule:
     # Mỗi tháng một lần, ngày 1 lúc 03:00 UTC.
@@ -18,7 +21,10 @@ on:
       limit:
         description: 'Trần số novel cho lần chạy này'
         required: false
-        default: '1000'
+        # Đo được: một novel tốn 25s (11 chương) tới ~110s (chạm trần 50 chương
+        # nội dung). 150 novel là khoảng vừa với ngân sách 300 phút bên dưới.
+        # `--limit 1000` cũ là con số của thời refresh chỉ lấy metadata.
+        default: '150'
         type: string
       force:
         description: 'Ghi lại bất kể content_hash (dùng sau khi sửa bug ghi)'
@@ -34,6 +40,11 @@ jobs:
   crawl:
     runs-on: ubuntu-latest
     # Rộng hơn latest vì phải gọi API cho từng novel, có rate limit lịch sự.
+    #
+    # CRAWL_MAX_RUN_MINUTES bên dưới đặt THẤP HƠN con số này. Trần đó mới là thứ
+    # kết thúc job: crawler tự dừng lấy việc mới, GHI phần đã lấy, rồi thoát mã
+    # 0. Nếu để runner giết vì quá giờ thì ghi được đúng 0 dòng, vì adapter lấy
+    # hết rồi importer mới ghi.
     timeout-minutes: 330
     defaults:
       run:
@@ -69,6 +80,9 @@ jobs:
         env:
           CRAWLER_DATABASE_URL: ${{ secrets.CRAWLER_DATABASE_URL }}
           CRAWLER_USER_AGENT: ${{ vars.CRAWLER_USER_AGENT }}
+          # Dừng lấy việc mới sau 300 phút, chừa 30 phút để ghi database và dọn
+          # hàng đợi trước khi runner hết giờ ở phút 330.
+          CRAWL_MAX_RUN_MINUTES: '300'
           SOURCE: ${{ inputs.source }}
           LIMIT: ${{ inputs.limit }}
           FORCE: ${{ inputs.force == true && '1' || '' }}

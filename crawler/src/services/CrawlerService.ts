@@ -1,13 +1,20 @@
 import { randomUUID } from 'node:crypto';
+import { crawlerConfig } from '../config/crawler.config.js';
 import type { ISourceAdapter } from '../core/contracts/ISourceAdapter.js';
 import { tallyOutcomes, type ItemOutcome, type RunSummary } from '../core/result/index.js';
 import type { CrawlContext, CrawlMode, NovelRef } from '../core/types.js';
 import { withTransaction } from '../database/transaction.js';
-import { createJob, RefreshJob, type JobContext } from '../jobs/index.js';
-import { ChapterRepository, SourceRepository, SyncRepository } from '../repositories/index.js';
+import { createJob, type JobContext } from '../jobs/index.js';
+import {
+  ChapterRepository,
+  QueueRepository,
+  SourceRepository,
+  SyncRepository,
+} from '../repositories/index.js';
 import { RunPlanner } from '../scheduler/RunPlanner.js';
 import { computeNextRunAt } from '../scheduler/schedule.config.js';
 import { childLogger } from '../utils/logger.js';
+import { profiler } from '../utils/profiler.js';
 
 export interface RunOptions {
   readonly maxItems: number;
@@ -16,19 +23,25 @@ export interface RunOptions {
   readonly force?: boolean;
   /** Mục tiêu chỉ định sẵn (`--id`/`--url`), bỏ qua RunPlanner. */
   readonly targets?: readonly NovelRef[];
-  /**
-   * Sau `latest`/`discover`, tự chạy luôn refresh cho novel mới phát hiện.
-   * Mặc định bật — đó là thứ làm cho việc "enqueue" có ý nghĩa thực tế.
-   */
-  readonly followUpRefresh?: boolean;
 }
 
 /**
  * Vòng đời một lần chạy: mở sổ -> chọn job -> chạy -> đóng sổ.
  *
  * Sau khi có tầng Job, service này KHÔNG còn chứa logic crawl nào. Nó chỉ lo
- * phần chung cho mọi mode: tra uuid nguồn, ghi `sync_runs`, gom số liệu, và nối
- * hàng đợi refresh.
+ * phần chung cho mọi mode: tra uuid nguồn, ghi `sync_runs`, gom số liệu, và GHI
+ * hàng đợi refresh xuống database.
+ *
+ * ⚠️ Service KHÔNG chạy job thứ hai trong cùng một lần chạy.
+ *
+ * Trước đây nó làm: `latest`/`discover` xong thì gọi luôn `RefreshJob` cho các
+ * novel vừa phát hiện. Nghe thì tiện — một lần cron là đủ — nhưng nó xoá sạch
+ * ranh giới chi phí giữa các mode. Khi `refresh` học được cách tải nội dung
+ * chương (mỗi chương MỘT request), `latest` từ vài giây thành hơn 30 phút và bị
+ * GitHub Actions giết, dù bản thân `LatestJob` không hề đổi một dòng nào.
+ *
+ * Giờ hàng đợi được GHI xuống `crawl_queue` và lần `refresh` kế tiếp rút ra.
+ * Mỗi workflow lại có ngân sách thời gian riêng, đúng như tên gọi của nó.
  */
 export class CrawlerService {
   private readonly planner = new RunPlanner();
@@ -53,6 +66,9 @@ export class CrawlerService {
       maxItems: options.maxItems,
       dryRun: options.dryRun,
       startedAt,
+      ...(crawlerConfig.maxRunMinutes > 0
+        ? { deadline: new Date(startedAt.getTime() + crawlerConfig.maxRunMinutes * 60_000) }
+        : {}),
       /*
        * Cho adapter biết chương nào ĐÃ có nội dung, để nó tải phần còn THIẾU.
        *
@@ -81,20 +97,34 @@ export class CrawlerService {
       const result = await createJob(mode, options.targets).execute(jobContext);
 
       const outcomes: ItemOutcome[] = [...result.outcomes];
-      let truncated = result.truncated;
 
       /*
-       * Nối hàng đợi: `latest` và `discover` chỉ PHÁT HIỆN novel mới, nạp dữ liệu
-       * là việc của refresh. Chạy luôn ở đây để một lần cron là đủ, thay vì bắt
-       * người vận hành nhớ chạy lệnh thứ hai.
+       * GHI hàng đợi, KHÔNG chạy nó.
+       *
+       * `latest` và `discover` chỉ phát hiện novel mới; nạp dữ liệu là việc của
+       * `refresh`, và đó là một job có ngân sách thời gian hoàn toàn khác. Chạy
+       * nó ở đây sẽ làm mọi thay đổi chi phí của refresh âm thầm chảy ngược vào
+       * hai job vốn phải rẻ.
        */
-      if (result.refreshQueue.length > 0 && options.followUpRefresh !== false && !ctx.dryRun) {
-        const followUp = await this.runFollowUpRefresh(jobContext, result.refreshQueue, log);
-        outcomes.push(...followUp.outcomes);
-        truncated = truncated || followUp.truncated;
+      const queued = ctx.dryRun
+        ? 0
+        : await profiler.time('queue:enqueue', () =>
+            this.enqueueForRefresh(sourceUuid, mode, result.refreshQueue),
+          );
+
+      const pending = ctx.dryRun ? 0 : await this.countQueue(sourceUuid);
+
+      if (result.refreshQueue.length > 0 || pending > 0) {
+        log.info(
+          { phatHien: result.refreshQueue.length, moiThem: queued, dangCho: pending },
+          'đã ghi hàng đợi refresh — chạy `--mode refresh` để xử lý',
+        );
       }
 
-      const summary = this.buildSummary(ctx, startedAt, outcomes, truncated);
+      const summary = this.buildSummary(ctx, startedAt, outcomes, result.truncated, {
+        queued,
+        pending,
+      });
       if (runId !== null) {
         await this.finishRun(runId, 'completed', computeNextRunAt(mode, startedAt));
       }
@@ -110,27 +140,37 @@ export class CrawlerService {
     }
   }
 
-  /** Chạy refresh cho các novel mà job trước vừa phát hiện. */
-  private async runFollowUpRefresh(
-    jobContext: JobContext,
+  /**
+   * Ghi novel mới phát hiện vào `crawl_queue`.
+   *
+   * Chi phí là MỘT câu INSERT cho cả lô, bất kể hàng đợi dài bao nhiêu. Đó là
+   * điểm mấu chốt: `latest` và `discover` có chi phí không phụ thuộc vào việc
+   * refresh phải làm gì với những novel đó.
+   */
+  private async enqueueForRefresh(
+    sourceUuid: string,
+    mode: CrawlMode,
     queue: readonly NovelRef[],
-    log: ReturnType<typeof childLogger>,
-  ): Promise<{ outcomes: readonly ItemOutcome[]; truncated: boolean }> {
-    const budget = Math.min(queue.length, jobContext.maxItems);
-    const targets = queue.slice(0, budget);
+  ): Promise<number> {
+    if (queue.length === 0) return 0;
 
-    log.info(
-      { queued: queue.length, willRefresh: targets.length },
-      'chạy refresh nối tiếp cho novel mới phát hiện',
+    return withTransaction((client) =>
+      new QueueRepository(client).enqueue(
+        sourceUuid,
+        queue.map((ref) => ({
+          externalId: ref.externalId,
+          sourceUrl: ref.sourceUrl,
+          reason: mode,
+        })),
+      ),
     );
+  }
 
-    const result = await new RefreshJob(targets).execute({ ...jobContext, mode: 'refresh' });
-
-    return {
-      outcomes: result.outcomes,
-      // Hàng đợi dài hơn ngân sách -> còn novel chưa nạp.
-      truncated: queue.length > budget,
-    };
+  /** Số việc còn chờ — in ra cuối mỗi lần chạy để hàng đợi không âm thầm phình. */
+  private countQueue(sourceUuid: string): Promise<number> {
+    return withTransaction((client) => new QueueRepository(client).countPending(sourceUuid)).catch(
+      () => 0,
+    );
   }
 
   /**
@@ -191,6 +231,7 @@ export class CrawlerService {
     startedAt: Date,
     outcomes: readonly ItemOutcome[],
     truncated: boolean,
+    queue: { queued: number; pending: number },
   ): RunSummary {
     const finishedAt = new Date();
     return {
@@ -202,6 +243,7 @@ export class CrawlerService {
       durationMs: finishedAt.getTime() - startedAt.getTime(),
       totals: tallyOutcomes(outcomes),
       truncated,
+      queue,
       failures: outcomes.filter((outcome) => outcome.action === 'failed'),
     };
   }

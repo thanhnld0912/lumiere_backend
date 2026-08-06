@@ -67,6 +67,17 @@ export interface RunSummary {
    * "xong toàn bộ 1.000 novel" nhìn giống hệt nhau trong log nếu không nói rõ.
    */
   readonly truncated: boolean;
+
+  /**
+   * Hàng đợi refresh sau lần chạy này.
+   *
+   * `queued` = số việc MỚI vừa ghi vào `crawl_queue`; `pending` = tổng số việc
+   * còn chờ. Phải in ra: `discover`/`latest` giờ chỉ ghi tên việc chứ không làm
+   * việc, nên nếu không có hai con số này thì một lần chạy thành công trông y
+   * hệt một lần chạy không làm gì.
+   */
+  readonly queue: { readonly queued: number; readonly pending: number };
+
   readonly failures: readonly ItemOutcome[];
 }
 

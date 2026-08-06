@@ -43,11 +43,42 @@ REST API cùng dùng chung mọi tầng phía trên.
 
 ### 1.3 Ba mode
 
-| Mode | Làm gì | Ghi gì | Nhịp | Chi phí |
+| Mode | Làm gì | Ghi gì | Nhịp | Chi phí đo được |
 |---|---|---|---|---|
-| `latest` | đọc feed chương mới | **chỉ** `chapters` + `sync_events` | 6 giờ | 1 request / hàng chục novel |
-| `refresh` | nạp metadata + **toàn bộ mục lục** | `novels` + 6 bảng liên quan | 1 tháng | 1 + N request / novel |
-| `discover` | duyệt danh mục tìm novel mới | **không ghi gì** | chạy tay | nhiều request |
+| `latest` | đọc feed chương mới, **ghi hàng đợi** | `chapters` + `sync_events` + `crawl_queue` | 6 giờ | **43 giây / 100 item** |
+| `discover` | duyệt danh mục, **ghi hàng đợi** | **chỉ** `crawl_queue` | chạy tay | vài phút |
+| `refresh` | metadata + mục lục + chương + **nội dung** | `novels` + 7 bảng, **rút** `crawl_queue` | 1 tháng | 25–110 giây / novel |
+
+### 1.4 Hàng đợi — ranh giới chi phí
+
+```
+  discover ─┐
+            ├──> crawl_queue ──> refresh ──> novels + chapters + chapter_contents
+  latest ───┘     (chỉ GHI)      (chỉ RÚT)
+```
+
+**Job rẻ chỉ ghi TÊN việc. Job đắt mới LÀM việc.** Đây không phải chi tiết cài đặt
+— nó là thứ giữ cho `latest` luôn rẻ bất kể `refresh` về sau nặng thêm bao nhiêu.
+
+Trước đây hàng đợi chỉ là một mảng trong bộ nhớ mà `CrawlerService` rút cạn **ngay
+trong cùng tiến trình**. Nghĩa là một lần `latest` kéo theo cả một lượt refresh đầy
+đủ. Chừng nào refresh còn rẻ (1 request/novel) thì không ai nhận ra. Khi refresh
+học được cách tải nội dung chương — mỗi chương một request — `latest` nhảy từ vài
+giây lên **hơn 85 phút** và bị GitHub Actions giết ở phút 30, dù `LatestJob` không
+đổi một dòng nào.
+
+`crawl_queue` có `attempts`: một `external_id` hỏng vĩnh viễn (truyện bị gỡ) chìm
+dần xuống đáy thay vì chặn hàng đợi mãi mãi. `refresh` chỉ xoá việc đã **thành
+công**; thất bại thì tăng `attempts` để lần sau thử lại.
+
+### 1.5 Hạn chót, không phải timeout
+
+Adapter lấy **hết** rồi importer mới ghi. Bị runner giết vì quá giờ = ghi được đúng
+**0 dòng**, và toàn bộ công sức mạng của lần chạy đó mất trắng.
+
+`CRAWL_MAX_RUN_MINUTES` đặt thấp hơn `timeout-minutes` của workflow (300 < 330).
+Chạm hạn chót thì adapter dừng lấy việc **mới**, novel đang làm dở được làm nốt,
+importer ghi phần đã có, hàng đợi giữ nguyên phần còn lại.
 
 ### Mục lục đầy đủ chỉ lấy ở `refresh`
 
@@ -308,6 +339,10 @@ Chi tiết đo đạc: [CRAWLER_ARCHITECTURE.md](../CRAWLER_ARCHITECTURE.md) §1
 | `chapter_contents` rỗng | Xem §9. Kiểm tra trước: code đã **commit và push** chưa — GitHub Actions chạy `origin/main`, không chạy working tree. |
 | Bản tóm tắt báo `nội dung: 0 ghi / N tải về` | Đường ghi hỏng thật. Chạy lại với `LOG_LEVEL=debug` và soi các mốc `[3/5]`→`[5/5]`. |
 | Bản tóm tắt báo `0 ghi / 0 tải về` | Bình thường nếu mọi chương đã đủ nội dung — `ctx.contentCoverage` đã bỏ qua chúng. |
+| `latest` hoặc `discover` chạy quá lâu | Chúng chỉ được ghi `crawl_queue`. Thấy `[1/5]`/`[3/5]` trong log của chúng là ranh giới đã bị phá — xem §1.4. |
+| Job hết giờ mà database trống | Đặt `CRAWL_MAX_RUN_MINUTES` thấp hơn `timeout-minutes`. Xem §1.5. |
+| `hàng đợi: N đang chờ` cứ tăng | `refresh` chạy không đủ thường xuyên hoặc `--limit` quá thấp so với nhịp `discover`. |
+| Không biết thời gian đi đâu | Mọi lần chạy có ghi DB đều in bảng **Thời gian theo giai đoạn** ở cuối. |
 | Mục lục kẹt ở 1 chương | Đã tự lành từ §9: importer đối chiếu `COUNT(*)` với nguồn và ghi bù kể cả khi `content_hash` trùng. |
 | Tiến trình treo sau khi in kết quả | `pg.Pool` giữ event loop. CLI đã gọi `closePool()` ở mọi nhánh thoát. |
 

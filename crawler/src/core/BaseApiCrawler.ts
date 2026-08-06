@@ -4,6 +4,7 @@ import type { SourceConfig } from '../config/sources/types.js';
 import { BlockedError, CrawlerError } from './errors/index.js';
 import type { CrawlContext, CrawlMode, SourceId } from './types.js';
 import { childLogger } from '../utils/logger.js';
+import { profiler } from '../utils/profiler.js';
 import { sleep } from '../utils/sleep.js';
 
 /** Nguồn trả về lỗi HTTP không mong đợi. Không fatal — item khác vẫn chạy tiếp. */
@@ -167,7 +168,17 @@ export abstract class BaseApiCrawler {
 
     const elapsed = Date.now() - this.lastRequestAt;
     if (this.lastRequestAt > 0 && elapsed < minGapMs) {
-      await sleep(minGapMs - elapsed);
+      const waitMs = minGapMs - elapsed;
+      /*
+       * Đo riêng phần CHỜ.
+       *
+       * Không tách ra thì mọi giai đoạn có gọi mạng đều trông như "chậm vì
+       * mạng", trong khi thực tế phần lớn thời gian là ta tự ngồi chờ cho lịch
+       * sự. Hai thứ đó cần cách chữa hoàn toàn khác nhau: một bên là giảm SỐ
+       * request, bên kia là đổi rate limit.
+       */
+      profiler.add('(trong đó) chờ rate-limit', waitMs);
+      await sleep(waitMs);
     }
     this.lastRequestAt = Date.now();
   }

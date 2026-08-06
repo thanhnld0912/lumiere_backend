@@ -12,6 +12,7 @@ import {
   TranslationGroupRepository,
 } from '../repositories/index.js';
 import { logger } from '../utils/logger.js';
+import { profiler } from '../utils/profiler.js';
 
 /**
  * Ghi một `NormalizedNovel` xuống database.
@@ -34,9 +35,11 @@ export class NovelImporter {
     };
 
     try {
-      return await withRetryableTransaction(
-        (client) => this.runInTransaction(client, novel, ctx, base),
-        `import:${novel.externalId}`,
+      return await profiler.time('refresh:db-write', () =>
+        withRetryableTransaction(
+          (client) => this.runInTransaction(client, novel, ctx, base),
+          `import:${novel.externalId}`,
+        ),
       );
     } catch (error) {
       logger.error(

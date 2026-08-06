@@ -69,6 +69,21 @@ export interface CrawlContext {
   readonly startedAt: Date;
 
   /**
+   * Mốc thời gian phải DỪNG LẤY THÊM việc mới.
+   *
+   * Không phải là timeout cứng: việc đang làm dở được làm nốt, chỉ không bắt
+   * đầu novel tiếp theo. Adapter trả về những gì đã lấy được và importer ghi
+   * chúng xuống bình thường.
+   *
+   * Cần thiết vì adapter lấy HẾT rồi importer mới ghi. Không có hạn chót thì
+   * một lần chạy bị GitHub Actions giết vì quá giờ sẽ ghi được ĐÚNG 0 dòng —
+   * toàn bộ công sức mạng của lần chạy đó mất trắng, và lần sau lặp lại y hệt.
+   *
+   * Vắng mặt = không giới hạn (chạy tay ở local).
+   */
+  readonly deadline?: Date;
+
+  /**
    * Số chương ĐÃ có nội dung trong database, cho một novel của nguồn này.
    *
    * Adapter dùng để BỎ QUA việc tải lại nội dung đã lưu. Thiếu bước này thì trần

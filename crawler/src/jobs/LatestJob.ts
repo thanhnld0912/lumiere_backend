@@ -3,6 +3,7 @@ import { ConfigError } from '../core/errors/index.js';
 import type { ItemOutcome } from '../core/result/index.js';
 import type { CrawlMode, NovelRef } from '../core/types.js';
 import { LatestReleaseImporter } from '../importers/LatestReleaseImporter.js';
+import { profiler } from '../utils/profiler.js';
 import { BaseJob, type JobContext, type JobResult } from './BaseJob.js';
 
 /**
@@ -28,8 +29,11 @@ export class LatestJob extends BaseJob {
       throw new ConfigError(`Nguồn '${ctx.sourceId}' không hỗ trợ mode latest`);
     }
 
+    // Gán ra biến để giữ được kết quả thu hẹp kiểu của `canLatest` bên trong closure.
+    const adapter = ctx.adapter;
+
     const plan = await ctx.planner.planFor(ctx, ctx.sourceUuid);
-    const releases = await ctx.adapter.latest(ctx);
+    const releases = await profiler.time('latest:feed-fetch', () => adapter.latest(ctx));
 
     log.info({ releases: releases.length }, 'đã lấy feed chương mới');
 
@@ -37,11 +41,13 @@ export class LatestJob extends BaseJob {
     const refreshQueue: NovelRef[] = [];
 
     for (const release of releases) {
-      const result = await this.importer.import(release, {
-        ...ctx,
-        sourceUuid: ctx.sourceUuid,
-        force: ctx.force,
-      });
+      const result = await profiler.time('latest:sync-events', () =>
+        this.importer.import(release, {
+          ...ctx,
+          sourceUuid: ctx.sourceUuid,
+          force: ctx.force,
+        }),
+      );
 
       outcomes.push(result.outcome);
 

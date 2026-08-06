@@ -58,6 +58,21 @@ const envSchema = z.object({
   /** Trần số novel xử lý trong MỘT lần chạy (D4: 1.000–5.000 cho mode refresh). */
   CRAWL_MAX_ITEMS_PER_RUN: z.coerce.number().int().min(1).max(50_000).default(1000),
 
+  /**
+   * Trần THỜI GIAN cho một lần chạy, tính bằng phút. 0 = không giới hạn.
+   *
+   * Trần theo SỐ novel là không đủ: một novel 11 chương mất 25 giây, một novel
+   * 991 chương mất hơn 2 phút. Cùng `--limit 150` có thể ra 1 giờ hoặc 5 giờ.
+   *
+   * Quan trọng hơn: adapter lấy HẾT rồi importer mới ghi. Bị runner giết vì quá
+   * giờ nghĩa là ghi được ĐÚNG 0 dòng. Có hạn chót thì job tự dừng lấy việc mới,
+   * ghi phần đã có, và thoát sạch sẽ — hàng đợi giữ nguyên phần còn lại cho lần
+   * sau.
+   *
+   * Đặt THẤP HƠN `timeout-minutes` của workflow một khoảng đủ để ghi database.
+   */
+  CRAWL_MAX_RUN_MINUTES: z.coerce.number().int().min(0).max(1440).default(0),
+
   /** Rate limit lịch sự. Nâng lên là tăng rủi ro bị chặn. */
   CRAWL_MAX_REQUESTS_PER_MINUTE: z.coerce.number().int().min(1).max(600).default(30),
   CRAWL_MAX_CONCURRENCY: z.coerce.number().int().min(1).max(50).default(2),

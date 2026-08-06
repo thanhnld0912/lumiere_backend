@@ -1,6 +1,6 @@
 import type { CrawlContext, CrawlMode, NovelRef, SourceId } from '../core/types.js';
 import { withTransaction } from '../database/transaction.js';
-import { SourceRepository } from '../repositories/index.js';
+import { QueueRepository, SourceRepository } from '../repositories/index.js';
 import { SCHEDULES } from './schedule.config.js';
 
 /**
@@ -76,26 +76,53 @@ export class RunPlanner {
         }
 
         /*
-         * Chọn novel CŨ NHẤT theo `novel_sources.last_crawled_at`, NULLS FIRST.
+         * HAI nguồn việc, hàng đợi TRƯỚC.
          *
-         * Nhờ vậy novel chưa crawl bao giờ (do discover/latest vừa phát hiện)
-         * luôn được ưu tiên, và các novel còn lại được luân phiên đều đặn thay
-         * vì cùng một nhóm bị crawl mãi.
+         *   1. `crawl_queue`  — novel `discover`/`latest` vừa phát hiện, CHƯA
+         *                       có dòng nào trong database
+         *   2. `novel_sources` — novel đã biết, chọn cũ nhất theo
+         *                       `last_crawled_at` NULLS FIRST
+         *
+         * Hàng đợi phải đi trước vì đó là việc duy nhất chưa ai làm: một novel
+         * trong hàng đợi hoàn toàn không tồn tại với người đọc, còn một novel
+         * cũ thì vẫn đọc được, chỉ là metadata hơi cũ.
          */
-        const stale = await withTransaction((client) =>
-          new SourceRepository(client).findStale(sourceUuid, maxItems),
-        );
+        const { queued, stale } = await withTransaction(async (client) => {
+          const fromQueue = await new QueueRepository(client).takePending(sourceUuid, maxItems);
+
+          // Chỉ lấy thêm novel cũ khi hàng đợi chưa dùng hết ngân sách.
+          const remaining = maxItems - fromQueue.length;
+          const fromStale =
+            remaining > 0
+              ? await new SourceRepository(client).findStale(sourceUuid, remaining)
+              : [];
+
+          return { queued: fromQueue, stale: fromStale };
+        });
+
+        /*
+         * Khử trùng lặp giữa hai nguồn.
+         *
+         * Một novel có thể vừa nằm trong hàng đợi vừa đã có trong `novel_sources`
+         * (VD lần refresh trước import xong nhưng chết trước khi xoá hàng đợi).
+         * Crawl hai lần trong cùng một lần chạy là lãng phí thuần tuý.
+         */
+        const seen = new Set(queued.map((row) => row.externalId));
+        const targets = [
+          ...queued,
+          ...stale.filter((row) => !seen.has(row.externalId)),
+        ].map((row) => ({
+          sourceId,
+          externalId: row.externalId,
+          sourceUrl: row.sourceUrl,
+        }));
 
         return {
           mode,
           maxItems,
-          targets: stale.map((row) => ({
-            sourceId,
-            externalId: row.externalId,
-            sourceUrl: row.sourceUrl,
-          })),
-          saturated: stale.length >= maxItems,
-          reason: `${stale.length} novel cũ nhất theo last_crawled_at`,
+          targets,
+          saturated: targets.length >= maxItems,
+          reason: `${queued.length} từ hàng đợi + ${targets.length - queued.length} novel cũ`,
         };
       }
     }

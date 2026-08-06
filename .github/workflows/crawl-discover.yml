@@ -27,7 +27,11 @@ concurrency:
 jobs:
   crawl:
     runs-on: ubuntu-latest
-    timeout-minutes: 330
+    # 330 phút là con số của thời `discover` tự chạy luôn refresh cho mọi novel
+    # vừa tìm thấy. Giờ nó chỉ GHI vào `crawl_queue` — một câu INSERT cho cả lô —
+    # nên chi phí thật là vài phút duyệt danh mục. Hạ xuống để job treo vì lỗi
+    # mạng bị phát hiện sau 30 phút chứ không phải 5 tiếng rưỡi.
+    timeout-minutes: 30
     defaults:
       run:
         working-directory: crawler

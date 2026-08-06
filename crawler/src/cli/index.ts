@@ -13,6 +13,7 @@ import { closePool } from '../database/pool.js';
 import { extractPathSlug } from '../extractors/url.extractor.js';
 import { CrawlerService } from '../services/index.js';
 import { logger } from '../utils/logger.js';
+import { profiler } from '../utils/profiler.js';
 import { HELP_TEXT, parseArgs } from './args.js';
 
 /**
@@ -75,7 +76,8 @@ async function main(): Promise<void> {
     });
 
     printRunSummary(summary);
-    if (args.json) console.log(JSON.stringify(summary, null, 2));
+    profiler.print();
+    if (args.json) console.log(JSON.stringify({ ...summary, stages: profiler.report() }, null, 2));
     return;
   }
 
@@ -239,6 +241,10 @@ function printRunSummary(summary: RunSummary): void {
   console.log(`  thất bại   : ${t.failed}`);
   console.log(`  chương mới : ${t.chaptersAdded}`);
   console.log(`  nội dung   : ${t.contentsWritten} ghi / ${t.contentsFetched} tải về`);
+  console.log(
+    `  hàng đợi   : +${summary.queue.queued} mới, ${summary.queue.pending} đang chờ` +
+      `${summary.mode === 'refresh' ? '' : '   ← chạy `--mode refresh` để xử lý'}`,
+  );
 
   /*
    * Cảnh báo TƯỜNG MINH khi tải được text mà không ghi được dòng nào.
