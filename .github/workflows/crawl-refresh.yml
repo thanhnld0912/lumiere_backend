@@ -9,6 +9,12 @@ name: Crawl · refresh
 # RunPlanner lấy việc theo thứ tự: crawl_queue trước (novel chưa từng có dữ
 # liệu), rồi tới novel cũ nhất theo novel_sources.last_crawled_at.
 on:
+  workflow_run:
+  workflows:
+    - Crawl · latest
+  types:
+    - completed
+
   schedule:
     # Mỗi tháng một lần, ngày 1 lúc 03:00 UTC.
     - cron: '0 3 1 * *'

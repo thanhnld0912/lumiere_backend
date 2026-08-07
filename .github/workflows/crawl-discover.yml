@@ -64,7 +64,7 @@ jobs:
             --limit "${LIMIT:-200}" 2>&1 | tee crawl.log
         env:
           CRAWLER_DATABASE_URL: ${{ secrets.CRAWLER_DATABASE_URL }}
-          CRAWLER_USER_AGENT: ${{ vars.CRAWLER_USER_AGENT }}
+          CRAWLER_USER_AGENT: ${{ secrets.CRAWLER_USER_AGENT }}
           SOURCE: ${{ inputs.source }}
           LIMIT: ${{ inputs.limit }}
 
